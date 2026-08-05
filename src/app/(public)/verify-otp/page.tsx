@@ -46,7 +46,7 @@ export default function Page() {
     <div className="flex min-h-screen flex-col bg-white font-[var(--font-inter)]">
       {/* Header */}
       <div className="px-8 py-6">
-        <Link href="/">
+        <Link href="/" className="inline-flex items-center">
           <Logo width={120} height={44} className="h-8 w-auto" />
         </Link>
       </div>

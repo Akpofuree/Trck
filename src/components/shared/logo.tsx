@@ -1,8 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 
 type LogoProps = {
-  href?: string;
   className?: string;
   width?: number;
   height?: number;
@@ -10,13 +8,12 @@ type LogoProps = {
 };
 
 export function Logo({
-  href = "/",
   className = "",
   width = 198,
   height = 69,
   alt = "Trck",
 }: LogoProps) {
-  const image = (
+  return (
     <Image
       src="/trck-logo.png"
       alt={alt}
@@ -26,10 +23,4 @@ export function Logo({
       priority
     />
   );
-
-  if (!href) {
-    return image;
-  }
-
-  return <Link href={href}>{image}</Link>;
 }

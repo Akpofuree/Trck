@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
-import { Open_Sans, Poppins, Montserrat, Inter, Lato, Outfit } from "next/font/google";
+import { Open_Sans, Poppins, Montserrat, Inter, Lato, Outfit, Playfair_Display } from "next/font/google";
 import "./globals.css";
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const openSans = Open_Sans({
   variable: "--font-open-sans",
@@ -51,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${openSans.variable} ${poppins.variable} ${montserrat.variable} ${inter.variable} ${lato.variable} ${outfit.variable} font-sans h-full antialiased`}>
+    <html lang="en" className={`${openSans.variable} ${poppins.variable} ${montserrat.variable} ${inter.variable} ${lato.variable} ${outfit.variable} ${playfair.variable} font-sans h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-black text-white selection:bg-[#ED5A2E] selection:text-white">
         {children}
       </body>

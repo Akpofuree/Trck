@@ -16,7 +16,9 @@ export default function Page() {
       <div className="relative flex w-full flex-col justify-between bg-white px-8 py-10 lg:w-[55%] xl:w-[50%]">
         {/* Logo */}
         <div>
-          <Logo width={120} height={44} className="h-8 w-auto" />
+          <Link href="/" className="inline-flex items-center">
+            <Logo width={120} height={44} className="h-8 w-auto" />
+          </Link>
         </div>
 
         {/* Form */}
