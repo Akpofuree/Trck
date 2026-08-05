@@ -1,3 +1,5 @@
+import { BasicInfoPage } from "@/components/host/event-creation-flow";
+
 export default function Page() {
-  return <h1>Create New Event</h1>;
+  return <BasicInfoPage />;
 }

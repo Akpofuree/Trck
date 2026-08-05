@@ -10,6 +10,10 @@ const config: Config = {
     extend: {
       fontFamily: {
         poppins: ['var(--font-poppins)', 'sans-serif'],
+        montserrat: ['var(--font-montserrat)', 'sans-serif'],
+        inter: ['var(--font-inter)', 'sans-serif'],
+        lato: ['var(--font-lato)', 'sans-serif'],
+        outfit: ['var(--font-outfit)', 'sans-serif'],
         'open-sans': ['var(--font-open-sans)', 'sans-serif'],
       },
       fontSize: {
