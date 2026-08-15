@@ -1,331 +1,505 @@
-function Footer() {
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { CalendarDays, ChevronDown, ChevronLeft, Clock3, Heart, MapPin, Share2, Star, Users } from "lucide-react";
+import { Logo } from "@/components/shared/logo";
+
+const details = [
+  { title: "Date & Time", value: "3RD - 30TH NOVEMBER, 2025", sub: "7:00 PM - 11:00 PM EST", icon: "/Time Circle 7.png" },
+  { title: "Location", value: "02 Arena London, United Kingdom", sub: "123 Main St, London, UK 10001", icon: "/Location.png" },
+  { title: "Ticket Type", value: "General Admission", sub: "View on map", icon: "/Ticket 1.png" },
+  { title: "Age Requirement", value: "18+ with valid ID required", sub: "", icon: "/Profile 1.png" },
+];
+
+const faqs = [
+  { q: "Can I attend individual events?", a: "Yes, you can attend individual dates depending on availability." },
+  { q: "What is the cancellation policy?", a: "Cancellation policies depend on the organizer and ticket class." },
+  { q: "Is there parking available?", a: "Parking details are shown in the location section." },
+  { q: "Are recordings available?", a: "Some events may offer replays after the live show." },
+  { q: "Are there age restrictions?", a: "Age restrictions are listed per event and enforced at checkout." },
+];
+
+const reviews = Array.from({ length: 4 }).map((_, index) => ({
+  id: index,
+  name: "Jane Doe",
+  date: "November 3rd, 2025",
+  text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu luctus risus. Sed eu pharetra mi, vel suscipit nibh. Mauris volutpat, arcu sed consequat pulvinar.",
+}));
+
+function Stars() {
+  return <div className="text-[#FFD400]">{"★★★★★"}</div>;
+}
+
+function DesktopHeader() {
   return (
-    <footer className="mt-[3rem] border-t border-[#7a3cff] pt-[2rem]">
-      <div className="grid gap-[2rem] md:grid-cols-2 xl:grid-cols-4">
-        <div>
-          <h4 className="text-[0.875rem] font-bold uppercase tracking-wide text-white">Contact</h4>
-          <p className="mt-[0.65rem] text-[0.875rem] font-semibold text-[#ff7a00]">info@getontrck.com</p>
-        </div>
-        <div>
-          <h4 className="text-[0.875rem] font-bold uppercase tracking-wide text-white">Company</h4>
-          <ul className="mt-[0.65rem] space-y-[0.55rem] text-[0.875rem] text-white/80">
-            <li>About Us</li>
-            <li>How it works</li>
-            <li>Features</li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="text-[0.875rem] font-bold uppercase tracking-wide text-white">Legal</h4>
-          <ul className="mt-[0.65rem] space-y-[0.55rem] text-[0.875rem] text-white/80">
-            <li>Privacy policy</li>
-            <li>Terms of service</li>
-            <li>Acceptable use policy</li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="text-[0.875rem] font-bold uppercase tracking-wide text-white">Support</h4>
-          <ul className="mt-[0.65rem] space-y-[0.55rem] text-[0.875rem] text-white/80">
-            <li>FAQ</li>
-          </ul>
-        </div>
+    <header className="flex items-center justify-between gap-4">
+      <div className="flex items-center gap-4">
+        <Link href="/explore" className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm">
+          <ChevronLeft className="h-5 w-5" />
+        </Link>
+        <Link href="/" className="inline-flex items-center">
+          <Logo width={120} height={36} className="h-6 w-auto" />
+        </Link>
       </div>
-      <p className="mt-[2rem] border-t border-white/15 pt-[1rem] text-[0.72rem] leading-snug text-white/45">
-        TRCK is a leisure technology platform based in Nigeria. All experiences are provided by independent third-party creators. TRCK does not host or supervise these experiences and disclaims liability for third-party actions.
-        <br />
-        Copyright © 2025 Trck Entertainment &amp; Technology Ltd. All rights reserved.
-      </p>
-    </footer>
+      <div className="flex items-center gap-3">
+        <button className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm">
+          <Share2 className="h-4 w-4" />
+        </button>
+        <button className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm">
+          <Heart className="h-4 w-4" />
+        </button>
+      </div>
+    </header>
   );
 }
 
-function Section({ title, action, children }: { title: string; action?: string; children: React.ReactNode }) {
+function SectionRule() {
+  return <div className="h-px w-full bg-[#ED5A2E]/70" />;
+}
+
+function Footer() {
   return (
-    <section className="rounded-[1rem] bg-[#151515] p-[1.25rem] shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
-      <div className="mb-[1rem] flex items-center justify-between">
-        <h3 className="text-[1.1rem] font-semibold text-white">{title}</h3>
-        {action ? <button className="rounded-[0.35rem] bg-[#3a3a3a] px-[0.8rem] py-[0.35rem] text-[0.75rem] font-medium text-white/80">{action}</button> : null}
+    <footer className="border-t border-white/10 bg-black px-6 py-12 text-white lg:px-16">
+      <div className="mx-auto max-w-[1440px]">
+        <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-12 sm:grid-cols-2 md:grid-cols-4">
+          <div>
+            <h4 className="mb-4 text-[0.78rem] font-bold uppercase tracking-wider">Contact</h4>
+            <p className="mb-4 text-[0.88rem] font-semibold text-[#ED5A2E]">info@getontrck.com</p>
+          </div>
+          <div>
+            <h4 className="mb-4 text-[0.78rem] font-bold uppercase tracking-wider">Company</h4>
+            <ul className="space-y-2.5 text-[0.85rem] text-white/70">
+              <li><Link href="#">About Us</Link></li>
+              <li><Link href="#">How it works</Link></li>
+              <li><Link href="#">Features</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="mb-4 text-[0.78rem] font-bold uppercase tracking-wider">Legal</h4>
+            <ul className="space-y-2.5 text-[0.85rem] text-white/70">
+              <li><Link href="#">Privacy policy</Link></li>
+              <li><Link href="#">Terms of service</Link></li>
+              <li><Link href="#">Acceptable use policy</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="mb-4 text-[0.78rem] font-bold uppercase tracking-wider">Support</h4>
+            <ul className="space-y-2.5 text-[0.85rem] text-white/70">
+              <li><Link href="#">FAQ</Link></li>
+            </ul>
+          </div>
+        </div>
+        <div className="space-y-2 pt-8 text-[0.76rem] leading-relaxed text-white/40">
+          <p>TRCK is a leisure technology platform based in Nigeria. All experiences are provided by independent third-party creators.</p>
+          <p>Copyright &copy; 2025 Trck Entertainment &amp; Technology Ltd. All rights reserved.</p>
+        </div>
       </div>
-      {children}
-    </section>
+    </footer>
   );
 }
 
 export default function Page() {
   return (
     <main className="min-h-screen bg-black text-white">
-      <div className="mx-auto max-w-[96rem] px-[1rem] py-[1rem]">
-        <div className="mb-[1rem] flex items-center justify-between rounded-[0.5rem] border border-white/10 bg-white px-[1rem] py-[0.9rem] text-black">
-          <div className="flex items-center gap-[1rem]">
-            <button className="rounded-[0.35rem] border border-black/20 px-[0.55rem] py-[0.2rem]">〈</button>
-            <h1 className="text-[1rem] font-semibold">Dashboard</h1>
-          </div>
-          <div className="flex items-center gap-[0.7rem] text-sm">
-            <div className="h-8 w-8 rounded-full bg-[#ff7a00] text-white flex items-center justify-center">A</div>
-            <span>Dominion Ogbaji</span>
-            <span className="text-black/40">Super Admin</span>
+      <section className="hidden lg:block">
+        <div className="relative min-h-[760px] overflow-hidden">
+          <Image src="/event-hero.jpg" alt="Event hero" fill className="object-cover object-center" priority />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black" />
+          <div className="relative z-10 mx-auto max-w-[1440px] px-4 pb-12 pt-6 sm:px-6 lg:px-8">
+            <DesktopHeader />
+
+            <div className="mt-10 max-w-[760px]">
+              <div className="flex items-center gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-black font-semibold">E</div>
+                <div className="text-[0.9rem] text-white/85">
+                  by Elizabeth R Events <span className="text-[#ED5A2E]">{"✓"}</span>
+                </div>
+              </div>
+              <h1 className="mt-6 text-[3.2rem] font-black uppercase leading-[0.88] tracking-tight sm:text-[5.1rem]">
+                5IVE LIVE AT <span className="text-[#ED5A2E]">02</span> ARENA
+              </h1>
+              <div className="mt-6 flex flex-wrap items-center gap-6 text-[0.82rem] text-white/80">
+                <span className="inline-flex items-center gap-2">
+                  <span className="text-[#FFD400]">★★★★★</span>
+                  <span>4.8 (127 Reviews)</span>
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <Users className="h-4 w-4 text-[#ED5A2E]" />
+                  <span>40,034 people are attending</span>
+                </span>
+              </div>
+              <div className="mt-8 flex gap-4">
+                <button className="inline-flex h-[52px] items-center gap-3 rounded-[12px] border-2 border-[#ED5A2E] bg-[#ED5A2E] px-6 text-[0.95rem] font-semibold text-white shadow-[0_0_0_1px_rgba(237,90,46,0.18)]">
+                  Book Event <span className="ml-2">{"→"}</span>
+                </button>
+                <button className="inline-flex h-[52px] items-center gap-3 rounded-[12px] border border-white/15 bg-black/20 px-6 text-[0.95rem] font-semibold text-white/95 backdrop-blur-sm">
+                  Add to Calendar
+                </button>
+              </div>
+            </div>
+
+            <nav className="mt-12 flex gap-8 overflow-x-auto border-b border-white/20 text-[0.88rem]">
+              {["Overview", "Events", "Reviews", "About Organizers"].map((item, index) => (
+                <button key={item} className={`pb-3 ${index === 0 ? "border-b-2 border-[#ED5A2E] text-white" : "text-white/70"}`}>
+                  {item}
+                </button>
+              ))}
+            </nav>
           </div>
         </div>
+      </section>
 
-        <div className="grid gap-[1rem] xl:grid-cols-[1.05fr_0.95fr]">
-          <div className="space-y-[1rem]">
-            <section className="relative overflow-hidden rounded-[1rem] bg-[#151515] shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
-              <div className="h-[22rem] bg-[linear-gradient(135deg,#1d1d1d_0%,#4b352c_40%,#7b4f37_55%,#101010_100%)]" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,transparent_45%,rgba(0,0,0,0.65)_100%)]" />
-              <button className="absolute right-[1.5rem] top-[1.5rem] rounded-[0.5rem] bg-white/20 px-[1rem] py-[0.45rem] text-[0.8rem] font-semibold text-white">Edit Cover</button>
-              <div className="relative -mt-[8rem] px-[1.5rem] pb-[1.5rem]">
-                <div className="inline-flex gap-[0.5rem]">
-                  <span className="rounded-[0.35rem] border border-[#ff7a00] px-[0.8rem] py-[0.2rem] text-[0.75rem]">Concert</span>
-                  <span className="rounded-[0.35rem] border border-[#ff7a00] px-[0.8rem] py-[0.2rem] text-[0.75rem]">Music</span>
-                </div>
-                <h2 className="mt-[1rem] max-w-[34rem] text-[2.4rem] font-black leading-none">
-                  5IVE LIVE AT <span className="text-[#ff7a00]">O2 ARENA</span>
-                </h2>
-                <div className="mt-[1rem] flex gap-[1.2rem] text-[0.8rem] text-white/75">
-                  <label className="inline-flex items-center gap-[0.45rem]"><span className="h-[0.8rem] w-[0.8rem] rounded-full bg-[#ff7a00]" /> Published</label>
-                  <label className="inline-flex items-center gap-[0.45rem]"><span className="h-[0.8rem] w-[0.8rem] rounded-full bg-[#ffc2a6]" /> Featured</label>
-                </div>
-              </div>
-            </section>
+      <section className="hidden lg:block mx-auto max-w-[1440px] px-4 py-10 sm:px-6 lg:px-8">
+          <div className="max-w-[1280px]">
+          <section className="rounded-[18px] bg-[#111111] p-6">
+            <div className="grid gap-5 md:grid-cols-4">
+              {details.map((item) => (
+                <article key={item.title} className="min-h-[200px] px-4 py-4 text-center">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center">
+                    <Image src={item.icon} alt={item.title} width={36} height={36} className="h-10 w-10 object-contain" />
+                  </div>
+                  <div className="mt-4 text-[0.72rem] uppercase tracking-[0.18em] text-white/55">{item.title}</div>
+                  <div className="mt-5 text-[0.95rem] font-semibold leading-snug text-white">{item.value}</div>
+                  {item.sub ? <div className="mt-4 text-[0.78rem] text-white/55">{item.sub}</div> : null}
+                </article>
+              ))}
+            </div>
+          </section>
 
-            <div className="grid gap-[1rem] xl:grid-cols-2">
-              <Section title="Key Information">
-                <div className="space-y-[1.4rem]">
-                  <div>
-                    <h4 className="mb-[0.5rem] text-[1rem] font-semibold">Date &amp; Time</h4>
-                    <p className="text-[0.85rem] text-white/75">Friday, Nov 15, 2024</p>
-                    <p className="text-[0.85rem] text-white/75">7:00 PM - 11:00 PM (4 hours)</p>
-                    <p className="text-[0.85rem] text-white/55">Timezone: EST</p>
-                    <div className="mt-[0.8rem] rounded-[0.5rem] bg-[#232323] px-[1rem] py-[0.8rem] text-[0.85rem]">Time until event: 2 days, 5 hours</div>
-                    <div className="mt-[0.8rem] flex gap-[0.75rem]">
-                      <button className="rounded-[0.45rem] border border-[#ff7a00] px-[1rem] py-[0.55rem] text-[0.85rem]">Add to calendar</button>
-                      <button className="rounded-[0.45rem] border border-[#ff7a00] px-[1rem] py-[0.55rem] text-[0.85rem]">Reschedule Event</button>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="mb-[0.5rem] text-[1rem] font-semibold">Location</h4>
-                    <p className="text-[0.85rem] text-white/75">O2 Arena, London, United Kingdom</p>
-                    <p className="text-[0.85rem] text-white/75">Peninsula Square London SE10 ODX United Kingdom</p>
-                    <div className="mt-[0.65rem] grid grid-cols-2 gap-[0.5rem] text-[0.8rem] text-white/55">
-                      <span>Capacity: 200 people</span>
-                      <span>Layout: General seating</span>
-                      <span>Parking: Available nearby</span>
-                      <span>Accessibility: Wheelchair accessible</span>
-                    </div>
-                    <div className="mt-[0.8rem] flex gap-[0.75rem]">
-                      <button className="rounded-[0.45rem] border border-[#ff7a00] px-[1rem] py-[0.55rem] text-[0.85rem]">View on map</button>
-                      <button className="rounded-[0.45rem] border border-[#ff7a00] px-[1rem] py-[0.55rem] text-[0.85rem]">Get Directions</button>
-                      <button className="rounded-[0.45rem] border border-[#ff7a00] px-[1rem] py-[0.55rem] text-[0.85rem]">Change Venue</button>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="mb-[0.65rem] text-[1rem] font-semibold">Tickets &amp; Pricing</h4>
-                    <div className="space-y-[0.75rem]">
-                      {[
-                        ["General Admission", "150 available", "₦80,000"],
-                        ["VIP Experience", "40 available", "₦180,000"],
-                        ["Early Bird", "10 sold", "₦60,000"],
-                      ].map(([name, sub, price]) => (
-                        <div key={name} className="flex items-center justify-between rounded-[0.55rem] bg-[#2b2b2b] px-[1rem] py-[0.8rem]">
-                          <div>
-                            <p className="text-[0.9rem]">{name}</p>
-                            <p className="text-[0.75rem] text-white/45">{sub}</p>
-                          </div>
-                          <p className="text-[0.85rem]">{price}</p>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-[0.8rem] flex gap-[0.75rem]">
-                      <button className="rounded-[0.45rem] bg-[#ff7a00] px-[1rem] py-[0.55rem] text-[0.85rem] font-semibold">Manage Ticket Types</button>
-                      <button className="rounded-[0.45rem] border border-[#ff7a00] px-[1rem] py-[0.55rem] text-[0.85rem]">Edit Pricing</button>
-                    </div>
-                  </div>
-                </div>
-              </Section>
-
-              <Section title="Event Performance">
-                <div className="space-y-[1.4rem]">
-                  <div>
-                    <p className="text-[0.85rem] text-white/55">TICKET SALES</p>
-                    <p className="mt-[0.5rem] text-[2rem] font-bold">156 <span className="text-[1rem] text-white/55">/ 200 Sold</span></p>
-                    <div className="mt-[0.55rem] h-[0.35rem] rounded-full bg-white/20"><div className="h-full w-[78%] rounded-full bg-[#ff7a00]" /></div>
-                    <p className="mt-[0.45rem] text-[0.8rem] text-white/55">78%</p>
-                  </div>
-                  <div>
-                    <p className="text-[0.85rem] text-white/55">REVENUE</p>
-                    <p className="mt-[0.5rem] text-[2rem] font-bold">₦450K <span className="text-[1rem] text-white/55">/ 600K</span></p>
-                    <div className="mt-[0.55rem] h-[0.35rem] rounded-full bg-white/20"><div className="h-full w-[75%] rounded-full bg-[#ff7a00]" /></div>
-                    <p className="mt-[0.45rem] text-[0.8rem] text-white/55">Target: 75% achieved</p>
-                  </div>
-                  <div>
-                    <p className="text-[0.85rem] text-white/55">CHECK-INS</p>
-                    <p className="mt-[0.5rem] text-[2rem] font-bold">145 <span className="text-[1rem] text-white/55">/ 156 checked in</span></p>
-                    <div className="mt-[0.55rem] h-[0.35rem] rounded-full bg-white/20"><div className="h-full w-[78%] rounded-full bg-[#ff7a00]" /></div>
-                    <p className="mt-[0.45rem] text-[0.8rem] text-white/55">78%</p>
-                  </div>
-                  <div>
-                    <p className="text-[0.85rem] text-white/55">ENGAGEMENT</p>
-                    <div className="mt-[1rem] grid grid-cols-3 text-center">
-                      <div><p className="text-[1.8rem] font-bold text-[#ff7a00]">234</p><p className="text-[0.8rem] text-white/55">views today</p></div>
-                      <div><p className="text-[1.8rem] font-bold text-[#ff7a00]">12</p><p className="text-[0.8rem] text-white/55">Shares</p></div>
-                      <div><p className="text-[1.8rem] font-bold text-[#ff7a00]">8</p><p className="text-[0.8rem] text-white/55">Saves</p></div>
-                    </div>
-                  </div>
-                  <button className="w-full rounded-[0.45rem] bg-[#ff7a00] py-[0.8rem] text-[0.95rem] font-semibold text-white">View Full Analytics</button>
-                </div>
-              </Section>
+          <section className="mt-16 rounded-[18px] bg-[#111111] p-6">
+            <h2 className="text-[1.35rem] font-bold uppercase tracking-tight">What to expect</h2>
+            <p className="mt-4 max-w-[1160px] text-[0.94rem] leading-relaxed text-white/80">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu luctus risus. Sed eu pharetra mi, vel suscipit nibh. Mauris volutpat, arcu sed consequat pulvinar, dolor ante feugiat est, id ultricies arcu urna eu augue. Fusce sed odio ipsum. Suspendisse sit amet aliquam nisl. Sed in lacinia massa. Nulla maximus varius sem nec tempor. Curabitur quis elit non mi eleifend finibus.
+            </p>
+            <div className="mt-8">
+              <SectionRule />
             </div>
 
-            <div className="grid gap-[1rem] xl:grid-cols-[1fr_0.7fr]">
-              <Section title="Event Description" action="Edit Description">
-                <p className="text-[0.88rem] leading-relaxed text-white/70">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed dolor vitae mauris maximus rhoncus. Duis sodales tellus non nibh ultricies volutpat id sodales nulla. Vestibulum tempor dui quam, a congue ligula porttitor id. Quisque id viverra tellus.
+            <h2 className="mt-8 text-[1.35rem] font-bold uppercase tracking-tight">Target audience</h2>
+            <p className="mt-4 text-[0.94rem] leading-relaxed text-white/80">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <div className="mt-8">
+              <SectionRule />
+            </div>
+
+            <h2 className="mt-8 text-[1.35rem] font-bold uppercase tracking-tight">What&apos;s included</h2>
+            <div className="mt-4 grid gap-3 md:grid-cols-2 text-[0.92rem] text-white/85">
+              {["Premium Seating With Excellent Sightlights", "Light Refreshments", "Full Bar Service", "Networking Opportunities"].map((item) => (
+                <div key={item} className="flex items-start gap-2">
+                  <span className="mt-[0.45rem] h-1.5 w-1.5 rounded-full bg-[#ED5A2E]" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8">
+              <SectionRule />
+            </div>
+
+            <h2 className="mt-8 text-[1.35rem] font-bold uppercase tracking-tight">What to bring</h2>
+            <div className="mt-4 grid gap-3 text-[0.92rem] text-white/85">
+              {["Valid Government-issued ID (18+ Event)", "Your ticket confirmation (digital or printed)", "Light refreshments"].map((item) => (
+                <div key={item} className="flex items-start gap-2">
+                  <span className="mt-[0.45rem] h-1.5 w-1.5 rounded-full bg-[#ED5A2E]" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-20 rounded-[22px] border-2 border-[#8f5f4d]/80 bg-[linear-gradient(90deg,#2c1811_0%,#121212_46%,#6a5d50_100%)] p-6 lg:p-8">
+            <h2 className="text-[1.35rem] font-bold">Meet The Host</h2>
+            <div className="mt-6 grid gap-8 lg:grid-cols-[240px_1fr]">
+              <div className="flex items-center justify-center">
+                <div className="flex h-56 w-56 items-center justify-center rounded-full bg-white text-[6rem] font-light text-black">E</div>
+              </div>
+              <div>
+                <div className="flex items-center gap-3">
+                  <h3 className="text-[1.2rem] font-medium">Elizabeth R Events</h3>
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#ED5A2E] text-[0.65rem] text-white">{"✓"}</span>
+                </div>
+                <p className="mt-4 max-w-[760px] text-[0.95rem] leading-relaxed text-white/85">
+                  Passionate about bringing world-class experiences to Lagos. We&apos;ve been curating unforgettable music events since 2018, hosting over 150 performers and welcoming 10,000+ artists worldwide.
                 </p>
-              </Section>
-
-              <Section title="Quick Actions">
-                <div className="space-y-[0.6rem]">
-                  {["Email all attendees", "Send Update", "Generate comp ticket", "Export attendee list", "Download report", "Duplicate event"].map((item, idx) => (
-                    <button key={item} className={`w-full rounded-[0.45rem] px-[1rem] py-[0.65rem] text-left text-[0.85rem] ${idx === 0 ? "bg-[#ff7a00] text-white" : "bg-[#2b2b2b] text-white/85"}`}>
-                      {item}
-                    </button>
-                  ))}
+                <div className="mt-6 flex flex-wrap items-center gap-6 text-[0.9rem] text-white/85">
+                  <span className="inline-flex items-center gap-2"><CalendarDays className="h-4 w-4 text-[#ED5A2E]" /> 24 Event Series</span>
+                  <span className="inline-flex items-center gap-2"><Users className="h-4 w-4 text-[#ED5A2E]" /> 12.5k followers</span>
                 </div>
-              </Section>
-            </div>
-
-            <div className="grid gap-[1rem] xl:grid-cols-[1fr_0.7fr]">
-              <Section title="Marketing &amp; Promotion">
-                <div className="grid gap-[0.75rem] md:grid-cols-2">
-                  {["Social Media Cards", "Email Preview", "Event QR Code", "Promo Codes"].map((item, idx) => (
-                    <div key={item} className="rounded-[0.55rem] bg-[#2b2b2b] px-[0.85rem] py-[0.9rem]">
-                      <p className="text-[0.9rem]">{item}</p>
-                      <p className="text-[0.72rem] text-white/45">{idx === 1 ? "View & Customize" : idx === 3 ? "3 Active" : "Download"}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-[1rem] flex gap-[0.75rem]">
-                  <button className="rounded-[0.45rem] bg-[#ff7a00] px-[1rem] py-[0.55rem] text-[0.85rem] font-semibold text-white">Create Promo Code</button>
-                  <button className="rounded-[0.45rem] border border-[#ff7a00] px-[1rem] py-[0.55rem] text-[0.85rem]">Send Email Blast</button>
-                  <button className="rounded-[0.45rem] border border-[#ff7a00] px-[1rem] py-[0.55rem] text-[0.85rem]">Generate Marketing Kit</button>
-                </div>
-              </Section>
-
-              <Section title="Attendees (156)">
-                <div className="space-y-[0.8rem]">
-                  {["John Doe", "John Doe", "John Doe", "John Doe", "John Doe"].map((name, idx) => (
-                    <div key={idx} className="flex items-center gap-[0.75rem]">
-                      <div className="flex h-[1.8rem] w-[1.8rem] items-center justify-center rounded-full bg-[#ff5b5b] text-[0.7rem]">JD</div>
-                      <div>
-                        <p className="text-[0.85rem]">{name}</p>
-                        <p className="text-[0.72rem] text-white/45">GA · 2h ago</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-[1rem] space-y-[0.5rem] border-t border-white/10 pt-[1rem]">
-                  <button className="w-full rounded-[0.45rem] bg-[#ff7a00] py-[0.65rem] text-[0.85rem] font-semibold text-white">View All Attendees</button>
-                  <button className="w-full rounded-[0.45rem] bg-[#2b2b2b] py-[0.65rem] text-[0.85rem] font-semibold text-white/85">Check-in Mode</button>
-                </div>
-              </Section>
-            </div>
-
-            <div className="grid gap-[1rem] xl:grid-cols-[1fr_0.7fr]">
-              <Section title="What’s Included">
-                <div className="grid gap-[0.6rem] md:grid-cols-2">
-                  <div className="rounded-[0.55rem] bg-[#2b2b2b] px-[0.85rem] py-[0.8rem]">Premium Seating With Excellent Sightlights</div>
-                  <div className="rounded-[0.55rem] bg-[#2b2b2b] px-[0.85rem] py-[0.8rem]">Full Bar Service</div>
-                  <div className="rounded-[0.55rem] bg-[#2b2b2b] px-[0.85rem] py-[0.8rem]">Light Refreshments</div>
-                  <div className="rounded-[0.55rem] bg-[#2b2b2b] px-[0.85rem] py-[0.8rem]">Networking Opportunities</div>
-                </div>
-                <div className="mt-[1.2rem] border-t border-[#ff7a00] pt-[1rem]">
-                  <h4 className="text-[1rem] font-semibold">What to bring</h4>
-                  <div className="mt-[0.55rem] space-y-[0.45rem] text-[0.85rem] text-white/75">
-                    <p>Valid Government-Issued ID (18+ Event)</p>
-                    <p>Your ticket confirmation (digital or printed)</p>
-                    <p>Networking Opportunities</p>
+                <div className="mt-6 flex flex-wrap items-center gap-4">
+                  <button className="rounded-[12px] bg-[#ED5A2E] px-10 py-3 text-[0.95rem] font-semibold text-white">Follow</button>
+                  <button className="rounded-[12px] bg-[#ED5A2E] px-10 py-3 text-[0.95rem] font-semibold text-white">View Profile</button>
+                  <div className="ml-auto flex items-center gap-5 text-white/95">
+                    <span className="text-[1.8rem]">{"◌"}</span>
+                    <span className="text-[1.8rem]">{"X"}</span>
+                    <span className="text-[1.8rem]">{"◯"}</span>
                   </div>
                 </div>
-              </Section>
-
-              <Section title="Revenue Details">
-                <div className="space-y-[0.7rem] text-[0.85rem] text-white/75">
-                  <div className="flex justify-between"><span>Gross Sales:</span><span>₦480,000</span></div>
-                  <div className="flex justify-between"><span>Discounts:</span><span>-₦30,000</span></div>
-                  <div className="flex justify-between"><span>Refunds:</span><span>-₦0</span></div>
-                  <div className="border-t border-[#ff7a00] pt-[0.8rem] flex justify-between"><span className="font-semibold text-white">Net Revenue:</span><span className="font-semibold text-white">₦450,000</span></div>
-                  <div className="flex justify-between"><span>Platform fee (5%):</span><span>-₦22,500</span></div>
-                  <div className="flex justify-between"><span>Payment processing:</span><span>-₦7,200</span></div>
-                  <div className="border-t border-[#ff7a00] pt-[0.8rem] flex justify-between"><span className="font-semibold text-white">Your Payout:</span><span className="font-semibold text-white">₦420,300</span></div>
-                  <div className="text-[0.75rem] text-white/55">Status: Processing</div>
-                  <div className="text-[0.75rem] text-white/55">Expected: Nov 20, 2024</div>
-                  <button className="mt-[0.8rem] w-full rounded-[0.45rem] bg-[#2b2b2b] py-[0.65rem] text-[0.85rem] text-white/85">View Detailed Report</button>
-                </div>
-              </Section>
+              </div>
             </div>
+          </section>
 
-            <Section title="FAQs">
-              <div className="space-y-[0.7rem]">
-                {["Can I attend individual events?", "What's the cancellation policy?", "Is there parking available?", "Are recordings available?", "Are there age restrictions?"].map((q, idx) => (
-                  <div key={q} className="border-b border-[#ff7a00] pb-[0.65rem] text-[0.85rem]">
-                    <div className="flex items-center justify-between">
-                      <span>{q}</span>
-                      <span>{idx === 4 ? "⌃" : "⌄"}</span>
+          <section className="mt-16 rounded-[18px] bg-[#111111] p-6">
+            <h2 className="text-[1.35rem] font-bold uppercase tracking-tight">Event Schedule</h2>
+            <div className="mt-6 space-y-6">
+              {[
+                ["7:00 PM", "Doors Open & Welcome Drinks", "Arrive, check in, and enjoy complimentary beverages"],
+                ["7:30 PM", "Opening Act", "Local talent showcase featuring emerging afrobeats artists"],
+                ["8:30 PM", "Main Performance", "Headlining afrobeats ensemble performs classic and contemporary pieces"],
+                ["10:30 PM", "Networking Session", "Meet fellow afrobeats enthusiasts and the performers"],
+                ["11:00 PM", "Event Ends", "Thank you for joining us!"],
+              ].map(([time, title, desc]) => (
+                <div key={time} className="grid grid-cols-[44px_1fr] gap-4">
+                  <div className="flex flex-col items-center">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#ED5A2E] text-[#ED5A2E]">
+                      <Clock3 className="h-4 w-4" />
                     </div>
-                    {idx === 4 ? <p className="mt-[0.45rem] text-[0.75rem] text-white/55">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer blandit justo a est pellentesque pulvinar.</p> : null}
+                    <div className="mt-1 h-10 w-px bg-[#ED5A2E]/70" />
+                  </div>
+                  <div className="pb-2">
+                    <div className="text-[0.72rem] font-medium text-[#ED5A2E]">{time}</div>
+                    <div className="mt-1 text-[1rem] font-semibold">{title}</div>
+                    <div className="mt-1 text-[0.78rem] text-white/65">{desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-16 rounded-[18px] bg-[#111111] p-6">
+            <h2 className="text-[1.35rem] font-bold uppercase tracking-tight">Location</h2>
+            <div className="mt-6 overflow-hidden rounded-[12px] border border-white/10">
+              <Image src="/event-feature.jpg" alt="Location map" width={1200} height={560} className="h-[260px] w-full object-cover object-center" />
+            </div>
+            <div className="mt-6 rounded-[18px] bg-[#0f0f0f] p-6">
+              <div className="max-w-[360px]">
+                <h3 className="text-[1.25rem] font-medium">02 Arena</h3>
+                <p className="mt-2 text-[0.95rem] leading-relaxed text-white/80">Peninsula Square London SE10 0DX United Kingdom</p>
+                <button className="mt-6 inline-flex items-center gap-3 rounded-[10px] bg-[#ED5A2E] px-5 py-3 text-[0.95rem] font-semibold text-white">
+                  <span className="text-[1rem]">➜</span>
+                  Get Directions
+                </button>
+              </div>
+
+              <div className="mt-10 grid gap-8 md:grid-cols-2">
+                {[
+                  ["Parking", "Street parking available. Paid garage 2 blocks away on 5th Ave."],
+                  ["Public Transport", "Subway: L train to 14th St. Bus: M14 to Main St."],
+                  ["Accessibility", "Wheelchair accessible entrance and restrooms available."],
+                  ["Nearby", "2 blocks from Central Plaza, across from City Museum."],
+                ].map(([title, desc]) => (
+                  <div key={title} className="flex items-start gap-3">
+                    <Image
+                      src={title === "Parking" ? "/Profile 1.png" : title === "Public Transport" ? "/Ticket 1.png" : title === "Accessibility" ? "/Profile 1.png" : "/Location.png"}
+                      alt={title}
+                      width={22}
+                      height={22}
+                      className="mt-1 h-5 w-5 object-contain"
+                    />
+                    <div>
+                      <h4 className="text-[1.05rem] font-medium">{title}</h4>
+                      <p className="mt-1 text-[0.88rem] leading-relaxed text-white/75">{desc}</p>
+                    </div>
                   </div>
                 ))}
               </div>
-            </Section>
+            </div>
+          </section>
 
-            <Section title="Why book with Trck?">
-              <div className="space-y-[0.8rem] text-[0.85rem] text-white/75">
-                <p><strong>Secure Payment</strong> - Your payment information is encrypted and secure.</p>
-                <p><strong>Instant Confirmation</strong> - Receive your tickets immediately via email.</p>
-                <p><strong>Best Price Guarantee</strong> - We offer competitive pricing and exclusive deals.</p>
-              </div>
-            </Section>
-
-            <Section title="What Our Customers Say">
-              <div className="space-y-[0.75rem]">
-                {[1, 2, 3].map((n) => (
-                  <div key={n} className="rounded-[0.8rem] bg-[#2b2b2b] p-[0.9rem]">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <p className="text-[0.9rem] font-semibold">Jane Doe</p>
-                        <p className="text-[0.72rem] text-white/45">November 3rd, 2025</p>
-                      </div>
-                      <p className="text-[#ffd200]">★★★★★</p>
+          <section className="mt-16 rounded-[18px] bg-[#111111] p-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-[1.35rem] font-bold uppercase tracking-tight">Reviews &amp; Ratings</h2>
+            </div>
+            <div className="mt-6 space-y-8">
+              {reviews.map((item) => (
+                <div key={item.id} className="grid gap-6 lg:grid-cols-[84px_1fr_180px] lg:items-start">
+                  <div className="flex items-center gap-4 lg:block">
+                    <div className="h-12 w-12 rounded-full bg-[#b76d4c]" />
+                    <div className="lg:hidden">
+                      <p className="text-[1.05rem] font-semibold text-white">{item.name}</p>
+                      <p className="text-[0.82rem] text-white/60">{item.date}</p>
                     </div>
-                    <p className="mt-[0.6rem] text-[0.78rem] text-white/75">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer blandit justo a est pellentesque pulvinar.</p>
                   </div>
-                ))}
-                <div className="text-right text-[0.85rem] text-white/75">View All →</div>
-              </div>
-            </Section>
-
-            <Section title="Discover More">
-              <div className="space-y-[1.5rem]">
-                <div className="text-center">
-                  <h3 className="font-serif text-[2rem] font-bold text-black bg-white inline-block px-[1rem] py-[0.2rem]">DISCOVER MORE</h3>
+                  <div>
+                    <p className="text-[1.05rem] font-semibold text-white">{item.name}</p>
+                    <p className="text-[0.82rem] text-white/60">{item.date}</p>
+                    <p className="mt-4 max-w-[900px] text-[0.9rem] leading-relaxed text-white/80">{item.text}</p>
+                  </div>
+                  <div className="text-[#FFD400] lg:text-right">{'★★★★★'}</div>
                 </div>
-                {[1,2,3].map((n) => (
-                  <div key={n} className="space-y-[0.7rem] text-center">
-                    <div className="h-[13rem] bg-black" />
-                    <div className="text-[0.9rem] font-semibold text-black">Tips</div>
-                    <div className="text-[1rem] font-semibold text-black">How All In Prices Make Buying Tickets Easier</div>
-                    <p className="text-[0.9rem] text-black/45">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <div className="text-[0.85rem] font-semibold text-[#2d6bff]">DISCOVER MORE</div>
-                  </div>
-                ))}
-              </div>
-            </Section>
-          </div>
+              ))}
+            </div>
+          </section>
 
+          <section className="mt-16 rounded-[18px] bg-[#111111] p-6">
+            <h2 className="text-[1.35rem] font-bold uppercase tracking-tight">Frequently Asked Questions</h2>
+            <div className="mt-6">
+              {faqs.map((faq, index) => (
+                <div key={`${faq.q}-${index}`} className="border-b border-[#ED5A2E] py-5">
+                  <button className="flex w-full items-center justify-between text-left text-[1rem] font-medium">
+                    <span>{faq.q}</span>
+                    <ChevronDown className="h-5 w-5 text-[#ED5A2E]" />
+                  </button>
+                  {index === 4 ? <p className="mt-3 max-w-[900px] text-[0.92rem] leading-relaxed text-[#ED5A2E]">{faq.a}</p> : null}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-16">
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-[1.35rem] font-bold">You Might Also Like</h2>
+              <Link href="/explore" className="text-[0.9rem] text-white/75">See More Events</Link>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {Array.from({ length: 3 }).map((_, idx) => (
+                <article key={idx} className="overflow-hidden rounded-[18px] bg-[#f6764f]">
+                  <div className="relative h-[240px]">
+                    <Image src="/event-feature.jpg" alt="Recommended event" fill className="object-cover" />
+                    <span className="absolute left-3 top-3 rounded-full bg-white px-3 py-1 text-[0.72rem] text-gray-900">Music</span>
+                    <span className="absolute right-3 top-3 rounded-md bg-white px-2 py-1 text-center text-[0.72rem] text-gray-900">NOV<br />14</span>
+                  </div>
+                  <div className="p-4 text-white">
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="text-[1rem] font-medium">Summer Music Festival 2024</h3>
+                      <Heart className="h-5 w-5" />
+                    </div>
+                    <div className="mt-1 flex items-center gap-1 text-[0.82rem] text-white/90">
+                      <MapPin className="h-3.5 w-3.5" />
+                      <span>Eko Conventional Center</span>
+                    </div>
+                    <div className="mt-5 flex items-center justify-between">
+                      <span className="text-[0.82rem]">N80,000</span>
+                      <button className="rounded-full bg-white px-4 py-1.5 text-[0.82rem] text-gray-800">Book Now</button>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        <div className="mt-20">
           <Footer />
         </div>
-      </div>
+      </section>
+
+      <section className="lg:hidden px-4 pt-3 pb-6">
+        <div className="overflow-hidden rounded-[16px] border border-[#0b8df0] bg-black">
+          <div className="relative">
+            <div className="absolute left-0 top-0 z-10 flex w-full items-center justify-between px-4 py-3 text-white">
+              <button>{"‹"}</button>
+              <Logo width={82} height={28} className="h-5 w-auto" />
+              <button>{"↗"}</button>
+            </div>
+            <Image src="/event-hero.jpg" alt="Event hero mobile" width={900} height={650} className="h-[280px] w-full object-cover" />
+            <div className="px-4 pb-4 pt-3">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h1 className="text-[1.85rem] font-black uppercase leading-none">5IVE LIVE AT <span className="text-[#ED5A2E]">02</span> ARENA</h1>
+                  <div className="mt-2 text-[0.72rem] text-white/80">by Elizabeth R Events <span className="text-[#ED5A2E]">{"✓"}</span></div>
+                  <div className="mt-3 text-[0.72rem] text-white/75">10,000 people are attending</div>
+                </div>
+                <button className="mt-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/40">♡</button>
+              </div>
+              <button className="mt-4 w-full rounded-[8px] bg-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white">Add to Calendar</button>
+            </div>
+          </div>
+        </div>
+
+        <section className="mt-5 grid grid-cols-2 gap-4">
+          <div><div className="text-[0.92rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Ticket Type</div><div className="mt-3 text-[0.9rem]">General Admission</div></div>
+          <div><div className="text-[0.92rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Schedule</div><div className="mt-3 text-[0.9rem]">3rd - 30th Nov, 2025</div></div>
+          <div><div className="text-[0.92rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Venue</div><div className="mt-3 text-[0.9rem]">02 Arena London, United Kingdom</div></div>
+          <div><div className="text-[0.92rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Age Requirement</div><div className="mt-3 text-[0.9rem]">18+ with valid ID Required</div></div>
+          <div><div className="text-[0.92rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Rating</div><Stars /></div>
+          <div><div className="text-[0.92rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Capacity</div><div className="mt-3 text-[0.9rem]">20,000 Seats</div></div>
+        </section>
+
+        <section className="mt-6 rounded-[16px] bg-[#111111] p-4">
+          <h2 className="text-[1rem] font-bold uppercase tracking-tight">About This Event</h2>
+          <p className="mt-3 text-[0.82rem] leading-relaxed text-white/80">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris cursus metus sed felis pulvinar gravida.</p>
+          <button className="mt-2 text-[0.8rem] text-[#ED5A2E]">Read more</button>
+          <div className="mt-4 border-t border-[#ED5A2E] pt-4">
+            <h3 className="text-[0.95rem] font-bold uppercase">What&apos;s Included</h3>
+            <ul className="mt-3 space-y-2 text-[0.78rem] text-white/85">
+              <li>{"•"} Premium Seating With Excellent Sightlights</li>
+              <li>{"•"} Full bar service</li>
+              <li>{"•"} Light refreshments</li>
+              <li>{"•"} Networking opportunities</li>
+            </ul>
+          </div>
+          <div className="mt-4 border-t border-[#ED5A2E] pt-4">
+            <h3 className="text-[0.95rem] font-bold uppercase">What to bring</h3>
+            <ul className="mt-3 space-y-2 text-[0.78rem] text-white/85">
+              <li>{"•"} Valid Government-issued ID (18+ Event)</li>
+              <li>{"•"} Your ticket confirmation (digital or printed)</li>
+              <li>{"•"} Light refreshments</li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="mt-5 rounded-[18px] border border-[#ED5A2E] bg-[#181818] p-4">
+          <div className="flex items-center gap-4">
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white text-black text-[2rem]">E</div>
+            <div>
+              <div className="text-[0.95rem] font-medium">Elizabeth R Events <span className="text-[#ED5A2E]">{"✓"}</span></div>
+              <p className="mt-2 text-[0.72rem] text-white/80">Passionate about bringing world-class experiences to Lagos.</p>
+            </div>
+          </div>
+        </section>
+
+        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight">Event Schedule</h2>
+        <div className="mt-4 rounded-[16px] bg-[#111111] p-4">
+          {["7:00 PM","7:30 PM","8:30 PM","10:30 PM","11:00 PM"].map((time, i) => (
+            <div key={time} className="relative pl-10 pb-6">
+              <div className="absolute left-0 top-0 flex h-6 w-6 items-center justify-center rounded-full border border-[#ED5A2E] text-[#ED5A2E]"><Clock3 className="h-3.5 w-3.5" /></div>
+              <div className="text-[0.65rem] text-[#ED5A2E]">{time}</div>
+              <div className="mt-1 text-[0.82rem]">{["Doors Open & Welcome Drinks","Opening Act","Main Performance","Networking Session","Event Ends"][i]}</div>
+            </div>
+          ))}
+        </div>
+
+        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight">Location</h2>
+        <div className="mt-3 rounded-[16px] bg-[#111111] p-4">
+          <Image src="/event-feature.jpg" alt="Map" width={800} height={420} className="h-[220px] w-full rounded-[8px] object-cover" />
+        </div>
+
+        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight">Review &amp; Ratings</h2>
+        <div className="mt-3 space-y-3">
+          {reviews.slice(0, 2).map((item) => (
+            <div key={`${item.name}-${item.id}`} className="rounded-[16px] bg-[#111111] p-4">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3"><div className="h-10 w-10 rounded-full bg-[#b76d4c]" /><div><div className="text-[0.88rem] font-semibold">{item.name}</div><div className="text-[0.68rem] text-white/65">{item.date}</div></div></div>
+                <Stars />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight">Frequently Asked Questions</h2>
+        <div className="mt-4 space-y-4">
+          {faqs.map((faq, index) => (
+            <div key={`${faq.q}-${index}`} className="border-b border-[#ED5A2E] pb-3">
+              <div className="flex items-center justify-between gap-3 text-[0.82rem]"><span>{faq.q}</span><ChevronDown className="h-4 w-4 text-[#ED5A2E]" /></div>
+              {index === 4 ? <p className="mt-2 text-[0.72rem] leading-relaxed text-[#ED5A2E]">{faq.a}</p> : null}
+            </div>
+          ))}
+        </div>
+
+        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight">You Might Also Like</h2>
+        <div className="mt-4 space-y-4">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <article key={index} className="overflow-hidden rounded-[16px] bg-[#f6764f]">
+              <div className="relative h-[170px]"><Image src="/event-feature.jpg" alt="Recommended" fill className="object-cover" /></div>
+              <div className="p-3 text-white">
+                <div className="flex items-start justify-between"><h3 className="text-[0.9rem] font-medium">Summer Music Festival 2024</h3><Heart className="h-4 w-4" /></div>
+                <div className="mt-1 flex items-center gap-1 text-[0.7rem] text-white/90"><MapPin className="h-3 w-3" /><span>Eko Conventional Center</span></div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <Footer />
+      </section>
     </main>
   );
 }

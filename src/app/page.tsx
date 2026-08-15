@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Logo } from "@/components/shared/logo";
 
 const pages = [
@@ -42,6 +41,16 @@ const pages = [
     items: [
       { label: "Checkout Review", href: "/checkout", desc: "Mobile-style checkout review screen with ticket holder details" },
       { label: "Event Detail", href: "/events/sample-event", desc: "Desktop event detail page with long-form event information" },
+    ],
+  },
+  {
+    group: "General Listing",
+    color: "#ED5A2E",
+    items: [
+      { label: "Explore Events", href: "/explore", desc: "Main event listing page with search, filters, categories, and pagination" },
+      { label: "Search Results", href: "/search", desc: "Event search results page with active filters, sort, and pagination" },
+      { label: "Event Detail Screen", href: "/events/sample-event", desc: "Full desktop event detail screen with hero, schedule, reviews, FAQ, and footer" },
+      { label: "Event Series Detail Screen", href: "/series/sample-series", desc: "Event series detail screen with pass card, upcoming events, highlights, and footer" },
     ],
   },
   {
