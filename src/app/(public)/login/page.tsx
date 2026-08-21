@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Logo } from "@/components/shared/logo";
+import { Logo } from "@/components/shared";
+import { Button, Input } from "@/components/ui";
 import { useState } from "react";
 import { Eye, EyeOff, ChevronDown } from "lucide-react";
 
@@ -29,22 +30,19 @@ export default function Page() {
 
           <div className="space-y-4">
             {/* Email */}
-            <div>
-              <input
-                id="login-email"
-                type="email"
-                placeholder="Email Address"
-                className="w-full rounded-[0.5rem] border border-gray-200 bg-gray-50 px-4 py-3.5 text-[0.9rem] text-gray-800 outline-none transition-all placeholder:text-gray-400 focus:border-[#ED5A2E] focus:ring-2 focus:ring-[#ED5A2E]/20"
-              />
-            </div>
+            <Input
+              id="login-email"
+              type="email"
+              placeholder="Email Address"
+            />
 
             {/* Password */}
             <div className="relative">
-              <input
+              <Input
                 id="login-password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
-                className="w-full rounded-[0.5rem] border border-gray-200 bg-gray-50 px-4 py-3.5 pr-12 text-[0.9rem] text-gray-800 outline-none transition-all placeholder:text-gray-400 focus:border-[#ED5A2E] focus:ring-2 focus:ring-[#ED5A2E]/20"
+                className="pr-12"
               />
               <button
                 id="toggle-password"
@@ -84,13 +82,15 @@ export default function Page() {
             </div>
 
             {/* Login Button */}
-            <button
+            <Button
               id="login-submit"
               type="submit"
-              className="w-full rounded-full bg-[#ED5A2E] py-3.5 text-[0.95rem] font-semibold text-white shadow-md shadow-[#ED5A2E]/30 transition-all hover:bg-[#d4501f] hover:shadow-lg hover:shadow-[#ED5A2E]/40 active:scale-[0.98]"
+              variant="primary"
+              size="lg"
+              fullWidth
             >
               Login
-            </button>
+            </Button>
           </div>
 
           {/* Divider */}

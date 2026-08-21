@@ -1,2 +1,2 @@
-// Placeholder file to reserve directory structure for UI components
-export {};
+export { Button } from "./button";
+export { Input } from "./input";

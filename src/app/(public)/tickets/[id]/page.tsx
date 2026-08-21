@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function Page() {
-  return <h1>Ticket Details</h1>;
+  redirect("/ticket-detail-screen");
 }

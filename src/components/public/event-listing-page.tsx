@@ -4,39 +4,13 @@ import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Search,
   SlidersHorizontal,
   ChevronDown,
   MapPin,
   Heart,
   X,
 } from "lucide-react";
-import { Logo } from "@/components/shared/logo";
-
-type EventItem = {
-  id: string;
-  title: string;
-  organizer?: string;
-  date: string;
-  time?: string;
-  location: string;
-  price: string;
-  category: string;
-  description?: string;
-  image: string;
-  ticketsAvailable?: number;
-  tags?: string[];
-};
-
-type FilterState = {
-  dateRange: string;
-  location: string;
-  withinMiles: number;
-  minPrice: string;
-  maxPrice: string;
-  eventTypes: string[];
-  moreFilters: string[];
-};
+import { EventItem, FilterState } from "@/types";
 
 const categories = [
   "All Categories",
@@ -145,67 +119,6 @@ export function EventListingPage() {
 
   return (
     <div className="min-h-screen bg-[#141414] text-white">
-      <header className="border-b border-white/8 bg-white text-gray-900">
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex min-w-0 items-center gap-5">
-            <Link href="/" className="inline-flex shrink-0 items-center">
-              <Logo width={100} height={36} className="h-7 w-auto" />
-            </Link>
-
-            <div className="relative hidden min-w-0 w-[460px] md:block">
-              <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-              <input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search event..."
-                className="w-full rounded-full border border-gray-200 bg-gray-50 py-2.5 pl-11 pr-4 text-[0.92rem] text-gray-900 outline-none placeholder:text-gray-500 focus:border-[#ED5A2E] focus:ring-2 focus:ring-[#ED5A2E]/20"
-              />
-            </div>
-          </div>
-
-          <div className="flex shrink-0 items-center gap-4">
-            <button
-              onClick={() => setFiltersOpen(true)}
-              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#f4f4f4] px-4 py-2.5 text-[0.9rem] font-medium text-gray-700 hover:bg-gray-100"
-            >
-              <SlidersHorizontal className="h-4 w-4" />
-              Filter
-            </button>
-
-            <div className="relative">
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="appearance-none rounded-full bg-[#ED5A2E] px-5 py-2.5 pr-11 text-[0.9rem] font-medium text-white outline-none"
-              >
-                {categories.map((item) => (
-                  <option key={item} value={item} className="bg-white text-gray-900">
-                    {item}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white" />
-            </div>
-
-            <button className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ED5A2E] text-[0.95rem] font-bold text-white">
-              D
-            </button>
-          </div>
-        </div>
-
-        <div className="border-t border-gray-100 px-4 py-3 md:hidden">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search event..."
-              className="w-full rounded-full border border-gray-200 bg-gray-50 py-2.5 pl-11 pr-4 text-[0.92rem] text-gray-900 outline-none placeholder:text-gray-500 focus:border-[#ED5A2E] focus:ring-2 focus:ring-[#ED5A2E]/20"
-            />
-          </div>
-        </div>
-      </header>
-
       <main className="bg-white text-gray-900">
         <section className="mx-auto max-w-[1440px] px-4 py-10 sm:px-6 lg:px-8">
           <div className="mb-6 flex items-start justify-between gap-4">
@@ -287,13 +200,12 @@ export function EventListingPage() {
           )}
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {(loading ? Array.from({ length: pageSize }) : currentPageEvents).map((event: EventItem, index) => {
-              if (loading) {
-                return <div key={index} className="h-[320px] rounded-[20px] bg-gray-100 animate-pulse" />;
-              }
-
-              return (
-                <article key={event.id} className="overflow-hidden rounded-[20px] bg-[#f6764f] shadow-sm">
+            {loading
+              ? Array.from({ length: pageSize }).map((_, index) => (
+                  <div key={index} className="h-[320px] rounded-[20px] bg-gray-100 animate-pulse" />
+                ))
+              : currentPageEvents.map((event: EventItem) => (
+                  <article key={event.id} className="overflow-hidden rounded-[20px] bg-[#f6764f] shadow-sm">
                   <div className="relative h-[220px] bg-black">
                     <Image src={event.image} alt={event.title} fill className="object-cover" unoptimized />
                     <span className="absolute left-3 top-3 rounded-full bg-white px-3 py-1 text-[0.7rem] font-medium text-gray-900">
@@ -325,8 +237,7 @@ export function EventListingPage() {
                     </div>
                   </div>
                 </article>
-              );
-            })}
+              ))}
           </div>
 
           <div className="mt-10 flex items-center justify-center gap-5 text-[0.98rem] text-gray-700">
@@ -364,46 +275,6 @@ export function EventListingPage() {
           </div>
         </section>
       </main>
-
-      <footer className="bg-black px-6 py-12 text-white lg:px-16 border-t border-white/10">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 pb-12 border-b border-white/10">
-            <div>
-              <h4 className="text-[0.78rem] font-bold uppercase tracking-wider text-white mb-4">Contact</h4>
-              <p className="text-[0.88rem] font-semibold text-[#ED5A2E] mb-4">info@getontrck.com</p>
-              <p className="text-[0.88rem] text-white/70">Follow the brand across the channels you already know.</p>
-            </div>
-            <div>
-              <h4 className="text-[0.78rem] font-bold uppercase tracking-wider text-white mb-4">Company</h4>
-              <ul className="space-y-2.5 text-[0.85rem] text-white/70">
-                <li><Link href="#" className="hover:text-white">About Us</Link></li>
-                <li><Link href="#" className="hover:text-white">How it works</Link></li>
-                <li><Link href="#" className="hover:text-white">Features</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-[0.78rem] font-bold uppercase tracking-wider text-white mb-4">Legal</h4>
-              <ul className="space-y-2.5 text-[0.85rem] text-white/70">
-                <li><Link href="/privacy" className="hover:text-white">Privacy policy</Link></li>
-                <li><Link href="#" className="hover:text-white">Terms of service</Link></li>
-                <li><Link href="#" className="hover:text-white">Acceptable use policy</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-[0.78rem] font-bold uppercase tracking-wider text-white mb-4">Support</h4>
-              <ul className="space-y-2.5 text-[0.85rem] text-white/70">
-                <li><Link href="#" className="hover:text-white">FAQ</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="pt-8 text-[0.76rem] text-white/40 leading-relaxed space-y-2">
-            <p>
-              TRCK is a leisure technology platform based in Nigeria. All experiences are provided by independent third-party creators.
-            </p>
-            <p>Copyright ©2025 Trck Entertainment &amp; Technology Ltd. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
 
       {filtersOpen ? (
         <div className="fixed inset-0 z-50 bg-black/50">

@@ -383,116 +383,200 @@ export default function Page() {
       </section>
 
       <section className="lg:hidden px-4 pt-3 pb-6">
-        <div className="overflow-hidden rounded-[16px] border border-[#0b8df0] bg-black">
+        <div className="overflow-hidden rounded-[16px] bg-black">
           <div className="relative">
             <div className="absolute left-0 top-0 z-10 flex w-full items-center justify-between px-4 py-3 text-white">
-              <button>{"‹"}</button>
+              <button className="text-[1.1rem]">{"‹"}</button>
               <Logo width={82} height={28} className="h-5 w-auto" />
-              <button>{"↗"}</button>
+              <button className="text-[1.1rem]">{"↗"}</button>
             </div>
-            <Image src="/event-hero.jpg" alt="Event hero mobile" width={900} height={650} className="h-[280px] w-full object-cover" />
-            <div className="px-4 pb-4 pt-3">
+            <Image src="/event-hero.jpg" alt="Event hero mobile" width={900} height={650} className="h-[290px] w-full object-cover object-center" />
+            <div className="-mt-8 rounded-t-[22px] bg-black px-4 pb-5 pt-4">
               <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h1 className="text-[1.85rem] font-black uppercase leading-none">5IVE LIVE AT <span className="text-[#ED5A2E]">02</span> ARENA</h1>
-                  <div className="mt-2 text-[0.72rem] text-white/80">by Elizabeth R Events <span className="text-[#ED5A2E]">{"✓"}</span></div>
+                <div className="min-w-0">
+                  <h1 className="text-[1.55rem] font-black uppercase leading-[0.95] tracking-tight">
+                    5IVE LIVE AT <span className="text-[#ED5A2E]">02</span> ARENA
+                  </h1>
+                  <div className="mt-2 text-[0.72rem] text-white/80">by Elizabeth R Events <span className="text-[#ED5A2E]">{"✦"}</span></div>
                   <div className="mt-3 text-[0.72rem] text-white/75">10,000 people are attending</div>
                 </div>
-                <button className="mt-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/40">♡</button>
+                <button className="mt-1 inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/35 text-white">♡</button>
               </div>
-              <button className="mt-4 w-full rounded-[8px] bg-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white">Add to Calendar</button>
+              <button className="mt-4 inline-flex h-[36px] w-full items-center justify-center rounded-[8px] bg-[#ED5A2E] text-[0.9rem] font-semibold text-white">Add to Calendar</button>
             </div>
           </div>
         </div>
 
-        <section className="mt-5 grid grid-cols-2 gap-4">
-          <div><div className="text-[0.92rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Ticket Type</div><div className="mt-3 text-[0.9rem]">General Admission</div></div>
-          <div><div className="text-[0.92rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Schedule</div><div className="mt-3 text-[0.9rem]">3rd - 30th Nov, 2025</div></div>
-          <div><div className="text-[0.92rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Venue</div><div className="mt-3 text-[0.9rem]">02 Arena London, United Kingdom</div></div>
-          <div><div className="text-[0.92rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Age Requirement</div><div className="mt-3 text-[0.9rem]">18+ with valid ID Required</div></div>
-          <div><div className="text-[0.92rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Rating</div><Stars /></div>
-          <div><div className="text-[0.92rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Capacity</div><div className="mt-3 text-[0.9rem]">20,000 Seats</div></div>
-        </section>
-
-        <section className="mt-6 rounded-[16px] bg-[#111111] p-4">
-          <h2 className="text-[1rem] font-bold uppercase tracking-tight">About This Event</h2>
-          <p className="mt-3 text-[0.82rem] leading-relaxed text-white/80">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris cursus metus sed felis pulvinar gravida.</p>
-          <button className="mt-2 text-[0.8rem] text-[#ED5A2E]">Read more</button>
-          <div className="mt-4 border-t border-[#ED5A2E] pt-4">
-            <h3 className="text-[0.95rem] font-bold uppercase">What&apos;s Included</h3>
-            <ul className="mt-3 space-y-2 text-[0.78rem] text-white/85">
-              <li>{"•"} Premium Seating With Excellent Sightlights</li>
-              <li>{"•"} Full bar service</li>
-              <li>{"•"} Light refreshments</li>
-              <li>{"•"} Networking opportunities</li>
-            </ul>
+        <section className="mt-3 grid grid-cols-2 gap-x-8 gap-y-6 px-1">
+          <div>
+            <div className="text-[1.05rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Ticket Type</div>
+            <div className="mt-2 text-[0.82rem] text-white/90">General Admission</div>
           </div>
-          <div className="mt-4 border-t border-[#ED5A2E] pt-4">
-            <h3 className="text-[0.95rem] font-bold uppercase">What to bring</h3>
-            <ul className="mt-3 space-y-2 text-[0.78rem] text-white/85">
-              <li>{"•"} Valid Government-issued ID (18+ Event)</li>
-              <li>{"•"} Your ticket confirmation (digital or printed)</li>
-              <li>{"•"} Light refreshments</li>
-            </ul>
+          <div>
+            <div className="text-[1.05rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Schedule</div>
+            <div className="mt-2 text-[0.82rem] text-white/90">3rd - 30th Nov, 2025</div>
+          </div>
+          <div>
+            <div className="text-[1.05rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Venue</div>
+            <div className="mt-2 text-[0.82rem] leading-relaxed text-white/90">02 Arena London, United Kingdom</div>
+          </div>
+          <div>
+            <div className="text-[1.05rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Age Requirement</div>
+            <div className="mt-2 text-[0.82rem] text-white/90">18+ with valid ID Required</div>
+          </div>
+          <div>
+            <div className="text-[1.05rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Rating</div>
+            <div className="mt-2"><Stars /></div>
+          </div>
+          <div>
+            <div className="text-[1.05rem] font-semibold underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Capacity</div>
+            <div className="mt-2 text-[0.82rem] text-white/90">20,000 Seats</div>
           </div>
         </section>
 
-        <section className="mt-5 rounded-[18px] border border-[#ED5A2E] bg-[#181818] p-4">
+        <section className="mt-6">
+          <div className="rounded-[16px] bg-black px-1">
+            <h2 className="text-[1rem] font-bold uppercase tracking-tight underline decoration-[#ED5A2E] decoration-2 underline-offset-8">About This Event</h2>
+            <p className="mt-3 text-[0.78rem] leading-relaxed text-white/80">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris cursus metus sed felis pulvinar gravida. Vivamus eu augue volutpat lectus lacinia molestie.
+            </p>
+            <button className="mt-2 text-[0.8rem] text-[#ED5A2E]">Read more</button>
+
+            <div className="mt-5 pt-5">
+              <h3 className="text-[1rem] font-bold uppercase tracking-tight underline decoration-[#ED5A2E] decoration-2 underline-offset-8">What&apos;s Included</h3>
+              <ul className="mt-3 space-y-2 text-[0.78rem] text-white/85">
+                <li className="flex items-start gap-2"><span className="text-[#ED5A2E]">•</span><span>Premium Seating With Excellent Sightlights</span></li>
+                <li className="flex items-start gap-2"><span className="text-[#ED5A2E]">•</span><span>Full bar service</span></li>
+                <li className="flex items-start gap-2"><span className="text-[#ED5A2E]">•</span><span>Light refreshments</span></li>
+                <li className="flex items-start gap-2"><span className="text-[#ED5A2E]">•</span><span>Networking opportunities</span></li>
+              </ul>
+            </div>
+
+            <div className="mt-5 pt-5">
+              <h3 className="text-[1rem] font-bold uppercase tracking-tight underline decoration-[#ED5A2E] decoration-2 underline-offset-8">What to bring</h3>
+              <ul className="mt-3 space-y-2 text-[0.78rem] text-white/85">
+                <li className="flex items-start gap-2"><span className="text-[#ED5A2E]">•</span><span>Valid Government-issued ID (18+ Event)</span></li>
+                <li className="flex items-start gap-2"><span className="text-[#ED5A2E]">•</span><span>Your ticket confirmation (digital or printed)</span></li>
+                <li className="flex items-start gap-2"><span className="text-[#ED5A2E]">•</span><span>Light refreshments</span></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-6 rounded-[18px] border border-[#ED5A2E] bg-[#181818] p-4">
           <div className="flex items-center gap-4">
             <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white text-black text-[2rem]">E</div>
-            <div>
-              <div className="text-[0.95rem] font-medium">Elizabeth R Events <span className="text-[#ED5A2E]">{"✓"}</span></div>
-              <p className="mt-2 text-[0.72rem] text-white/80">Passionate about bringing world-class experiences to Lagos.</p>
+            <div className="min-w-0">
+              <div className="text-[0.95rem] font-medium">Elizabeth R Events <span className="text-[#ED5A2E]">{"✦"}</span></div>
+              <p className="mt-2 text-[0.72rem] leading-relaxed text-white/80">
+                Passionate about bringing world-class experiences to Lagos.
+              </p>
             </div>
           </div>
         </section>
 
-        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight">Event Schedule</h2>
+        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Event Schedule</h2>
         <div className="mt-4 rounded-[16px] bg-[#111111] p-4">
-          {["7:00 PM","7:30 PM","8:30 PM","10:30 PM","11:00 PM"].map((time, i) => (
-            <div key={time} className="relative pl-10 pb-6">
-              <div className="absolute left-0 top-0 flex h-6 w-6 items-center justify-center rounded-full border border-[#ED5A2E] text-[#ED5A2E]"><Clock3 className="h-3.5 w-3.5" /></div>
-              <div className="text-[0.65rem] text-[#ED5A2E]">{time}</div>
-              <div className="mt-1 text-[0.82rem]">{["Doors Open & Welcome Drinks","Opening Act","Main Performance","Networking Session","Event Ends"][i]}</div>
-            </div>
-          ))}
-        </div>
-
-        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight">Location</h2>
-        <div className="mt-3 rounded-[16px] bg-[#111111] p-4">
-          <Image src="/event-feature.jpg" alt="Map" width={800} height={420} className="h-[220px] w-full rounded-[8px] object-cover" />
-        </div>
-
-        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight">Review &amp; Ratings</h2>
-        <div className="mt-3 space-y-3">
-          {reviews.slice(0, 2).map((item) => (
-            <div key={`${item.name}-${item.id}`} className="rounded-[16px] bg-[#111111] p-4">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3"><div className="h-10 w-10 rounded-full bg-[#b76d4c]" /><div><div className="text-[0.88rem] font-semibold">{item.name}</div><div className="text-[0.68rem] text-white/65">{item.date}</div></div></div>
-                <Stars />
+          {[
+            ["7:00 PM", "Doors open & Welcome drinks", "Arrive, check in, and enjoy complimentary beverages"],
+            ["7:30 PM", "Opening Act", "Local talent showcase featuring emerging afrobeats artists"],
+            ["8:30 PM", "Main Performance", "Headlining afrobeats ensemble performs classic pieces"],
+            ["10:30 PM", "Networking Session", "Meet fellow afrobeats enthusiasts and the performers"],
+            ["11:00 PM", "Event Ends", "Thank you for joining us!"],
+          ].map(([time, title, desc]) => (
+            <div key={time} className="grid grid-cols-[34px_1fr] gap-3 pb-5">
+              <div className="flex flex-col items-center">
+                <Image src="/mobile-time.png" alt="Time" width={24} height={24} className="h-6 w-6 object-contain" />
+                <div className="mt-2 h-10 w-px bg-[#ED5A2E]" />
+              </div>
+              <div>
+                <div className="text-[0.68rem] font-medium text-[#ED5A2E]">{time}</div>
+                <div className="mt-1 text-[0.9rem] font-medium">{title}</div>
+                <div className="mt-1 text-[0.7rem] leading-relaxed text-white/65">{desc}</div>
               </div>
             </div>
           ))}
         </div>
 
-        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight">Frequently Asked Questions</h2>
+        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Location</h2>
+        <div className="mt-4 rounded-[16px] bg-[#111111] p-4">
+          <div className="overflow-hidden rounded-[8px] border border-white/10">
+            <Image src="/event-feature.jpg" alt="Map" width={800} height={420} className="h-[210px] w-full object-cover object-center" />
+          </div>
+          <div className="mt-5">
+            <div className="text-[1rem] font-medium">02 Arena</div>
+            <div className="mt-2 text-[0.82rem] leading-relaxed text-white/80">Peninsula Square London SE10 0DX United Kingdom</div>
+            <button className="mt-4 inline-flex items-center gap-2 rounded-[10px] bg-[#ED5A2E] px-4 py-2 text-[0.82rem] font-semibold text-white">
+              <Image src="/mobile-location.png" alt="Directions" width={18} height={18} className="h-4 w-4 object-contain" />
+              Get Directions
+            </button>
+          </div>
+          <div className="mt-5 grid grid-cols-1 gap-4">
+            {[
+              ["Parking", "Street parking available. Paid garage 2 blocks away on 5th Ave.", "/mobile-profile.png"],
+              ["Public Transport", "Subway: L train to 14th St. Bus: M14 to Main St.", "/mobile-ticket.png"],
+              ["Accessibility", "Wheelchair accessible entrance and restrooms available.", "/mobile-profile.png"],
+              ["Nearby", "2 blocks from Central Plaza, across from City Museum.", "/mobile-location.png"],
+            ].map(([title, desc, icon]) => (
+              <div key={title} className="flex items-start gap-3">
+                <Image src={icon as string} alt={title} width={18} height={18} className="mt-1 h-4 w-4 object-contain" />
+                <div>
+                  <div className="text-[0.95rem] font-medium">{title}</div>
+                  <div className="mt-1 text-[0.72rem] leading-relaxed text-white/75">{desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Review &amp; Ratings</h2>
+        <div className="mt-4 space-y-3">
+          {reviews.slice(0, 2).map((item) => (
+            <div key={`${item.name}-${item.id}`} className="rounded-[16px] bg-[#111111] p-4">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-[#b76d4c]" />
+                  <div>
+                    <div className="text-[0.88rem] font-semibold">{item.name}</div>
+                    <div className="text-[0.68rem] text-white/65">{item.date}</div>
+                  </div>
+                </div>
+                <Stars />
+              </div>
+              <p className="mt-3 text-[0.72rem] leading-relaxed text-white/75">{item.text}</p>
+            </div>
+          ))}
+        </div>
+
+        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Frequently Asked Questions</h2>
         <div className="mt-4 space-y-4">
           {faqs.map((faq, index) => (
             <div key={`${faq.q}-${index}`} className="border-b border-[#ED5A2E] pb-3">
-              <div className="flex items-center justify-between gap-3 text-[0.82rem]"><span>{faq.q}</span><ChevronDown className="h-4 w-4 text-[#ED5A2E]" /></div>
+              <div className="flex items-center justify-between gap-3 text-[0.8rem]">
+                <span>{faq.q}</span>
+                <ChevronDown className="h-4 w-4 text-[#ED5A2E]" />
+              </div>
               {index === 4 ? <p className="mt-2 text-[0.72rem] leading-relaxed text-[#ED5A2E]">{faq.a}</p> : null}
             </div>
           ))}
         </div>
 
-        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight">You Might Also Like</h2>
+        <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight underline decoration-[#ED5A2E] decoration-2 underline-offset-8">You Might Also Like</h2>
         <div className="mt-4 space-y-4">
           {Array.from({ length: 3 }).map((_, index) => (
             <article key={index} className="overflow-hidden rounded-[16px] bg-[#f6764f]">
-              <div className="relative h-[170px]"><Image src="/event-feature.jpg" alt="Recommended" fill className="object-cover" /></div>
+              <div className="relative h-[170px]">
+                <Image src="/event-feature.jpg" alt="Recommended" fill className="object-cover" />
+              </div>
               <div className="p-3 text-white">
-                <div className="flex items-start justify-between"><h3 className="text-[0.9rem] font-medium">Summer Music Festival 2024</h3><Heart className="h-4 w-4" /></div>
-                <div className="mt-1 flex items-center gap-1 text-[0.7rem] text-white/90"><MapPin className="h-3 w-3" /><span>Eko Conventional Center</span></div>
+                <div className="flex items-start justify-between">
+                  <h3 className="text-[0.9rem] font-medium">Summer Music Festival 2024</h3>
+                  <Heart className="h-4 w-4" />
+                </div>
+                <div className="mt-1 flex items-center gap-1 text-[0.7rem] text-white/90">
+                  <MapPin className="h-3 w-3" />
+                  <span>Eko Conventional Center</span>
+                </div>
               </div>
             </article>
           ))}

@@ -44,6 +44,25 @@ const pages = [
     ],
   },
   {
+    group: "Checkout",
+    color: "#ED5A2E",
+    items: [
+      { label: "Checkout Select", href: "/checkout", desc: "Select tickets and review the first checkout step" },
+      { label: "Checkout Review", href: "/checkout/payment", desc: "Main checkout review screen with ticket holder details and policies" },
+      { label: "Card Payment", href: "/checkout/card", desc: "Choose card payment as the gateway method" },
+      { label: "Bank Transfer", href: "/checkout/bank-transfer", desc: "Choose bank transfer as the gateway method" },
+      { label: "USSD Payment", href: "/checkout/ussd", desc: "Choose USSD as the gateway method" },
+      { label: "Checkout Confirmation", href: "/checkout/confirmation", desc: "Booking confirmation and ticket download screen" },
+      { label: "Ticket Detail Screen", href: "/ticket-detail-screen", desc: "Mobile ticket detail screen with QR scan view and ticket actions" },
+      { label: "Share Ticket Hub", href: "/checkout/share", desc: "Entry hub for share ticket flow" },
+      { label: "Share Link", href: "/checkout/share/link", desc: "Share ticket via link screen" },
+      { label: "Share Email", href: "/checkout/share/email", desc: "Share ticket via email screen" },
+      { label: "Share Transfer", href: "/checkout/share/transfer", desc: "Transfer to a TRCK user screen" },
+      { label: "Cancel Ticket", href: "/checkout/cancel", desc: "Cancel ticket screen" },
+      { label: "Notifications", href: "/notifications", desc: "Notifications page with new notification sections" },
+    ],
+  },
+  {
     group: "General Listing",
     color: "#ED5A2E",
     items: [
@@ -65,6 +84,33 @@ const pages = [
     ],
   },
   {
+    group: "Experience Host Portal Screens",
+    color: "#ED5A2E",
+    items: [
+      { 
+        label: "Onboarding and Verification", 
+        href: "#onboarding-verification",
+        desc: "Host onboarding flow and verification processes",
+        isSection: true,
+      },
+      { label: "Host Sign Up", href: "/host/signup", desc: "Step 0: Create host account (Mobile & Desktop)", indent: true },
+      { label: "Business Info", href: "/host/onboarding/business-info", desc: "Step 1: Set up business info", indent: true },
+      { label: "KYC Verification", href: "/host/onboarding/kyc", desc: "Step 2: Upload ID & Proof of Address", indent: true },
+      { label: "Bank Verification", href: "/host/onboarding/bank-verification", desc: "Step 3: Bank account verification", indent: true },
+      { label: "KYC Status", href: "/host/onboarding/status", desc: "Step 4: Review success decision", indent: true },
+      { 
+        label: "Teams and Accreditation", 
+        href: "#teams-accreditation",
+        desc: "Team management, role assignments, and permissions",
+        isSection: true,
+      },
+      { label: "Team Management", href: "/team-management", desc: "Team overview with summary cards, search/filter, member list, and pending invitations", indent: true },
+      { label: "Edit Team Member", href: "/team-management/edit-member", desc: "Edit member role (Admin/Manager/Staff) and account status (Active/Inactive)", indent: true },
+      { label: "Access Role Assignment", href: "/access-role-assignment", desc: "Manage role permissions with expandable categories and toggle switches", indent: true },
+      { label: "Roles and Statuses", href: "/roles-and-statuses", desc: "Global role and status permission management with reset functionality", indent: true },
+    ],
+  },
+  {
     group: "Admin Dashboard Pages",
     color: "#52B698",
     items: [
@@ -76,6 +122,32 @@ const pages = [
       { label: "Admin Promotions", href: "/admin/promotions", desc: "Promotions page with metrics banner, filter pills & promotions list" },
       { label: "Admin Payouts", href: "/admin/payouts", desc: "Payouts summary page with wallet hero & payout history table" },
       { label: "Admin Events", href: "/admin/events", desc: "Event management dashboard with modal publish state" },
+    ],
+  },
+  {
+    group: "KYC and User Management",
+    color: "#ED5828",
+    items: [
+      {
+        label: "KYC & User Management",
+        href: "/kyc-user-management",
+        desc: "Management dashboard with 8 KPI stat cards, List view, Calendar view (Dec 2025), and Timeline view with weekly/monthly/quarterly data interpretations",
+      },
+      {
+        label: "Event Detail View (Admin)",
+        href: "/kyc-user-management/event-detail",
+        desc: "Comprehensive admin event detail view with hero cover, live KPI tracking, quick actions, attendees, and financial payout breakdown",
+      },
+      {
+        label: "Content Moderation (Admin)",
+        href: "/kyc-user-management/content-moderation",
+        desc: "Content moderation management with 4 KPI cards, flag reviews, auto-moderation settings, and reporting thresholds",
+      },
+      {
+        label: "Settings Dashboard (Admin)",
+        href: "/kyc-user-management/settings",
+        desc: "Admin settings dashboard with 8 sidebar views including payment gateways, payout schedules, tax configurations, and footer",
+      },
     ],
   },
 ];
@@ -101,30 +173,39 @@ export default function IndexPage() {
               {group.group}
             </h2>
             <div className="space-y-2">
-              {group.items.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="flex items-center justify-between border border-white/10 rounded-xl px-5 py-4 hover:border-white/30 hover:bg-white/5 transition-all group"
-                >
-                  <div>
-                    <p className="font-semibold text-sm text-white group-hover:text-[#ED5A2E] transition-colors">
+              {group.items.map((item: any) => (
+                item.isSection ? (
+                  <div key={item.href} className="mt-4 mb-2">
+                    <h3 className="text-sm font-bold text-white/80 uppercase tracking-wide">
                       {item.label}
-                    </p>
-                    <p className="text-xs text-white/40 mt-0.5">{item.desc}</p>
+                    </h3>
+                    <p className="text-xs text-white/40 mt-1">{item.desc}</p>
                   </div>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="text-white/30 group-hover:text-[#ED5A2E] group-hover:translate-x-1 transition-all"
+                ) : (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center justify-between border border-white/10 rounded-xl px-5 py-4 hover:border-white/30 hover:bg-white/5 transition-all group ${item.indent ? 'ml-4' : ''}`}
                   >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </Link>
+                    <div>
+                      <p className="font-semibold text-sm text-white group-hover:text-[#ED5A2E] transition-colors">
+                        {item.label}
+                      </p>
+                      <p className="text-xs text-white/40 mt-0.5">{item.desc}</p>
+                    </div>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      className="text-white/30 group-hover:text-[#ED5A2E] group-hover:translate-x-1 transition-all"
+                    >
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                )
               ))}
             </div>
           </div>
