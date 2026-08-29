@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { X, Check, X as XIcon } from "lucide-react";
 import { RoleDefinition } from "@/types/host-portal";
-import { RolePill, RoleCircle, getRoleColor, SaveButton, CancelButton } from "@/components/host";
+import { RolePill, getRoleColor, SaveButton } from "@/components/host";
+import { RoleType } from "@/components/host/role-pill";
 
 // API Endpoint: GET /api/host-portal/team-management/edit-member/[id]
 // API Endpoint: PUT /api/host-portal/team-management/edit-member/[id]
@@ -95,14 +96,14 @@ export default function EditTeamMemberPage() {
           <div className="flex items-start gap-4">
             <div 
               className="w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold text-white"
-              style={{ backgroundColor: getRoleColor(member.currentRole.toLowerCase() as any).bg }}
+              style={{ backgroundColor: getRoleColor(member.currentRole.toLowerCase() as RoleType).bg }}
             >
               {member.name.split(" ").map((n) => n[0]).join("")}
             </div>
             <div className="flex-1">
               <h2 className="text-xl font-semibold mb-1">{member.name}</h2>
               <p className="text-white/60 mb-2">{member.email}</p>
-              <RolePill role={member.currentRole.toLowerCase() as any} />
+              <RolePill role={member.currentRole.toLowerCase() as RoleType} />
             </div>
           </div>
           <button

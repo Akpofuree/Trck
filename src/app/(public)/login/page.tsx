@@ -183,7 +183,7 @@ export default function Page() {
             {Array.from({ length: 49 }).map((_, i) => {
               const corners = [0,1,2,3,4,5,6,7,13,14,20,21,27,28,34,35,41,42,43,44,45,46,47,48];
               const isCorner = corners.includes(i);
-              const isDark = isCorner || Math.random() > 0.55;
+              const isDark = isCorner || (i % 2 === 0 && (i * 7) % 5 !== 0);
               return (
                 <div
                   key={i}

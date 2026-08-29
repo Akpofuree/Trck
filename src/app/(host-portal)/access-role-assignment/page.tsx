@@ -5,7 +5,8 @@ import Link from "next/link";
 import { ArrowLeft, Search, ChevronDown, ChevronRight, Users, Calendar, Users2, DollarSign, Megaphone, Check, AlertTriangle } from "lucide-react";
 import { PermissionCategory } from "@/types/host-portal";
 import { Footer } from "@/components/shared/footer";
-import { RolePill, getRoleColor, SaveButton, CancelButton } from "@/components/host";
+import { RolePill, SaveButton, CancelButton } from "@/components/host";
+import { RoleType } from "@/components/host/role-pill";
 
 // API Endpoint: GET /api/host-portal/access-role-assignment/[roleId]
 // API Endpoint: PUT /api/host-portal/access-role-assignment/[roleId]
@@ -208,7 +209,7 @@ export default function AccessRoleAssignmentPage() {
             </span>
           </div>
           <div className="flex items-center gap-3">
-            <RolePill role={roleData.name.toLowerCase() as any} />
+            <RolePill role={roleData.name.toLowerCase() as RoleType} />
             <button className="border border-white text-white hover:bg-white/10 px-4 py-2 rounded-full text-sm font-semibold transition-colors">
               View Members
             </button>

@@ -1,7 +1,21 @@
 import Link from "next/link";
 import { Logo } from "@/components/shared/logo";
 
-const pages = [
+interface PageItem {
+  label: string;
+  href: string;
+  desc: string;
+  isSection?: boolean;
+  indent?: boolean;
+}
+
+interface PageGroup {
+  group: string;
+  color: string;
+  items: PageItem[];
+}
+
+const pages: PageGroup[] = [
   {
     group: "Onboarding Screens",
     color: "#A78BFA",
@@ -73,33 +87,33 @@ const pages = [
     ],
   },
   {
-    group: "Host Onboarding Flow",
+    group: "Host Portal",
     color: "#ED5A2E",
     items: [
-      { label: "Host Sign Up", href: "/host/signup", desc: "Step 0: Create host account (Mobile & Desktop)" },
-      { label: "Business Info", href: "/host/onboarding/business-info", desc: "Step 1: Set up business info" },
-      { label: "KYC Verification", href: "/host/onboarding/kyc", desc: "Step 2: Upload ID & Proof of Address" },
-      { label: "Bank Verification", href: "/host/onboarding/bank-verification", desc: "Step 3: Bank account verification" },
-      { label: "KYC Status", href: "/host/onboarding/status", desc: "Step 4: Review success decision" },
-    ],
-  },
-  {
-    group: "Experience Host Portal Screens",
-    color: "#ED5A2E",
-    items: [
-      { 
-        label: "Onboarding and Verification", 
+      {
+        label: "Onboarding & Verification",
         href: "#onboarding-verification",
         desc: "Host onboarding flow and verification processes",
         isSection: true,
       },
       { label: "Host Sign Up", href: "/host/signup", desc: "Step 0: Create host account (Mobile & Desktop)", indent: true },
       { label: "Business Info", href: "/host/onboarding/business-info", desc: "Step 1: Set up business info", indent: true },
-      { label: "KYC Verification", href: "/host/onboarding/kyc", desc: "Step 2: Upload ID & Proof of Address", indent: true },
-      { label: "Bank Verification", href: "/host/onboarding/bank-verification", desc: "Step 3: Bank account verification", indent: true },
-      { label: "KYC Status", href: "/host/onboarding/status", desc: "Step 4: Review success decision", indent: true },
-      { 
-        label: "Teams and Accreditation", 
+      { label: "KYC Verification", href: "/host/onboarding/kyc", desc: "Step 2: Upload ID & Proof of Address — dashboard shell", indent: true },
+      { label: "Bank Verification", href: "/host/onboarding/bank-verification", desc: "Step 3: Bank account verification — dashboard shell", indent: true },
+      { label: "KYC Status", href: "/host/onboarding/status", desc: "Step 4: Review decision (Success / Pending / Failed) — interactive", indent: true },
+      {
+        label: "Host Dashboard & Operations",
+        href: "#host-operations",
+        desc: "Host management suite with dashboard, calendar, promotions, and payouts",
+        isSection: true,
+      },
+      { label: "Host Dashboard Overview", href: "/host/dashboard", desc: "Recent events overview with live statuses and quick actions", indent: true },
+      { label: "Host Calendar", href: "/host/calendar", desc: "Calendar, list, and timeline view with event scheduler", indent: true },
+      { label: "Host Promotions", href: "/host/promotions", desc: "Promotions metrics with 4 KPI cards and filter presets", indent: true },
+      { label: "Host Payouts", href: "/host/payouts", desc: "Wallet summary, payout status breakdown, and withdrawal history table", indent: true },
+      { label: "Host Reviews", href: "/host/reviews", desc: "Attendee feedback and event ratings summary", indent: true },
+      {
+        label: "Teams & Accreditation",
         href: "#teams-accreditation",
         desc: "Team management, role assignments, and permissions",
         isSection: true,
@@ -111,7 +125,7 @@ const pages = [
     ],
   },
   {
-    group: "Admin Dashboard Pages",
+    group: "Admin Dashboard",
     color: "#52B698",
     items: [
       { label: "Admin Dashboard", href: "/admin/dashboard", desc: "Main Dashboard with metrics, charts & customer list" },
@@ -173,7 +187,7 @@ export default function IndexPage() {
               {group.group}
             </h2>
             <div className="space-y-2">
-              {group.items.map((item: any) => (
+              {group.items.map((item) => (
                 item.isSection ? (
                   <div key={item.href} className="mt-4 mb-2">
                     <h3 className="text-sm font-bold text-white/80 uppercase tracking-wide">

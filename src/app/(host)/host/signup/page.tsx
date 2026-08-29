@@ -31,35 +31,42 @@ export default function HostSignupPage() {
 
   return (
     <div className="min-h-screen bg-black flex flex-col font-poppins">
-      {/* Top Navigation */}
-      <nav className="flex items-center justify-between px-4 py-4 md:px-8">
+      {/* Top Navigation — white header */}
+      <nav className="flex items-center justify-between px-4 py-3 md:px-8 bg-white border-b border-gray-100">
         {/* Logo */}
         <Logo width={120} height={44} className="h-9 w-auto" />
 
         {/* Desktop nav items */}
         <div className="hidden md:flex items-center gap-4">
-          <button className="flex items-center gap-2 border border-white/20 text-white text-sm px-4 py-1.5 rounded-full">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          {/* Search — Figma: 99×34px, radius 16px */}
+          <button
+            className="flex items-center gap-2 border border-gray-200 text-gray-500 text-sm bg-white hover:bg-gray-50 transition-colors"
+            style={{ width: 99, height: 34, borderRadius: 16, paddingLeft: 12, paddingRight: 12 }}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0">
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.35-4.35" />
             </svg>
-            Search
+            <span className="text-xs">Search</span>
           </button>
-          <select className="bg-black text-white text-sm border-none outline-none cursor-pointer">
+          <select className="bg-white text-gray-700 text-sm border-none outline-none cursor-pointer">
             <option>English (United States)</option>
           </select>
+          {/* Login button — Figma: 98×40px, radius 8px, bg #111111, white text */}
           <Link
             href="/host/login"
-            className="bg-black text-white border border-white/40 text-sm font-semibold px-5 py-2 rounded-full hover:bg-white/10 transition-colors"
+            className="flex items-center justify-center text-white text-sm font-semibold hover:bg-[#222222] transition-colors"
+            style={{ width: 98, height: 40, borderRadius: 8, backgroundColor: "#111111" }}
           >
             Log in
           </Link>
         </div>
 
-        {/* Mobile Login Button */}
+        {/* Mobile Login Button — Figma: 76.71×31.31px, radius 6.26px, bg #111111 */}
         <Link
           href="/host/login"
-          className="md:hidden bg-white text-black text-[0.783rem] font-normal px-4 py-1.5 rounded-full text-center"
+          className="md:hidden flex items-center justify-center text-white text-[0.75rem] font-medium"
+          style={{ width: 76.71, height: 31.31, borderRadius: 6.26, backgroundColor: "#111111" }}
         >
           Log in
         </Link>
@@ -67,30 +74,34 @@ export default function HostSignupPage() {
 
       {/* Main Content */}
       <div className="flex flex-1 items-start justify-center md:items-center md:px-8 py-6">
+
         {/* Desktop: side text + card layout */}
-        <div className="hidden md:flex w-full max-w-5xl gap-12 items-center">
+        <div className="hidden md:flex w-full max-w-6xl gap-12 items-center justify-center">
           {/* Left side text */}
-          <div className="flex-1 text-white font-montserrat">
-            <h1 className="text-[2.5rem] font-semibold leading-none tracking-normal mb-4">
-              Become a Host
+          <div className="flex-1 text-white font-montserrat max-w-sm">
+            <h1 className="text-[2.5rem] font-bold leading-none tracking-normal mb-4 uppercase">
+              BECOME A HOST
             </h1>
-            <p className="text-[2rem] font-normal leading-[3.0625rem] tracking-[0.01em] text-white/90">
-              Create events, manage bookings, and reach your audience.
+            <p className="text-[1.5rem] font-normal leading-[1.6] text-white/90">
+              Create events, manage bookings, and reach your audience. Hosting starts here.
             </p>
           </div>
 
-          {/* Right side form card */}
-          <div className="w-[420px] bg-white rounded-2xl p-8 shadow-2xl font-poppins">
-            <h2 className="text-black text-[1.806rem] font-medium leading-none mb-6 text-center">
-              Create Your Host Account
+          {/* Right side form card — Figma: 697×787.28px, radius 21.67px */}
+          <div
+            className="bg-white shadow-2xl font-poppins flex flex-col p-10"
+            style={{ width: 697, minHeight: 787.28, borderRadius: 21.67 }}
+          >
+            <h2 className="text-black text-[1.806rem] font-medium leading-none mb-6">
+              Create your host account
             </h2>
 
-            <div className="space-y-4">
+            <div className="space-y-4 flex-1">
               {/* First & Last Name row */}
-              <div className="flex gap-3">
+              <div className="flex gap-4">
                 <div className="flex-1">
                   <label className="block text-[0.903rem] text-[#666666] font-normal mb-1.5">
-                    First Name
+                    First name
                   </label>
                   <input
                     type="text"
@@ -102,7 +113,7 @@ export default function HostSignupPage() {
                 </div>
                 <div className="flex-1">
                   <label className="block text-[0.903rem] text-[#666666] font-normal mb-1.5">
-                    Last Name
+                    Last name
                   </label>
                   <input
                     type="text"
@@ -117,7 +128,7 @@ export default function HostSignupPage() {
               {/* Email */}
               <div>
                 <label className="block text-[0.903rem] text-[#666666] font-normal mb-1.5">
-                  Email Address
+                  Email address
                 </label>
                 <input
                   type="email"
@@ -131,7 +142,7 @@ export default function HostSignupPage() {
               {/* Phone */}
               <div>
                 <label className="block text-[0.903rem] text-[#666666] font-normal mb-1.5">
-                  Phone Number
+                  Phone number
                 </label>
                 <div className="flex border border-gray-300 rounded-lg overflow-hidden focus-within:border-[#ED5A2E] focus-within:ring-1 focus-within:ring-[#ED5A2E] transition-colors">
                   <div className="flex items-center gap-1.5 px-3 border-r border-gray-300 bg-gray-50 shrink-0">
@@ -163,7 +174,7 @@ export default function HostSignupPage() {
                     className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 transition-colors"
                   >
                     {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
-                    <span>{showPassword ? "Hide" : "Show"}</span>
+                    <span>{showPassword ? "Hide" : "Hide"}</span>
                   </button>
                 </div>
                 <input
@@ -174,12 +185,12 @@ export default function HostSignupPage() {
                   className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-black text-sm outline-none focus:border-[#ED5A2E] focus:ring-1 focus:ring-[#ED5A2E] transition-colors"
                 />
                 <p className="mt-1.5 text-[0.79rem] text-[#666666] font-normal">
-                  Use at least 8 characters
+                  Use 8 or more characters with a mix of letters, numbers &amp; symbols
                 </p>
               </div>
 
               {/* Checkboxes */}
-              <div className="space-y-2.5 pt-1">
+              <div className="space-y-3 pt-1">
                 <label className="flex items-start gap-2.5 cursor-pointer">
                   <input
                     type="checkbox"
@@ -190,7 +201,7 @@ export default function HostSignupPage() {
                   <span className="text-[0.903rem] text-[#666666] font-normal leading-relaxed">
                     By creating an account, I agree to our{" "}
                     <Link href="/terms" className="text-[#666666] underline">
-                      Terms of Use
+                      Terms of use
                     </Link>{" "}
                     and{" "}
                     <Link href="/privacy" className="text-[#666666] underline">
@@ -211,27 +222,26 @@ export default function HostSignupPage() {
                 </label>
               </div>
 
-              {/* Sign Up Button */}
-              <div className="flex justify-center pt-2">
+              {/* Sign Up + Already have an account — same row as per screenshot */}
+              <div className="flex items-center gap-4 pt-3">
                 <button
                   type="submit"
                   disabled={!isFormValid}
-                  className={`w-[148px] h-[27.78px] rounded-[36.11px] text-[1.241rem] font-medium transition-all flex items-center justify-center ${
+                  className={`rounded-[36.11px] text-[1rem] font-medium transition-all flex items-center justify-center px-8 py-2 ${
                     isFormValid
-                      ? "bg-[#ED5A2E] text-white hover:bg-[#d44d24] opacity-100"
-                      : "bg-[#ED5A2E] text-white opacity-25 cursor-not-allowed"
+                      ? "bg-[#ED5A2E] text-white hover:bg-[#d44d24]"
+                      : "bg-[#ED5A2E] text-white opacity-40 cursor-not-allowed"
                   }`}
                 >
                   Sign up
                 </button>
+                <p className="text-[0.903rem] font-normal text-[#666666]">
+                  Already have an account?{" "}
+                  <Link href="/host/login" className="text-[#333333] underline">
+                    Log in
+                  </Link>
+                </p>
               </div>
-
-              <p className="text-center text-[0.903rem] font-normal text-[#666666]">
-                Already have an account?{" "}
-                <Link href="/host/login" className="text-[#333333] underline">
-                  Login
-                </Link>
-              </p>
             </div>
           </div>
         </div>
@@ -310,7 +320,7 @@ export default function HostSignupPage() {
                   className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 transition-colors"
                 >
                   {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
-                  <span>{showPassword ? "Hide" : "Show"}</span>
+                  <span>{showPassword ? "Hide" : "Hide"}</span>
                 </button>
               </div>
               <input
@@ -320,8 +330,8 @@ export default function HostSignupPage() {
                 onChange={handleChange}
                 className="w-full bg-transparent border border-white/30 rounded-lg px-4 py-3 text-white text-sm outline-none focus:border-[#ED5A2E] transition-colors"
               />
-              <p className="mt-2 text-[0.875rem] font-normal text-[#C8C8C8]">
-                Use 8 or more characters with a mix of letters
+              <p className="mt-2 text-[0.75rem] font-normal text-[#C8C8C8]">
+                Use 8 or more characters with a mix of letters, numbers &amp; symbols
               </p>
             </div>
 
@@ -336,9 +346,9 @@ export default function HostSignupPage() {
                 />
                 <span className="text-[0.745rem] font-normal text-white/80 leading-relaxed">
                   By creating an account, I agree to our{" "}
-                  <Link href="/privacy" className="text-[#ED5A2E] underline">
-                    Privacy Policy
-                  </Link>
+                  <Link href="/terms" className="text-[#666666] underline">Terms of use</Link>{" "}
+                  and{" "}
+                  <Link href="/privacy" className="text-[#666666] underline">Privacy Policy</Link>
                 </span>
               </label>
               <label className="flex items-start gap-3 cursor-pointer">
@@ -349,20 +359,19 @@ export default function HostSignupPage() {
                   className="mt-0.5 w-4 h-4 accent-[#ED5A2E] cursor-pointer"
                 />
                 <span className="text-[0.745rem] font-normal text-white/80 leading-relaxed">
-                  By creating an account, I am also consenting to receive SMS messages and emails,
+                  By creating an account, I am also consenting to receive SMS messages and emails, including product new feature updates, events, and marketing promotions.
                 </span>
               </label>
             </div>
 
-            {/* Sign Up Button */}
-            <div className="flex justify-center">
-              <button
-                type="button"
-                className="w-[332px] h-[58px] rounded-[7.1px] bg-[#ED5E2E] text-white text-[1.256rem] font-medium flex items-center justify-center hover:bg-[#d44d24] active:scale-[0.98] transition-all mt-2"
-              >
-                Sign up
-              </button>
-            </div>
+            {/* Mobile Sign Up Button — fills width like inputs, radius 7.1px */}
+            <button
+              type="button"
+              style={{ borderRadius: 7.1 }}
+              className="w-full py-4 bg-[#ED5E2E] text-white text-[1.1rem] font-medium flex items-center justify-center hover:bg-[#d44d24] active:scale-[0.98] transition-all mt-2"
+            >
+              Sign up
+            </button>
 
             <p className="text-center text-xs text-white/50 pb-6">
               Already have an account?{" "}

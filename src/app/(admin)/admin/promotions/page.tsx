@@ -18,453 +18,477 @@ import {
   Bell,
   ChevronLeft,
   ChevronDown,
-  Plus,
+  Eye,
+  Pencil,
+  Copy,
+  BarChart2,
   Share2,
   MoreVertical,
   MapPin,
-  Eye,
-  Edit2,
-  BarChart2,
-  Copy,
-  Menu,
-  Globe,
-  Link2,
-  CheckCircle2,
+  CalendarDays,
+  UserCheck,
   CircleDollarSign,
-  User,
-  ShieldCheck,
-  Building2,
-  Radio,
+  CheckCircle2,
+  ArrowLeftRight,
   Send,
-  DollarSign
+  Maximize2,
+  Layers,
+  DollarSign,
+  MessageSquare,
 } from "lucide-react";
 
-type NavItem = {
-  label: string;
-  icon: React.ComponentType<{ size?: number; className?: string }>;
-  href: string;
-  active?: boolean;
-};
-
-type NavGroups = Record<string, NavItem[]>;
-
-const navItems: NavGroups = {
-  Home: [
-    { label: "Dashboard", icon: LayoutDashboard, href: "/admin/dashboard" },
-    { label: "Calendar", icon: CalendarIcon, href: "/admin/calendar" },
-    { label: "Promotions", icon: Megaphone, href: "/admin/promotions", active: true },
-    { label: "Payouts", icon: Wallet, href: "/admin/payouts" },
-  ],
-  Management: [
-    { label: "KYC Verification", icon: ShieldCheck, href: "/admin/kyc" },
-    { label: "Bank Verification", icon: Building2, href: "/admin/bank-verification" },
-    { label: "KYC Status", icon: CheckCircle2, href: "/admin/kyc-status" },
-    { label: "Users", icon: Users, href: "/admin/users" },
-    { label: "Tickets", icon: Ticket, href: "/admin/tickets" },
-    { label: "Events", icon: Music, href: "/admin/events" },
-    { label: "Earnings", icon: TrendingUp, href: "/admin/earnings" },
-    { label: "Reviews", icon: Star, href: "/admin/reviews" },
-  ],
-  Other: [
-    { label: "Reports", icon: FileText, href: "/admin/report" },
-    { label: "Settings", icon: Settings, href: "/admin/settings" },
-  ],
-};
-
-const promotionsList = [
+const NAV_ITEMS = [
   {
-    id: 1,
-    title: "5IVE LIVE AT 02 ARENA",
-    tag: "LIVE",
-    category: "Concert",
-    partOf: "Davido live at 02",
-    date: "Friday, Nov 15, 2024",
-    location: "02 Arena, London, United Kingdom",
-    sold: "156/200 (78%)",
-    revenue: "₦450,000",
-    checkins: "145/156",
+    section: "Home",
+    items: [
+      { label: "Dashboard", icon: LayoutDashboard, href: "/host/dashboard" },
+      { label: "Calenders", icon: CalendarIcon, href: "/host/calendar" },
+      { label: "Promotions", icon: Megaphone, href: "/host/promotions", active: true },
+      { label: "Payouts", icon: Wallet, href: "/host/payouts" },
+    ],
   },
   {
-    id: 2,
-    title: "5IVE LIVE AT 02 ARENA",
-    tag: "PUBLISHED",
-    category: "Concert",
-    partOf: "Davido live at 02",
-    date: "Friday, Nov 15, 2024",
-    location: "02 Arena, London, United Kingdom",
-    sold: "156/200 (78%)",
-    revenue: "₦450,000",
-    checkins: "145/156",
+    section: "Management",
+    items: [
+      { label: "Users", icon: Users, href: "#" },
+      { label: "Tickets", icon: Ticket, href: "#" },
+      { label: "Events", icon: Music, href: "#" },
+      { label: "Earnings", icon: TrendingUp, href: "#" },
+      { label: "Reviews", icon: Star, href: "/host/reviews" },
+    ],
+  },
+  {
+    section: "Other",
+    items: [
+      { label: "Report", icon: FileText, href: "#" },
+      { label: "Settings", icon: Settings, href: "#" },
+    ],
   },
 ];
 
-export default function AdminPromotionsPage() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [hasPromotions] = useState(true);
+export default function HostPromotionsPage() {
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [statusFilter, setStatusFilter] = useState("Status");
+  const [typeFilter, setTypeFilter] = useState("Promotion Type");
+  const [costFilter, setCostFilter] = useState("Cost");
 
   return (
-    <div className="flex h-screen bg-black text-white overflow-hidden font-sans">
-      {/* Sidebar */}
-      <aside
-        className={`${
-          sidebarOpen ? "w-[260px]" : "w-16"
-        } bg-black border-r border-white/10 flex flex-col shrink-0 transition-all duration-300 overflow-hidden z-20 hidden md:flex`}
-      >
-        {/* Top Header Section above Sidebar */}
-        <div className="h-[57px] bg-white border-b border-r border-gray-200 flex items-center justify-between px-4 shrink-0">
-          {sidebarOpen ? (
-            <Link href="/" className="flex items-center gap-1.5">
-              <span className="font-extrabold text-black text-lg tracking-wider">TRCK</span>
-            </Link>
-          ) : null}
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="w-7 h-7 flex items-center justify-center rounded-lg border border-gray-300 text-gray-600 hover:text-black hover:bg-gray-100 transition-colors ml-auto"
-            title={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
+    <div className="min-h-screen bg-[#000000] text-white flex flex-col font-montserrat">
+      {/* ── WHITE TOP HEADER (Desktop) ─────────────────── */}
+      <header className="hidden md:flex h-[70px] bg-white items-center justify-between px-6 border-b border-gray-100 shrink-0 z-20">
+        <span className="text-black font-semibold text-[1rem] font-poppins">Promotions</span>
+
+        <div className="flex items-center gap-4">
+          {/* Orange Search Bar: 220.85px x 43.97px, radius 7.49px */}
+          <div
+            className="flex items-center justify-between px-4 bg-[#ED5A2E] text-white cursor-pointer transition-opacity hover:opacity-95"
+            style={{
+              width: 220.85,
+              height: 43.97,
+              borderRadius: 7.49,
+            }}
           >
-            <ChevronLeft
-              size={14}
-              className={`transition-transform duration-300 ${!sidebarOpen ? "rotate-180" : ""}`}
-            />
-          </button>
-        </div>
-
-        {/* Search */}
-        {sidebarOpen && (
-          <div className="px-3 py-3 border-b border-white/10">
-            <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-2">
-              <Search size={13} className="text-white/40" />
-              <input
-                type="text"
-                placeholder="Search"
-                className="flex-1 bg-transparent text-white text-xs outline-none placeholder:text-white/30"
-              />
-              <div className="flex items-center gap-1 text-white/30">
-                <span className="text-[10px] border border-white/20 rounded px-1">⌘</span>
-                <span className="text-[10px] border border-white/20 rounded px-1">K</span>
-              </div>
-            </div>
+            <span className="text-xs font-medium tracking-wide">Search Here</span>
+            <Search size={16} className="text-white" />
           </div>
-        )}
 
-        {/* Nav Groups */}
-        <nav className="flex-1 overflow-y-auto py-3 space-y-1">
-          {Object.entries(navItems).map(([group, items]) => (
-            <div key={group} className="px-3">
-              {sidebarOpen && (
-                <p className="text-xs font-semibold text-white/35 font-montserrat uppercase tracking-wider mb-2 px-2 mt-3 first:mt-0">
-                  {group}
-                </p>
-              )}
-              {items.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-[11.58px] text-[1.287rem] font-semibold font-montserrat leading-none transition-all mb-1 group ${
-                    item.active
-                      ? "bg-[#ED5E2E] text-white"
-                      : "text-white/60 hover:text-white hover:bg-white/10"
-                  }`}
-                  title={!sidebarOpen ? item.label : undefined}
-                >
-                  <item.icon
-                    size={20}
-                    className={`shrink-0 ${item.active ? "text-white" : "text-white/50 group-hover:text-white"}`}
-                  />
-                  {sidebarOpen && <span>{item.label}</span>}
-                </Link>
-              ))}
-            </div>
-          ))}
-        </nav>
-      </aside>
+          {/* Messages Icon with badge 3 */}
+          <button className="relative p-2 bg-[#F5F5F5] rounded-xl text-gray-700 hover:bg-gray-200 transition-colors">
+            <MessageSquare size={18} />
+            <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#ED5828] text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+              3
+            </span>
+          </button>
 
-      {/* Main Container */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Main Dashboard Header (Top Right Profile Header) */}
-        <header className="hidden md:flex items-center justify-end px-6 py-3.5 bg-white text-black shrink-0 border-b border-gray-200 h-[57px]">
-          <div className="flex items-center gap-2.5 cursor-pointer group">
-            <div className="w-8 h-8 rounded-full bg-[#ED5A2E] flex items-center justify-center text-white text-xs font-bold">
+          {/* Notification bell with badge 1 */}
+          <button className="relative p-2 bg-[#F5F5F5] rounded-xl text-gray-700 hover:bg-gray-200 transition-colors">
+            <Bell size={18} />
+            <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#ED5828] text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+              1
+            </span>
+          </button>
+
+          <div className="w-px h-6 bg-gray-200" />
+
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-[#ED5828] flex items-center justify-center text-white text-xs font-bold">
               DO
             </div>
             <div className="font-poppins">
               <p className="text-[0.826rem] font-normal leading-none text-black">Dominion Ogbaji</p>
-              <p className="text-[0.641rem] font-normal leading-none text-black mt-0.5">Super Admin</p>
+              <p className="text-[0.641rem] font-normal leading-none text-gray-500 mt-0.5">Super Admin</p>
             </div>
           </div>
-        </header>
+        </div>
+      </header>
 
-        {/* Mobile Header Bar */}
-        <header className="md:hidden flex items-center justify-between px-4 py-3 bg-black text-white border-b border-white/10">
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-1.5 border border-white/30 rounded-lg">
-            <Menu size={20} />
+      {/* ── MOBILE HEADER ───────────────────────────────── */}
+      <div className="md:hidden flex flex-col shrink-0">
+        <header className="flex items-center justify-between px-4 py-3 bg-[#000000]">
+          <button className="w-10 h-10 border-2 border-dashed border-white/40 rounded-lg flex items-center justify-center text-white">
+            <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+              <rect width="18" height="2" rx="1" fill="white" />
+              <rect y="6" width="18" height="2" rx="1" fill="white" />
+              <rect y="12" width="18" height="2" rx="1" fill="white" />
+            </svg>
           </button>
-          <h1 className="text-white font-bold text-base">Promotions</h1>
-          <div className="flex items-center gap-3">
-            <button className="p-1 text-white/80">
+          <div className="flex items-center gap-4">
+            <button className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/80">
               <Search size={18} />
             </button>
-            <button className="p-1 text-white/80 relative">
+            <button className="relative w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/80">
               <Bell size={18} />
-              <span className="absolute top-0.5 right-0.5 w-2 h-2 bg-red-500 rounded-full" />
+              <span className="absolute top-0.5 right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border border-black" />
             </button>
-            <div className="h-4 w-[1px] bg-white/20" />
-            <div className="w-7 h-7 rounded-full bg-blue-500 flex items-center justify-center text-white">
-              <User size={14} />
+            <div className="w-9 h-9 rounded-full bg-[#5B9BD5] flex items-center justify-center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+              </svg>
             </div>
           </div>
         </header>
+        <div className="h-[3px] bg-[#0099FF] w-full" />
+      </div>
 
-        {/* Main Content Body */}
-        <main className="flex-1 overflow-y-auto bg-black p-4 md:p-8 space-y-6">
-
-          {/* Row 1: Dashboard Sub-header */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <h1 className="font-montserrat text-[2.408rem] font-semibold leading-none text-white mb-2">
-                Promotions
-              </h1>
-              <p className="font-montserrat text-[1.248rem] font-medium leading-none text-white">
-                Boost event visibility and ticket sales.
-              </p>
-            </div>
-
-            {/* Dashboard Sub-header controls directly on dark background */}
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 bg-[#ED5A2E]/10 border border-[#ED5A2E] rounded-full px-4 py-2 text-white">
-                <Search size={15} className="text-[#ED5A2E]" />
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="bg-transparent font-montserrat text-[15.34px] tracking-[-0.46px] outline-none text-white placeholder:text-white/60 w-32 md:w-48"
-                />
-              </div>
-
-              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-colors relative">
-                <span className="text-base">💬</span>
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#ED5A2E] text-white text-[9px] font-bold rounded-full flex items-center justify-center">3</span>
-              </button>
-
-              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-colors relative">
-                <Bell size={16} />
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#ED5A2E] text-white text-[9px] font-bold rounded-full flex items-center justify-center">1</span>
-              </button>
-            </div>
+      {/* ── BODY: SIDEBAR + CONTENT ──────────────────── */}
+      <div className="flex flex-1">
+        {/* ── SIDEBAR ────────────────────────────────── */}
+        <aside
+          className={`hidden md:flex flex-col bg-[#0D0D0D] border-r border-white/10 transition-all duration-300 shrink-0 ${
+            sidebarCollapsed ? "w-[60px]" : "w-[240px]"
+          }`}
+        >
+          <div className="flex items-center justify-end px-3 pt-4 pb-2">
+            <button
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              className="w-7 h-7 rounded-lg border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all"
+            >
+              <ChevronLeft
+                size={14}
+                className={`transition-transform duration-300 ${sidebarCollapsed ? "rotate-180" : ""}`}
+              />
+            </button>
           </div>
 
-          {/* Row 2: Statistics Cards (2x2 grid on mobile, 4 cols on desktop, CENTER ALIGNED) */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-
-            {/* Card 1: Active Promotions */}
-            <div className="bg-[#111115] border border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
-              <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-[#ED5A2E] flex items-center justify-center mb-3">
-                <Send size={20} />
-              </div>
-              <span className="font-montserrat text-[2.346rem] font-semibold leading-none text-white mb-2">
-                12
-              </span>
-              <p className="font-montserrat text-[1.503rem] font-medium leading-none text-white mb-2">
-                Active Promotions
-              </p>
-              <p className="font-montserrat text-[0.994rem] font-medium leading-none text-white/50">
-                Running campaigns
-              </p>
-            </div>
-
-            {/* Card 2: Users / Total Reach */}
-            <div className="bg-[#111115] border border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
-              <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-[#ED5A2E] flex items-center justify-center mb-3">
-                <Radio size={20} />
-              </div>
-              <span className="font-montserrat text-[2.346rem] font-semibold leading-none text-white mb-2">
-                124,500
-              </span>
-              <p className="font-montserrat text-[1.503rem] font-medium leading-none text-white mb-2">
-                Users
-              </p>
-              <p className="font-montserrat text-[0.994rem] font-medium leading-none text-white/50">
-                Total Impressions
-              </p>
-            </div>
-
-            {/* Card 3: Ticket Sales */}
-            <div className="bg-[#111115] border border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
-              <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-[#ED5A2E] flex items-center justify-center mb-3">
-                <Ticket size={20} />
-              </div>
-              <span className="font-montserrat text-[2.346rem] font-semibold leading-none text-white mb-2">
-                3,420
-              </span>
-              <p className="font-montserrat text-[1.503rem] font-medium leading-none text-white mb-2">
-                Ticket Sales
-              </p>
-              <p className="font-montserrat text-[0.994rem] font-medium leading-none text-white/50">
-                From Promotions
-              </p>
-            </div>
-
-            {/* Card 4: Revenue Boost */}
-            <div className="bg-[#111115] border border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center text-center">
-              <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-[#ED5A2E] flex items-center justify-center mb-3">
-                <DollarSign size={20} />
-              </div>
-              <span className="font-montserrat text-[2.346rem] font-semibold leading-none text-white mb-2">
-                +35%
-              </span>
-              <p className="font-montserrat text-[1.503rem] font-medium leading-none text-white mb-2">
-                Revenue Boost
-              </p>
-              <p className="font-montserrat text-[0.994rem] font-medium leading-none text-white/50">
-                Compared to organic
-              </p>
-            </div>
-
-          </div>
-
-          {/* Row 3: Filter Dropdowns (Horizontally scrollable on mobile) */}
-          <div className="overflow-x-auto no-scrollbar py-2">
-            <div className="flex items-center gap-3 min-w-max">
-              {/* Status Pill */}
-              <button className="flex items-center gap-2 bg-[#111115] border border-white/20 rounded-xl px-4 py-2.5 font-montserrat text-[1.031rem] font-semibold text-white hover:bg-white/10 transition-colors">
-                <CheckCircle2 size={16} className="text-emerald-400" />
-                <span>Status</span>
-                <ChevronDown size={16} />
-              </button>
-
-              {/* Promotion Type Pill (Solid Orange) */}
-              <button className="flex items-center gap-2 bg-[#ED5A2E] rounded-xl px-4 py-2.5 font-montserrat text-[1.031rem] font-semibold text-white shadow-lg hover:bg-[#d44d24] transition-colors">
-                <Send size={16} className="text-white" />
-                <span>Promotion Type</span>
-                <ChevronDown size={16} className="text-white" />
-              </button>
-
-              {/* Cost Pill */}
-              <button className="flex items-center gap-2 bg-[#111115] border border-white/20 rounded-xl px-4 py-2.5 font-montserrat text-[1.031rem] font-semibold text-white hover:bg-white/10 transition-colors">
-                <CircleDollarSign size={16} className="text-[#ED5A2E]" />
-                <span>Cost</span>
-                <ChevronDown size={16} />
-              </button>
-
-              {/* Best Performing Pill */}
-              <button className="flex items-center gap-2 bg-[#111115] border border-white/20 rounded-xl px-4 py-2.5 font-montserrat text-[1.031rem] font-semibold text-white hover:bg-white/10 transition-colors">
-                <span>Best Performing</span>
-                <span className="bg-white/20 text-xs px-2 py-0.5 rounded font-normal text-white">Smart</span>
-                <ChevronDown size={16} />
-              </button>
-            </div>
-          </div>
-
-          {/* Row 4: Promotions Section */}
-          <div className="space-y-4 pt-2">
-            <h2 className="font-montserrat text-[2.256rem] font-semibold leading-none text-white">
-              Promotions
-            </h2>
-
-            {hasPromotions ? (
-              <div className="space-y-4">
-                {promotionsList.map((evt) => (
-                  <div
-                    key={evt.id}
-                    className="bg-[#111115] border border-white/10 rounded-2xl p-4 flex flex-col gap-4"
-                  >
-                    <div className="flex flex-col md:flex-row gap-4 items-start">
-                      <input type="checkbox" className="mt-1 accent-[#ED5A2E] hidden md:block" />
-                      
-                      <div className="w-full md:w-24 h-32 md:h-24 rounded-xl bg-gradient-to-tr from-amber-600 to-purple-800 relative shrink-0 flex items-center justify-center text-2xl font-bold">
-                        🎤
-                        <span className="absolute top-2 left-2 text-[9px] font-bold px-2 py-0.5 rounded text-white bg-black/60 backdrop-blur border border-emerald-500 text-emerald-400 flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                          {evt.tag}
-                        </span>
-                      </div>
-
-                      <div className="space-y-1.5 flex-1">
-                        <h4 className="font-bold text-base text-white">{evt.title}</h4>
-                        
-                        <div className="flex items-center gap-2 text-xs flex-wrap">
-                          <span className="border border-[#ED5A2E] bg-neutral-800 text-white px-2 py-0.5 rounded text-[10px] font-medium">
-                            {evt.category}
-                          </span>
-                          <Link2 size={13} className="text-white/60" />
-                          <span className="font-montserrat text-[9.48px] font-semibold leading-[12.64px] text-white">
-                            Part of <strong className="text-[#ED5A2E] font-semibold">{evt.partOf}</strong>
-                          </span>
-                        </div>
-
-                        <div className="flex flex-wrap gap-4 text-xs text-white/70 pt-1">
-                          <span className="flex items-center gap-1.5">
-                            <Globe size={13} className="text-gray-400" /> {evt.date}
-                          </span>
-                          <span className="flex items-center gap-1.5">
-                            <MapPin size={13} className="text-gray-400" /> {evt.location}
-                          </span>
-                        </div>
-
-                        <div className="flex flex-wrap gap-4 text-xs text-white/90 pt-1">
-                          <span className="flex items-center gap-1.5">
-                            <Users size={13} className="text-[#ED5A2E]" /> Sold: {evt.sold}
-                          </span>
-                          <span className="flex items-center gap-1.5">
-                            <CircleDollarSign size={13} className="text-[#ED5A2E]" /> Revenue: {evt.revenue}
-                          </span>
-                          <span className="flex items-center gap-1.5">
-                            <CheckCircle2 size={13} className="text-[#ED5A2E]" /> Check-ins: {evt.checkins}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="w-full h-[1px] bg-[#ED5A2E]" />
-
-                    <div className="flex items-center justify-between pt-1">
-                      <div className="flex items-center gap-2">
-                        <div className="flex items-center -space-x-1.5">
-                          <div className="w-7 h-7 rounded-full bg-[#ED5A2E] text-[10px] font-bold text-white flex items-center justify-center border border-black">
-                            JD
-                          </div>
-                          <div className="w-7 h-7 rounded-full bg-[#ED5A2E]/80 text-[10px] font-bold text-white flex items-center justify-center border border-black">
-                            D
-                          </div>
-                          <div className="w-7 h-7 rounded-full bg-[#ED5A2E]/60 text-[10px] font-bold text-white flex items-center justify-center border border-black">
-                            D
-                          </div>
-                        </div>
-                        <span className="text-xs text-white/60 font-medium">+2 more</span>
-                      </div>
-
-                      <div className="flex items-center gap-2 text-white/40">
-                        <button className="p-1.5 hover:text-white transition-colors" title="View"><Eye size={14} /></button>
-                        <button className="p-1.5 hover:text-white transition-colors" title="Edit"><Edit2 size={14} /></button>
-                        <button className="p-1.5 hover:text-white transition-colors" title="Duplicate"><Copy size={14} /></button>
-                        <button className="p-1.5 hover:text-white transition-colors" title="Analytics"><BarChart2 size={14} /></button>
-                        <button className="p-1.5 hover:text-white transition-colors" title="Share"><Share2 size={14} /></button>
-                        <button className="p-1.5 hover:text-white transition-colors" title="More"><MoreVertical size={14} /></button>
-                      </div>
-                    </div>
-
-                  </div>
-                ))}
-              </div>
-            ) : (
-              /* Empty State Component */
-              <div className="bg-[#111115] border border-white/10 rounded-2xl p-12 flex flex-col items-center justify-center text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-[#ED5A2E]/10 text-[#ED5A2E] flex items-center justify-center mb-2">
-                  <Megaphone size={32} />
+          {!sidebarCollapsed && (
+            <div className="px-3 pb-4">
+              <div className="flex items-center gap-2 bg-[#1A1A1A] border border-white/10 rounded-lg px-3 py-2">
+                <Search size={13} className="text-white/40 shrink-0" />
+                <span className="text-white/30 text-xs flex-1">Search</span>
+                <div className="flex items-center gap-0.5">
+                  <span className="text-[10px] text-white/30 border border-white/20 rounded px-1">⌘</span>
+                  <span className="text-[10px] text-white/30 border border-white/20 rounded px-1">K</span>
                 </div>
-                <h3 className="font-montserrat text-[1.619rem] font-semibold leading-none text-white">
-                  No Promotions Yet
-                </h3>
-                <p className="font-montserrat text-[1.161rem] font-semibold leading-none text-white/60">
-                  Create a promotion to boost ticket sales.
-                </p>
-                <button className="w-[132.06px] md:w-[209px] h-[26.6px] md:h-[43px] rounded-[6.32px] md:rounded-[10px] bg-[#F46E28] text-white font-montserrat text-xs md:text-[1.161rem] font-semibold flex items-center justify-center gap-2 hover:bg-[#e05f19] transition-colors mt-2">
-                  <Plus size={16} />
-                  <span>Create Promotion</span>
+              </div>
+            </div>
+          )}
+
+          <nav className="flex-1 overflow-y-auto px-2 space-y-4 pb-6">
+            {NAV_ITEMS.map((section) => (
+              <div key={section.section}>
+                {!sidebarCollapsed && (
+                  <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-white/30 px-3 mb-2">
+                    {section.section}
+                  </p>
+                )}
+                <div className="space-y-0.5">
+                  {section.items.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all group relative ${
+                          item.active
+                            ? "bg-[#ED5828] text-white"
+                            : "text-white/60 hover:text-white hover:bg-white/5"
+                        }`}
+                      >
+                        {item.active && !sidebarCollapsed && (
+                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#ED5828] rounded-r-full -ml-2" />
+                        )}
+                        <Icon size={17} className="shrink-0" />
+                        {!sidebarCollapsed && (
+                          <span className="text-[0.82rem] font-medium">{item.label}</span>
+                        )}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </nav>
+        </aside>
+
+        {/* ── MAIN CONTENT ───────────────────────────── */}
+        <main className="flex-1 bg-[#0D0D0D] overflow-y-auto p-6">
+          <div className="max-w-6xl mx-auto space-y-6">
+            {/* Page Header Title Block */}
+            <div>
+              <h1 className="text-2xl font-bold text-white font-montserrat">Promotions</h1>
+              <p className="text-sm text-white/60 mt-0.5">Boost event visibility and ticket sales</p>
+            </div>
+
+            {/* 4 KPI Metrics Row — Screenshot 3 */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Card 1: 12 Active */}
+              <div className="bg-[#121212] border border-white/10 rounded-2xl p-5 space-y-2">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold text-white font-montserrat">12</span>
+                  <span className="text-xs font-semibold text-[#22C55E]">Active</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-white/60">
+                  <Send size={13} className="text-white/40" />
+                  <span>Active Promotions</span>
+                </div>
+              </div>
+
+              {/* Card 2: 124,500 Users (Yellow Highlighted Border) */}
+              <div className="bg-[#121212] border-2 border-[#FACC15] rounded-2xl p-5 space-y-2 relative shadow-lg shadow-yellow-500/5">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold text-white font-montserrat">124,500</span>
+                  <span className="text-xs font-semibold text-white/70">Users</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-white/60">
+                  <Maximize2 size={13} className="text-white/40" />
+                  <span>Total Reach</span>
+                </div>
+              </div>
+
+              {/* Card 3: 3,450 */}
+              <div className="bg-[#121212] border border-white/10 rounded-2xl p-5 space-y-2">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold text-white font-montserrat">3,450</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-white/60">
+                  <Ticket size={13} className="text-amber-500" />
+                  <span>Tickets Sold</span>
+                </div>
+              </div>
+
+              {/* Card 4: $15,450 */}
+              <div className="bg-[#121212] border border-white/10 rounded-2xl p-5 space-y-2">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold text-white font-montserrat">$15,450</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-white/60">
+                  <span className="w-4 h-4 rounded bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-[10px]">
+                    $
+                  </span>
+                  <span>Revenue Boost</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Filter Pills Row — Screenshot 3 */}
+            <div className="flex flex-wrap items-center gap-3">
+              {/* Status */}
+              <div className="relative">
+                <button className="flex items-center gap-2 bg-[#121212] border border-white/20 px-3.5 py-2 rounded-xl text-xs text-white hover:border-white/40 transition-colors">
+                  <span className="font-medium">Status</span>
+                  <CheckCircle2 size={13} className="text-white/70" />
+                  <ChevronDown size={13} className="text-white/50" />
                 </button>
               </div>
-            )}
-          </div>
 
+              {/* Promotion Type */}
+              <div className="relative">
+                <button className="flex items-center gap-2 bg-[#121212] border border-white/20 px-3.5 py-2 rounded-xl text-xs text-white hover:border-white/40 transition-colors">
+                  <Send size={12} className="text-white/70" />
+                  <span className="font-medium">Promotion Type</span>
+                  <ChevronDown size={13} className="text-white/50" />
+                </button>
+              </div>
+
+              {/* Cost */}
+              <div className="relative">
+                <button className="flex items-center gap-2 bg-[#121212] border border-white/20 px-3.5 py-2 rounded-xl text-xs text-white hover:border-white/40 transition-colors">
+                  <DollarSign size={13} className="text-white/70" />
+                  <span className="font-medium">Cost</span>
+                  <ChevronDown size={13} className="text-white/50" />
+                </button>
+              </div>
+
+              {/* Best Performing Smart */}
+              <div className="relative">
+                <button className="flex items-center gap-2 bg-[#121212] border border-white/20 px-3.5 py-2 rounded-xl text-xs text-white hover:border-white/40 transition-colors">
+                  <span className="font-medium">Best Performing</span>
+                  <span className="text-white/40 text-[11px]">Smart</span>
+                  <ChevronDown size={13} className="text-white/50" />
+                </button>
+              </div>
+            </div>
+
+            {/* Promotions Section List */}
+            <div className="space-y-4 pt-2">
+              <h2 className="text-xl font-bold text-white font-montserrat">Promotions</h2>
+
+              {/* Event Card 1 - LIVE */}
+              <div className="bg-[#121212] border border-white/10 rounded-2xl p-5 relative overflow-hidden transition-all hover:border-white/20">
+                <div className="flex flex-col md:flex-row gap-4 items-start">
+                  <div className="pt-2">
+                    <input
+                      type="checkbox"
+                      className="w-4 h-4 rounded border-white/30 accent-[#ED5828] bg-transparent cursor-pointer"
+                    />
+                  </div>
+
+                  {/* Thumbnail with LIVE badge */}
+                  <div
+                    className="relative w-full md:w-[155px] h-[105px] rounded-xl overflow-hidden bg-cover bg-center shrink-0"
+                    style={{
+                      backgroundImage: `url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=400&auto=format&fit=crop')`,
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-black/20" />
+                    <span className="absolute top-2 left-2 bg-[#22C55E] text-white text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      LIVE
+                    </span>
+                  </div>
+
+                  <div className="flex-1 space-y-2">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <h2 className="text-white font-bold text-lg font-poppins">
+                        5IVE LIVE AT 02 ARENA
+                      </h2>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-xs">
+                      <span className="border border-white/20 text-white/80 px-2 py-0.5 rounded-md font-medium">
+                        Concert
+                      </span>
+                      <span className="text-white/40 flex items-center gap-1">
+                        <ArrowLeftRight size={11} />
+                        Part of <span className="text-[#ED5828] font-medium">Davido live at 02</span>
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-4 text-xs text-white/70">
+                      <div className="flex items-center gap-1.5">
+                        <CalendarDays size={13} className="text-white/40" />
+                        <span>Friday, Nov 15, 2024</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <MapPin size={13} className="text-white/40" />
+                        <span>02 Arena, London, United Kingdom</span>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-6 pt-1 text-xs" style={{ color: "#777777" }}>
+                      <div className="flex items-center gap-1.5 font-medium">
+                        <UserCheck size={14} />
+                        <span>Sold: <strong className="text-white/90 font-semibold">156/200 (78%)</strong></span>
+                      </div>
+                      <div className="flex items-center gap-1.5 font-medium">
+                        <CircleDollarSign size={14} />
+                        <span>Revenue: <strong className="text-white/90 font-semibold">₦450,000</strong></span>
+                      </div>
+                      <div className="flex items-center gap-1.5 font-medium">
+                        <CheckCircle2 size={14} />
+                        <span>Check-ins: <strong className="text-white/90 font-semibold">145/156</strong></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="h-px bg-[#ED5828] w-full mt-4 mb-3 opacity-90" />
+
+                <div className="flex items-center justify-between pt-1">
+                  <div className="flex items-center gap-1.5 ml-0 md:ml-[187px]">
+                    <div className="flex -space-x-1.5">
+                      <div className="w-6 h-6 rounded-full bg-[#ED5828] text-white text-[9px] font-bold flex items-center justify-center border border-[#121212]">
+                        JD
+                      </div>
+                      <div className="w-6 h-6 rounded-full bg-[#ED5828] text-white text-[9px] font-bold flex items-center justify-center border border-[#121212]">
+                        D
+                      </div>
+                      <div className="w-6 h-6 rounded-full bg-[#ED5828] text-white text-[9px] font-bold flex items-center justify-center border border-[#121212]">
+                        D
+                      </div>
+                    </div>
+                    <span className="text-[11px] text-white/60 font-medium">+2 more</span>
+                  </div>
+
+                  {/* Action icons */}
+                  <div className="flex items-center gap-2">
+                    <button
+                      title="View Details"
+                      className="flex items-center justify-center transition-all hover:opacity-80"
+                      style={{
+                        width: 18.96,
+                        height: 18.96,
+                        borderRadius: 3.16,
+                        backgroundColor: "rgba(255, 255, 255, 0.15)",
+                      }}
+                    >
+                      <Eye size={12} color="#ED5828" />
+                    </button>
+                    <button
+                      title="Edit Event"
+                      className="flex items-center justify-center transition-all hover:opacity-80"
+                      style={{
+                        width: 18.96,
+                        height: 18.96,
+                        borderRadius: 3.16,
+                        backgroundColor: "rgba(255, 255, 255, 0.15)",
+                      }}
+                    >
+                      <Pencil size={11} color="#ED5828" />
+                    </button>
+                    <button
+                      title="Duplicate"
+                      className="flex items-center justify-center transition-all hover:opacity-80"
+                      style={{
+                        width: 18.96,
+                        height: 18.96,
+                        borderRadius: 3.16,
+                        backgroundColor: "rgba(255, 255, 255, 0.15)",
+                      }}
+                    >
+                      <Copy size={11} color="#ED5828" />
+                    </button>
+                    <button
+                      title="Analytics"
+                      className="flex items-center justify-center transition-all hover:opacity-80"
+                      style={{
+                        width: 18.96,
+                        height: 18.96,
+                        borderRadius: 3.16,
+                        backgroundColor: "rgba(255, 255, 255, 0.15)",
+                      }}
+                    >
+                      <BarChart2 size={11} color="#ED5828" />
+                    </button>
+                    <button
+                      title="Share"
+                      className="flex items-center justify-center transition-all hover:opacity-80"
+                      style={{
+                        width: 18.96,
+                        height: 18.96,
+                        borderRadius: 3.16,
+                        backgroundColor: "rgba(255, 255, 255, 0.15)",
+                      }}
+                    >
+                      <Share2 size={11} color="#ED5828" />
+                    </button>
+                    <button
+                      title="More Options"
+                      className="flex items-center justify-center transition-all hover:opacity-80"
+                      style={{
+                        width: 18.96,
+                        height: 18.96,
+                        borderRadius: 3.16,
+                        backgroundColor: "rgba(255, 255, 255, 0.15)",
+                      }}
+                    >
+                      <MoreVertical size={12} color="#ED5828" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </main>
       </div>
     </div>

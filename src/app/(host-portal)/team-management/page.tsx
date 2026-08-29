@@ -5,8 +5,8 @@ import Link from "next/link";
 import { ArrowLeft, Search, ChevronDown, MoreVertical, Plus, Link as LinkIcon, Crown, Clock, Users, Calendar, Users as Users2, Check } from "lucide-react";
 import { TeamMember, TeamSummary, PendingInvitation, RoleDefinition } from "@/types/host-portal";
 import { Footer } from "@/components/shared/footer";
-import { RolePill, RoleCircle, getRoleColor } from "@/components/host";
-import { ResendButton, CancelButton } from "@/components/host";
+import { RolePill, getRoleColor } from "@/components/host";
+import { RoleType } from "@/components/host/role-pill";
 
 // API Endpoint: GET /api/host-portal/team-management
 // This will be replaced with actual API call
@@ -371,12 +371,12 @@ export default function TeamManagementPage() {
                 <div className="flex flex-col items-center gap-2 flex-shrink-0">
                   <div 
                     className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-lg"
-                    style={{ backgroundColor: getRoleColor(member.role.toLowerCase() as any).bg }}
+                    style={{ backgroundColor: getRoleColor(member.role.toLowerCase() as RoleType).bg }}
                   >
                     {member.name.split(" ").map((n) => n[0]).join("")}
                   </div>
                   <div className="flex flex-row gap-1">
-                    <RolePill role={member.role.toLowerCase() as any} />
+                    <RolePill role={member.role.toLowerCase() as RoleType} />
                     <span className={`px-2 py-1 rounded text-xs ${
                       member.status === "Active" ? "bg-green-500/20 text-green-400" : "bg-yellow-500/20 text-yellow-400"
                     }`}>
@@ -422,7 +422,7 @@ export default function TeamManagementPage() {
               <div className="flex items-center gap-4 mb-3">
                 <div 
                   className="w-10 h-10 rounded-full flex items-center justify-center text-white"
-                  style={{ backgroundColor: getRoleColor(role.id as any).bg }}
+                  style={{ backgroundColor: getRoleColor(role.id as RoleType).bg }}
                 >
                   <span className="text-lg">{role.icon}</span>
                 </div>
@@ -455,7 +455,7 @@ export default function TeamManagementPage() {
                   <div className="flex items-center gap-2">
                     <h3 className="text-lg font-semibold">{invitation.email}</h3>
                     <div className="w-1 h-1 rounded-full bg-white/40"></div>
-                    <RolePill role={invitation.role.toLowerCase() as any} />
+                    <RolePill role={invitation.role.toLowerCase() as RoleType} />
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
