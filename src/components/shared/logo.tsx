@@ -15,7 +15,7 @@ export function Logo({
 }: LogoProps) {
   return (
     <Image
-      src="/trck-logo.png"
+      src="/trck-logo-new.png"
       alt={alt}
       width={width}
       height={height}
