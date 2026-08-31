@@ -12,6 +12,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
+import { AccountMobileNav } from "@/components/account";
 
 interface Ticket {
   id: string;
@@ -46,7 +47,7 @@ export default function TicketsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-[var(--font-inter)] flex flex-col justify-between">
+    <div className="min-h-screen bg-white text-gray-900 font-[var(--font-inter)] flex flex-col justify-between overflow-x-hidden pb-16 lg:pb-0">
       {/* ── Top Header ── */}
       <header className="border-b border-gray-100 px-6 py-3.5 lg:px-12 flex items-center justify-between gap-4">
         {/* Left: Logo */}
@@ -120,12 +121,13 @@ export default function TicketsPage() {
         </h1>
 
         {/* Tabs */}
-        <div className="flex items-center gap-8 border-b border-gray-100 pb-3 mb-8 text-[0.92rem] font-semibold text-gray-400">
+        {/* TODO: Verify destinations for Selling, Transfers, Purchases flows with product team */}
+        <div className="flex items-center gap-8 border-b border-gray-100 pb-3 mb-8 text-[0.92rem] font-semibold text-gray-400 overflow-x-auto">
           {["Tickets", "Selling", "Transfers", "Purchases"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`pb-3 relative transition-all ${
+              className={`pb-3 relative transition-all whitespace-nowrap ${
                 activeTab === tab
                   ? "text-gray-900 border-b-2 border-gray-900 font-bold"
                   : "hover:text-gray-600"
@@ -215,6 +217,9 @@ export default function TicketsPage() {
           </div>
         </div>
       </main>
+
+      {/* ── Mobile Navigation ── */}
+      <AccountMobileNav />
 
       {/* ── Full Dark Footer ── */}
       <footer className="bg-black px-6 py-12 text-white lg:px-16 border-t border-white/10 mt-12">

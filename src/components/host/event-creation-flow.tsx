@@ -176,8 +176,9 @@ function EventSidebar({ activeStep }: { activeStep: number }) {
   return (
     <aside className="w-full border-b border-white/10 bg-[#090909] px-[1.5rem] py-[1.5rem] xl:w-[20.25rem] xl:border-b-0 xl:border-r xl:border-r-[#1d1d1d] xl:px-[1.25rem] xl:py-[1.5rem] shrink-0">
       <div className="flex h-full flex-col">
+        {/* TODO: Route /host/events does not exist. Clarify with product/design. Temporarily linking to /host/dashboard. */}
         <Link
-          href="/host/events"
+          href="/host/dashboard"
           className="inline-flex items-center gap-[0.6rem] text-[1.05rem] font-medium text-white transition-opacity hover:opacity-80"
         >
           <ArrowLeft className="h-[1.1rem] w-[1.1rem] text-[#2d6bff]" />
@@ -416,15 +417,16 @@ export function BasicInfoPage() {
               ]}
             />
 
-            <div className="mt-8 flex items-center justify-between">
-              <Link href="/host/events" className="inline-flex items-center gap-2 font-semibold text-white/70 hover:text-white">
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+              {/* TODO: Route /host/events does not exist. Clarify with product/design. Temporarily linking to /host/dashboard. */}
+              <Link href="/host/dashboard" className="inline-flex items-center gap-2 text-sm sm:text-base font-semibold text-white/70 hover:text-white">
                 <ArrowLeft size={16} />
                 Back To Events
               </Link>
 
               <Link
                 href="/host/events/new/schedule"
-                className="inline-flex items-center justify-center rounded-xl bg-[#FE6600] px-8 py-3.5 font-bold text-white shadow-lg hover:brightness-110 active:scale-95 transition-all"
+                className="inline-flex items-center justify-center rounded-xl bg-[#FE6600] px-5 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-bold text-white shadow-lg hover:brightness-110 active:scale-95 transition-all"
               >
                 Continue to Schedule
               </Link>
@@ -574,15 +576,15 @@ export function SchedulePage() {
               ]}
             />
 
-            <div className="mt-8 flex items-center justify-between">
-              <Link href="/host/events/new" className="inline-flex items-center gap-2 font-semibold text-white/70 hover:text-white">
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+              <Link href="/host/events/new" className="inline-flex items-center gap-2 text-sm sm:text-base font-semibold text-white/70 hover:text-white">
                 <ArrowLeft size={16} />
                 Back to Basic Info
               </Link>
 
               <Link
                 href="/host/events/new/location"
-                className="inline-flex items-center justify-center rounded-xl bg-[#FE6600] px-8 py-3.5 font-bold text-white shadow-lg hover:brightness-110 active:scale-95 transition-all"
+                className="inline-flex items-center justify-center rounded-xl bg-[#FE6600] px-5 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-bold text-white shadow-lg hover:brightness-110 active:scale-95 transition-all"
               >
                 Continue to Location
               </Link>
@@ -965,15 +967,15 @@ export function LocationPage() {
               ]}
             />
 
-            <div className="mt-8 flex items-center justify-between">
-              <Link href="/host/events/new/schedule" className="inline-flex items-center gap-2 font-semibold text-white/70 hover:text-white">
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+              <Link href="/host/events/new/schedule" className="inline-flex items-center gap-2 text-sm sm:text-base font-semibold text-white/70 hover:text-white">
                 <ArrowLeft size={16} />
                 Back to Schedule
               </Link>
 
               <Link
                 href="/host/events/new/tickets"
-                className="inline-flex items-center justify-center rounded-xl bg-[#FE6600] px-8 py-3.5 font-bold text-white shadow-lg hover:brightness-110 active:scale-95 transition-all"
+                className="inline-flex items-center justify-center rounded-xl bg-[#FE6600] px-5 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-bold text-white shadow-lg hover:brightness-110 active:scale-95 transition-all"
               >
                 Continue to Tickets
               </Link>
@@ -1228,15 +1230,15 @@ export function TicketPricingPage() {
               </div>
             </div>
 
-            <div className="mt-8 flex items-center justify-between">
-              <Link href="/host/events/new/location" className="inline-flex items-center gap-2 font-semibold text-white/70 hover:text-white">
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+              <Link href="/host/events/new/location" className="inline-flex items-center gap-2 text-sm sm:text-base font-semibold text-white/70 hover:text-white">
                 <ArrowLeft size={16} />
                 Back to Location
               </Link>
 
               <Link
                 href="/host/events/new/media"
-                className="inline-flex items-center justify-center rounded-xl bg-[#FE6600] px-8 py-3.5 font-bold text-white shadow-lg hover:brightness-110 active:scale-95 transition-all"
+                className="inline-flex items-center justify-center rounded-xl bg-[#FE6600] px-5 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-bold text-white shadow-lg hover:brightness-110 active:scale-95 transition-all"
               >
                 Continue to Media
               </Link>
@@ -1502,15 +1504,15 @@ export function MediaPage() {
               </div>
             </div>
 
-            <div className="mt-8 flex items-center justify-between">
-              <Link href="/host/events/new/tickets" className="inline-flex items-center gap-2 font-semibold text-white/70 hover:text-white">
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+              <Link href="/host/events/new/tickets" className="inline-flex items-center gap-2 text-sm sm:text-base font-semibold text-white/70 hover:text-white">
                 <ArrowLeft size={16} />
                 Back to Tickets
               </Link>
 
               <Link
                 href="/host/events/new/review"
-                className="inline-flex items-center justify-center rounded-xl bg-[#FE6600] px-8 py-3.5 font-bold text-white shadow-lg hover:brightness-110 active:scale-95 transition-all"
+                className="inline-flex items-center justify-center rounded-xl bg-[#FE6600] px-5 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-bold text-white shadow-lg hover:brightness-110 active:scale-95 transition-all"
               >
                 Continue to Review
               </Link>
@@ -2027,16 +2029,16 @@ export function ReviewPage() {
                 Back to Media
               </Link>
 
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-3">
                 <Link
                   href="/host/events/new"
-                  className="inline-flex items-center justify-center rounded-xl border border-white/20 px-6 py-3.5 text-xs font-bold text-white hover:bg-white/5 transition-all"
+                  className="inline-flex items-center justify-center rounded-xl border border-white/20 px-5 py-3 text-xs sm:text-sm font-bold text-white hover:bg-white/5 transition-all"
                 >
                   Save as Draft
                 </Link>
                 <Link
                   href="/host/events/new/published"
-                  className="inline-flex items-center justify-center rounded-xl bg-[#FE6600] px-8 py-3.5 text-xs font-bold text-white shadow-xl hover:brightness-110 active:scale-95 transition-all"
+                  className="inline-flex items-center justify-center rounded-xl bg-[#FE6600] px-6 py-3 text-xs sm:text-sm font-bold text-white shadow-xl hover:brightness-110 active:scale-95 transition-all"
                 >
                   Publish Details
                 </Link>
@@ -2054,7 +2056,7 @@ export function ReviewPage() {
 // ── 7. PUBLISHED PAGE (SCREENSHOT 4 GREEN TICK EMBEDDED) ────────
 export function PublishedPage() {
   return (
-    <main className="min-h-screen bg-black text-white font-montserrat flex items-center justify-center p-6">
+    <main className="min-h-screen bg-black text-white font-montserrat flex items-center justify-center p-6 overflow-x-hidden">
       <div className="relative z-10 w-full max-w-2xl rounded-3xl bg-[#141414] border border-white/10 p-8 sm:p-12 text-center shadow-2xl space-y-6">
         {/* Exact Green Tick Image from Screenshot 4 */}
         <div className="w-24 h-24 mx-auto relative flex items-center justify-center drop-shadow-2xl">
@@ -2076,8 +2078,9 @@ export function PublishedPage() {
         </p>
 
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          {/* TODO: Route /host/events does not exist. Clarify with product/design. Temporarily linking to /host/dashboard. */}
           <Link
-            href="/host/events"
+            href="/host/dashboard"
             className="w-full sm:w-auto inline-flex items-center justify-center rounded-xl border border-white/20 px-6 py-3 text-xs font-bold text-white hover:bg-white/5 transition-all"
           >
             Manage Events

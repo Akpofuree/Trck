@@ -22,7 +22,9 @@ import {
   Clock,
   ShieldCheck,
   Building2,
+  X,
 } from "lucide-react";
+import { HostButton } from "@/components/host";
 
 const NAV_ITEMS = [
   {
@@ -37,6 +39,7 @@ const NAV_ITEMS = [
   {
     section: "Management",
     items: [
+      // TODO: Management screens (Users, Tickets, Events, Earnings) awaiting designer/product specifications
       { label: "Users", icon: Users, href: "#" },
       { label: "Tickets", icon: Ticket, href: "#" },
       { label: "Events", icon: Music, href: "#" },
@@ -47,6 +50,7 @@ const NAV_ITEMS = [
   {
     section: "Other",
     items: [
+      // TODO: Report and Settings screens awaiting designer/product specifications
       { label: "Report", icon: FileText, href: "#" },
       { label: "Settings", icon: Settings, href: "#" },
     ],
@@ -91,11 +95,12 @@ const DECISION_STATES: Record<
 export default function KYCStatusPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [decisionStatus, setDecisionStatus] = useState<DecisionStatus>("success");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const decision = DECISION_STATES[decisionStatus];
 
   return (
-    <div className="min-h-screen bg-[#000000] text-white flex flex-col font-montserrat">
+    <div className="min-h-screen bg-[#000000] text-white flex flex-col font-montserrat overflow-x-hidden">
 
       {/* ── WHITE TOP HEADER (Desktop) ─────────────────── */}
       <header className="hidden md:flex h-[70px] bg-white items-center justify-between px-6 border-b border-gray-100 shrink-0 z-20">
@@ -122,12 +127,20 @@ export default function KYCStatusPage() {
       <div className="md:hidden flex flex-col shrink-0">
         <header className="flex items-center justify-between px-4 py-3 bg-[#000000]">
           {/* Hamburger */}
-          <button className="w-10 h-10 border-2 border-dashed border-white/40 rounded-lg flex items-center justify-center text-white">
-            <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
-              <rect width="18" height="2" rx="1" fill="white"/>
-              <rect y="6" width="18" height="2" rx="1" fill="white"/>
-              <rect y="12" width="18" height="2" rx="1" fill="white"/>
-            </svg>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="w-10 h-10 border-2 border-dashed border-white/40 rounded-lg flex items-center justify-center text-white active:scale-95 transition-all"
+            aria-label="Toggle Navigation"
+          >
+            {mobileMenuOpen ? (
+              <X size={18} />
+            ) : (
+              <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+                <rect width="18" height="2" rx="1" fill="white"/>
+                <rect y="6" width="18" height="2" rx="1" fill="white"/>
+                <rect y="12" width="18" height="2" rx="1" fill="white"/>
+              </svg>
+            )}
           </button>
           {/* Right icons */}
           <div className="flex items-center gap-4">
@@ -147,6 +160,30 @@ export default function KYCStatusPage() {
         </header>
         {/* Blue brand line */}
         <div className="h-[3px] bg-[#0099FF] w-full" />
+
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="bg-[#121212] border-b border-white/15 px-4 py-5 space-y-4 animate-in slide-in-from-top-2 duration-200">
+            <p className="text-[0.7rem] font-bold uppercase tracking-wider text-white/40">Host Navigation</p>
+            <div className="grid grid-cols-2 gap-2">
+              <Link href="/host/dashboard" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-xs text-white hover:bg-[#ED5828]">
+                <LayoutDashboard size={14} /> Dashboard
+              </Link>
+              <Link href="/host/calendar" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-xs text-white hover:bg-[#ED5828]">
+                <CalendarIcon size={14} /> Calendar
+              </Link>
+              <Link href="/host/promotions" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-xs text-white hover:bg-[#ED5828]">
+                <Megaphone size={14} /> Promotions
+              </Link>
+              <Link href="/host/payouts" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-xs text-white hover:bg-[#ED5828]">
+                <Wallet size={14} /> Payouts
+              </Link>
+              <Link href="/host/reviews" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-xs text-white hover:bg-[#ED5828]">
+                <Star size={14} /> Reviews
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ── BODY: SIDEBAR + CONTENT ──────────────────── */}
@@ -318,23 +355,25 @@ export default function KYCStatusPage() {
 
             {/* Action after decision */}
             {decisionStatus === "failed" && (
-              <div className="mt-5">
-                <Link
+              <div className="mt-6">
+                <HostButton
                   href="/host/onboarding/kyc"
-                  className="inline-flex items-center justify-center w-full max-w-[300px] h-[46px] rounded-[10px] bg-[#ED5828] text-white font-poppins font-medium text-[0.95rem] hover:bg-[#d44d24] transition-all"
+                  fullWidth={true}
+                  className="max-w-[400px]"
                 >
                   Re-submit Documents
-                </Link>
+                </HostButton>
               </div>
             )}
             {decisionStatus === "success" && (
-              <div className="mt-5">
-                <Link
+              <div className="mt-6">
+                <HostButton
                   href="/host/dashboard"
-                  className="inline-flex items-center justify-center w-full max-w-[300px] h-[46px] rounded-[10px] bg-[#ED5828] text-white font-poppins font-medium text-[0.95rem] hover:bg-[#d44d24] transition-all"
+                  fullWidth={true}
+                  className="max-w-[400px]"
                 >
-                  Go to Dashboard
-                </Link>
+                  Continue to Dashboard
+                </HostButton>
               </div>
             )}
           </div>

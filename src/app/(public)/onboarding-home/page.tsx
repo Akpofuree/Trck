@@ -8,6 +8,7 @@ import {
   ChevronDown,
   Star,
   ArrowUpRight,
+  ArrowRight,
   Heart,
   ChevronLeft,
   ChevronRight,
@@ -101,20 +102,20 @@ export default function OnboardingHomePage() {
 
         {/* Center: Search input */}
         <div className="relative flex-1 max-w-[380px] hidden sm:block">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/50" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/70" />
           <input
             type="text"
             placeholder="Search by categories"
-            className="w-full rounded-full border border-white/20 bg-white/10 pl-10 pr-4 py-2 text-[0.85rem] text-white outline-none placeholder:text-white/40 focus:border-[#ED5A2E] focus:ring-1 focus:ring-[#ED5A2E]"
+            className="w-full rounded-full border border-white/40 bg-transparent pl-10 pr-4 py-2 text-[0.85rem] text-white outline-none placeholder:text-white/60 focus:border-white focus:ring-1 focus:ring-white"
           />
         </div>
 
         {/* Right: Sign in & Support */}
         <div className="flex items-center gap-6 text-[0.88rem] font-medium">
-          <Link href="/login" className="text-white/80 hover:text-white transition-colors">
+          <Link href="/login" className="text-white hover:text-white/80 transition-colors">
             Sign in
           </Link>
-          <Link href="#" className="text-white/80 hover:text-white transition-colors">
+          <Link href="#" className="text-white hover:text-white/80 transition-colors">
             Support
           </Link>
         </div>
@@ -153,7 +154,7 @@ export default function OnboardingHomePage() {
 
         {/* Overlapping Feature Cards Row */}
         <div className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-3 mx-auto max-w-[1300px]">
-          {data?.featureCards.map((card) => (
+          {data?.featureCards.map((card, idx) => (
             <div
               key={card.id}
               className="flex flex-col justify-between rounded-2xl border border-white/10 bg-[#121212] p-6 transition-all hover:border-white/20"
@@ -171,9 +172,16 @@ export default function OnboardingHomePage() {
 
               <div className="mt-8 flex items-center justify-between pt-4 border-t border-white/10 text-[0.85rem] font-medium text-white/80">
                 <span>Visite</span>
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black">
-                  <ArrowUpRight className="h-4 w-4" />
-                </div>
+                {/* Second item PVC for Kids arrow: horizontal with orange background */}
+                {idx === 1 ? (
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#ED5A2E] text-white shadow-sm">
+                    <ArrowRight className="h-4 w-4" />
+                  </div>
+                ) : (
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </div>
+                )}
               </div>
             </div>
           )) || [1, 2, 3].map((i) => (
@@ -252,9 +260,13 @@ export default function OnboardingHomePage() {
         <div className="mx-auto max-w-[1300px]">
           {/* Header & Carousel Control */}
           <div className="mb-8 flex items-center justify-between">
-            <h2 className="text-[1.8rem] font-bold text-gray-900 tracking-tight">
-              Trending Events
-            </h2>
+            <div>
+              <h2 className="text-[1.8rem] font-bold text-gray-900 tracking-tight">
+                Trending Events
+              </h2>
+              {/* TODO: Trending Events 'Book Now' destination to be confirmed with product/designer. */}
+              {/* TODO: Interactive hat element interaction to be clarified with designer. */}
+            </div>
             <div className="flex items-center gap-2 rounded-full bg-black px-4 py-1.5 text-white text-[0.82rem] font-semibold">
               <button
                 onClick={() => setActiveSlide((prev) => Math.max(1, prev - 1))}
@@ -401,7 +413,7 @@ export default function OnboardingHomePage() {
                 </div>
                 <Link
                   href="#"
-                  className="text-[0.85rem] font-bold text-[#ED5A2E] hover:underline uppercase tracking-wide"
+                  className="text-[0.85rem] font-bold text-[#2563EB] hover:text-[#1d4ed8] hover:underline uppercase tracking-wide"
                 >
                   DISCOVER MORE
                 </Link>
@@ -412,6 +424,7 @@ export default function OnboardingHomePage() {
           </div>
 
           {/* ── Quick Launcher Bar for All Onboarding Screens ── */}
+          {/* TODO: Quick Onboarding Screens Launcher kept functional for navigation per spec; confirm with product/design before production release */}
           <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
             <h4 className="text-[0.85rem] font-bold uppercase tracking-wider text-[#ED5A2E] mb-3 text-center">
               Quick Onboarding Screens Launcher

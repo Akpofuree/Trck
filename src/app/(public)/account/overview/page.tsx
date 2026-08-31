@@ -22,6 +22,7 @@ import {
   MapPin,
 } from "lucide-react";
 import { Logo } from "@/components/shared";
+import { AccountMobileNav } from "@/components/account";
 import { AccountOverviewData } from "@/types";
 
 export default function AccountOverviewPage() {
@@ -63,7 +64,7 @@ export default function AccountOverviewPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-[var(--font-inter)] flex flex-col justify-between">
+    <div className="min-h-screen bg-white text-gray-900 font-[var(--font-inter)] flex flex-col justify-between overflow-x-hidden pb-16 lg:pb-0">
       {/* ── Top Header ── */}
       <header className="border-b border-gray-100 px-6 py-3.5 lg:px-12 flex items-center justify-between gap-4">
         {/* Left: Logo */}
@@ -116,9 +117,8 @@ export default function AccountOverviewPage() {
               </button>
               {menuOpen && (
                 <div className="absolute right-0 mt-2 w-48 rounded-xl border border-gray-200 bg-white py-2 shadow-lg z-50">
-                  <Link href="/launcher" className="block px-4 py-2 text-[0.85rem] text-gray-700 hover:bg-gray-50 hover:text-[#ED5A2E]">Launcher Hub</Link>
                   <Link href="/home" className="block px-4 py-2 text-[0.85rem] text-gray-700 hover:bg-gray-50 hover:text-[#ED5A2E]">Homepage</Link>
-                  <Link href="/account/overview" className="block px-4 py-2 text-[0.85rem] text-gray-700 hover:bg-gray-50 hover:text-[#ED5A2E]">Account Overview</Link>
+                  <Link href="/account/overview" className="block px-4 py-2 text-[0.85rem] text-[#ED5A2E] font-semibold bg-gray-50">Account Overview</Link>
                   <Link href="/account/bookings" className="block px-4 py-2 text-[0.85rem] text-gray-700 hover:bg-gray-50 hover:text-[#ED5A2E]">Booking History</Link>
                   <Link href="/tickets" className="block px-4 py-2 text-[0.85rem] text-gray-700 hover:bg-gray-50 hover:text-[#ED5A2E]">My Tickets</Link>
                   <Link href="/notifications" className="block px-4 py-2 text-[0.85rem] text-gray-700 hover:bg-gray-50 hover:text-[#ED5A2E]">Notifications</Link>
@@ -160,9 +160,12 @@ export default function AccountOverviewPage() {
                 <MoreHorizontal className="h-4 w-4" />
               </button>
             </div>
-            <button className="w-full rounded-full bg-[#ED5A2E] py-2 text-[0.82rem] font-semibold text-white transition-all hover:bg-[#d4501f]">
+            <Link
+              href="/account/edit-profile"
+              className="block text-center w-full rounded-full bg-[#ED5A2E] py-2 text-[0.82rem] font-semibold text-white transition-all hover:bg-[#d4501f]"
+            >
               Edit Profile
-            </button>
+            </Link>
           </div>
 
           {/* Navigation Links */}
@@ -195,14 +198,14 @@ export default function AccountOverviewPage() {
         </aside>
 
         {/* ── Main Content Column ── */}
-        <main className="flex-1 max-w-[1000px]">
+        <main className="flex-1 min-w-0 max-w-[1000px] w-full">
           {/* Header Title */}
           <div className="mb-6">
             <h1 className="text-[1.8rem] font-bold text-gray-900 tracking-tight">
               Overview
             </h1>
             <p className="text-[0.88rem] text-gray-400">
-              Access premium features on yor account
+              Access premium features on your account
             </p>
           </div>
 
@@ -231,7 +234,7 @@ export default function AccountOverviewPage() {
           {/* Metrics & Active Event Grid */}
           <div className="mb-8 grid grid-cols-1 gap-5 md:grid-cols-2">
             {/* Total Spent Card */}
-            <div className="flex flex-col justify-between rounded-2xl border border-gray-200/80 p-5 bg-white">
+            <div className="flex flex-col justify-between rounded-2xl border border-gray-200/80 p-5 bg-white shadow-xs">
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[0.88rem] font-semibold text-gray-700">
@@ -263,7 +266,7 @@ export default function AccountOverviewPage() {
               <h3 className="text-[1.35rem] font-bold tracking-tight mb-3">
                 {data?.featuredEvent.title || "200s Hip Hop Night"}
               </h3>
-              <div className="flex items-center gap-4 text-[0.82rem] text-white/90 mb-4">
+              <div className="flex flex-wrap items-center gap-4 text-[0.82rem] text-white/90 mb-4">
                 <span className="flex items-center gap-1">
                   <Calendar className="h-3.5 w-3.5" />
                   {data?.featuredEvent.date || "FRI-31ST : 4:00PM"}
@@ -291,92 +294,134 @@ export default function AccountOverviewPage() {
             </button>
           </div>
 
-          {/* Booking History Table */}
-          <div className="overflow-x-auto rounded-2xl border border-gray-100 bg-white">
-            <table className="w-full text-left text-[0.88rem]">
-              <thead className="border-b border-gray-100 bg-pink-50/30 text-[0.82rem] font-semibold text-gray-600">
-                <tr>
-                  <th className="p-4 w-10">
-                    <input
-                      type="checkbox"
-                      checked={
-                        !!(data?.tickets &&
-                        selectedTickets.length === data.tickets.length)
-                      }
-                      onChange={toggleSelectAll}
-                      className="h-4 w-4 rounded border-gray-300 accent-[#ED5A2E]"
-                    />
-                  </th>
-                  <th className="p-4">
-                    <div className="flex items-center gap-1.5">
-                      Tickets Id <ArrowUpDown className="h-3.5 w-3.5 text-gray-400" />
-                    </div>
-                  </th>
-                  <th className="p-4">
-                    <div className="flex items-center gap-1.5">
-                      Event <ArrowUpDown className="h-3.5 w-3.5 text-gray-400" />
-                    </div>
-                  </th>
-                  <th className="p-4">
-                    <div className="flex items-center gap-1.5">
-                      Date <ArrowUpDown className="h-3.5 w-3.5 text-gray-400" />
-                    </div>
-                  </th>
-                  <th className="p-4">
-                    <div className="flex items-center gap-1.5">
-                      Amount <ArrowUpDown className="h-3.5 w-3.5 text-gray-400" />
-                    </div>
-                  </th>
-                  <th className="p-4">
-                    <div className="flex items-center gap-1.5">
-                      Status <ArrowUpDown className="h-3.5 w-3.5 text-gray-400" />
-                    </div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {loading ? (
+          {/* Booking History Table - Contained Scroll */}
+          <div className="w-full max-w-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xs">
+            <div className="w-full overflow-x-auto">
+              <table className="w-full text-left text-[0.88rem] min-w-[550px]">
+                <thead className="border-b border-gray-100 bg-pink-50/30 text-[0.82rem] font-semibold text-gray-600">
                   <tr>
-                    <td colSpan={6} className="p-8 text-center text-gray-400">
-                      Loading tickets...
-                    </td>
+                    <th className="p-4 w-10">
+                      <input
+                        type="checkbox"
+                        checked={
+                          !!(data?.tickets &&
+                          selectedTickets.length === data.tickets.length)
+                        }
+                        onChange={toggleSelectAll}
+                        className="h-4 w-4 rounded border-gray-300 accent-[#ED5A2E]"
+                      />
+                    </th>
+                    <th className="p-4">
+                      <div className="flex items-center gap-1.5">
+                        Tickets Id <ArrowUpDown className="h-3.5 w-3.5 text-gray-400" />
+                      </div>
+                    </th>
+                    <th className="p-4">
+                      <div className="flex items-center gap-1.5">
+                        Event <ArrowUpDown className="h-3.5 w-3.5 text-gray-400" />
+                      </div>
+                    </th>
+                    <th className="p-4">
+                      <div className="flex items-center gap-1.5">
+                        Date <ArrowUpDown className="h-3.5 w-3.5 text-gray-400" />
+                      </div>
+                    </th>
+                    <th className="p-4">
+                      <div className="flex items-center gap-1.5">
+                        Amount <ArrowUpDown className="h-3.5 w-3.5 text-gray-400" />
+                      </div>
+                    </th>
+                    <th className="p-4">
+                      <div className="flex items-center gap-1.5">
+                        Status <ArrowUpDown className="h-3.5 w-3.5 text-gray-400" />
+                      </div>
+                    </th>
                   </tr>
-                ) : (
-                  data?.tickets.map((ticket) => (
-                    <tr
-                      key={ticket.id}
-                      className="hover:bg-gray-50/60 transition-colors"
-                    >
-                      <td className="p-4">
-                        <input
-                          type="checkbox"
-                          checked={selectedTickets.includes(ticket.id)}
-                          onChange={() => toggleSelectTicket(ticket.id)}
-                          className="h-4 w-4 rounded border-gray-300 accent-[#ED5A2E]"
-                        />
-                      </td>
-                      <td className="p-4 font-semibold text-gray-900">
-                        {ticket.id}
-                      </td>
-                      <td className="p-4 text-gray-700">{ticket.event}</td>
-                      <td className="p-4 text-gray-500">{ticket.date}</td>
-                      <td className="p-4 font-semibold text-gray-900">
-                        {ticket.amount}
-                      </td>
-                      <td className="p-4">
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/80 px-3 py-0.5 text-[0.78rem] font-semibold text-emerald-700">
-                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                          {ticket.status}
-                        </span>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {loading ? (
+                    <tr>
+                      <td colSpan={6} className="p-8 text-center text-gray-400">
+                        Loading tickets...
                       </td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                  ) : (
+                    data?.tickets.map((ticket) => (
+                      <tr
+                        key={ticket.id}
+                        className="hover:bg-gray-50/60 transition-colors"
+                      >
+                        <td className="p-4">
+                          <input
+                            type="checkbox"
+                            checked={selectedTickets.includes(ticket.id)}
+                            onChange={() => toggleSelectTicket(ticket.id)}
+                            className="h-4 w-4 rounded border-gray-300 accent-[#ED5A2E]"
+                          />
+                        </td>
+                        <td className="p-4 font-semibold text-gray-900">
+                          {ticket.id}
+                        </td>
+                        <td className="p-4 text-gray-700">{ticket.event}</td>
+                        <td className="p-4 text-gray-500">{ticket.date}</td>
+                        <td className="p-4 font-semibold text-gray-900">
+                          {ticket.amount}
+                        </td>
+                        <td className="p-4">
+                          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/80 px-3 py-0.5 text-[0.78rem] font-semibold text-emerald-700">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                            {ticket.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </main>
       </div>
+
+      {/* ── Mobile Navigation ── */}
+      <AccountMobileNav />
+
+      {/* ── Full Dark Footer ── */}
+      <footer className="bg-black px-6 py-12 text-white lg:px-16 border-t border-white/10 mt-12">
+        <div className="mx-auto max-w-[1300px]">
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 pb-12 border-b border-white/10">
+            <div>
+              <h4 className="text-[0.78rem] font-bold uppercase tracking-wider text-white mb-4">Contact</h4>
+              <p className="text-[0.88rem] font-semibold text-[#ED5A2E] mb-4">info@getontrck.com</p>
+            </div>
+            <div>
+              <h4 className="text-[0.78rem] font-bold uppercase tracking-wider text-white mb-4">Company</h4>
+              <ul className="space-y-2.5 text-[0.85rem] text-white/70">
+                <li><Link href="#" className="hover:text-white">About Us</Link></li>
+                <li><Link href="#" className="hover:text-white">How it works</Link></li>
+                <li><Link href="#" className="hover:text-white">Features</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-[0.78rem] font-bold uppercase tracking-wider text-white mb-4">Legal</h4>
+              <ul className="space-y-2.5 text-[0.85rem] text-white/70">
+                <li><Link href="#" className="hover:text-white">Privacy policy</Link></li>
+                <li><Link href="#" className="hover:text-white">Terms of service</Link></li>
+                <li><Link href="#" className="hover:text-white">Acceptable use policy</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-[0.78rem] font-bold uppercase tracking-wider text-white mb-4">Support</h4>
+              <ul className="space-y-2.5 text-[0.85rem] text-white/70">
+                <li><Link href="#" className="hover:text-white">FAQ</Link></li>
+              </ul>
+            </div>
+          </div>
+          <div className="pt-8 text-[0.76rem] text-white/40 leading-relaxed">
+            <p>Copyright ©2025 Trck Entertainment & Technology Ltd. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

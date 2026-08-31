@@ -19,6 +19,7 @@ import {
   ArrowUpDown,
 } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
+import { AccountMobileNav } from "@/components/account";
 
 interface BookingsData {
   totalBookings: number;
@@ -70,7 +71,7 @@ export default function BookingHistoryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-[var(--font-inter)] flex flex-col justify-between">
+    <div className="min-h-screen bg-white text-gray-900 font-[var(--font-inter)] flex flex-col justify-between overflow-x-hidden pb-16 lg:pb-0">
       {/* ── Top Header ── */}
       <header className="border-b border-gray-100 px-6 py-3.5 lg:px-12 flex items-center justify-between gap-4">
         {/* Left: Logo */}
@@ -277,6 +278,9 @@ export default function BookingHistoryPage() {
           </div>
         </main>
       </div>
+
+      {/* ── Mobile Navigation ── */}
+      <AccountMobileNav />
 
       {/* ── Full Dark Footer ── */}
       <footer className="bg-black px-6 py-12 text-white lg:px-16 border-t border-white/10">

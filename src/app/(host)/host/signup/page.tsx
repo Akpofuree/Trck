@@ -4,11 +4,23 @@ import { useState } from "react";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
+import { HostButton } from "@/components/host";
+
+const COUNTRIES = [
+  { flag: "🇳🇬", code: "+234", name: "Nigeria" },
+  { flag: "🇺🇸", code: "+1", name: "United States" },
+  { flag: "🇬🇧", code: "+44", name: "United Kingdom" },
+  { flag: "🇨🇦", code: "+1", name: "Canada" },
+  { flag: "🇬🇭", code: "+233", name: "Ghana" },
+  { flag: "🇰🇪", code: "+254", name: "Kenya" },
+  { flag: "🇿🇦", code: "+27", name: "South Africa" },
+];
 
 export default function HostSignupPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [agreedTerms, setAgreedTerms] = useState(false);
   const [agreedSMS, setAgreedSMS] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(COUNTRIES[0]);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -30,15 +42,16 @@ export default function HostSignupPage() {
     agreedTerms;
 
   return (
-    <div className="min-h-screen bg-black flex flex-col font-poppins">
+    <div className="min-h-screen bg-black flex flex-col font-poppins overflow-x-hidden">
       {/* Top Navigation — white header */}
       <nav className="flex items-center justify-between px-4 py-3 md:px-8 bg-white border-b border-gray-100">
         {/* Logo */}
-        <Logo width={120} height={44} className="h-9 w-auto" />
+        <Link href="/" className="inline-flex items-center">
+          <Logo width={120} height={44} className="h-9 w-auto" />
+        </Link>
 
         {/* Desktop nav items */}
         <div className="hidden md:flex items-center gap-4">
-          {/* Search — Figma: 99×34px, radius 16px */}
           <button
             className="flex items-center gap-2 border border-gray-200 text-gray-500 text-sm bg-white hover:bg-gray-50 transition-colors"
             style={{ width: 99, height: 34, borderRadius: 16, paddingLeft: 12, paddingRight: 12 }}
@@ -52,28 +65,26 @@ export default function HostSignupPage() {
           <select className="bg-white text-gray-700 text-sm border-none outline-none cursor-pointer">
             <option>English (United States)</option>
           </select>
-          {/* Login button — Figma: 98×40px, radius 8px, bg #111111, white text */}
+          {/* Login button */}
           <Link
             href="/host/login"
-            className="flex items-center justify-center text-white text-sm font-semibold hover:bg-[#222222] transition-colors"
-            style={{ width: 98, height: 40, borderRadius: 8, backgroundColor: "#111111" }}
+            className="flex items-center justify-center text-black bg-white border border-gray-300 text-sm font-semibold hover:bg-gray-50 transition-colors px-4 py-2 rounded-lg"
           >
             Log in
           </Link>
         </div>
 
-        {/* Mobile Login Button — Figma: 76.71×31.31px, radius 6.26px, bg #111111 */}
+        {/* Mobile Login Button — White background, black text per spec */}
         <Link
           href="/host/login"
-          className="md:hidden flex items-center justify-center text-white text-[0.75rem] font-medium"
-          style={{ width: 76.71, height: 31.31, borderRadius: 6.26, backgroundColor: "#111111" }}
+          className="md:hidden flex items-center justify-center text-black bg-white border border-gray-300 text-[0.8rem] font-semibold px-4 py-1.5 rounded-md hover:bg-gray-50 transition-colors shadow-xs"
         >
           Log in
         </Link>
       </nav>
 
       {/* Main Content */}
-      <div className="flex flex-1 items-start justify-center md:items-center md:px-8 py-6">
+      <div className="flex flex-1 items-start justify-center md:items-center px-4 sm:px-8 py-6">
 
         {/* Desktop: side text + card layout */}
         <div className="hidden md:flex w-full max-w-6xl gap-12 items-center justify-center">
@@ -87,10 +98,9 @@ export default function HostSignupPage() {
             </p>
           </div>
 
-          {/* Right side form card — Figma: 697×787.28px, radius 21.67px */}
+          {/* Right side form card */}
           <div
-            className="bg-white shadow-2xl font-poppins flex flex-col p-10"
-            style={{ width: 697, minHeight: 787.28, borderRadius: 21.67 }}
+            className="bg-white shadow-2xl font-poppins flex flex-col p-10 max-w-[697px] w-full rounded-[21px]"
           >
             <h2 className="text-black text-[1.806rem] font-medium leading-none mb-6">
               Create your host account
@@ -146,11 +156,20 @@ export default function HostSignupPage() {
                 </label>
                 <div className="flex border border-gray-300 rounded-lg overflow-hidden focus-within:border-[#ED5A2E] focus-within:ring-1 focus-within:ring-[#ED5A2E] transition-colors">
                   <div className="flex items-center gap-1.5 px-3 border-r border-gray-300 bg-gray-50 shrink-0">
-                    <span className="text-base">🇺🇸</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2">
-                      <path d="M6 9l6 6 6-6" />
-                    </svg>
-                    <span className="text-sm text-gray-600">+1</span>
+                    <select
+                      value={selectedCountry.code}
+                      onChange={(e) => {
+                        const found = COUNTRIES.find((c) => c.code === e.target.value);
+                        if (found) setSelectedCountry(found);
+                      }}
+                      className="bg-transparent text-sm text-gray-700 outline-none cursor-pointer"
+                    >
+                      {COUNTRIES.map((c) => (
+                        <option key={c.name} value={c.code}>
+                          {c.flag} {c.code}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <input
                     type="tel"
@@ -174,7 +193,7 @@ export default function HostSignupPage() {
                     className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 transition-colors"
                   >
                     {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
-                    <span>{showPassword ? "Hide" : "Hide"}</span>
+                    <span>{showPassword ? "Hide" : "Show"}</span>
                   </button>
                 </div>
                 <input
@@ -222,19 +241,16 @@ export default function HostSignupPage() {
                 </label>
               </div>
 
-              {/* Sign Up + Already have an account — same row as per screenshot */}
+              {/* Sign Up + Already have an account */}
               <div className="flex items-center gap-4 pt-3">
-                <button
-                  type="submit"
+                <HostButton
+                  href="/host/onboarding/business-info"
                   disabled={!isFormValid}
-                  className={`rounded-[36.11px] text-[1rem] font-medium transition-all flex items-center justify-center px-8 py-2 ${
-                    isFormValid
-                      ? "bg-[#ED5A2E] text-white hover:bg-[#d44d24]"
-                      : "bg-[#ED5A2E] text-white opacity-40 cursor-not-allowed"
-                  }`}
+                  fullWidth={false}
+                  className="px-8 py-3"
                 >
                   Sign up
-                </button>
+                </HostButton>
                 <p className="text-[0.903rem] font-normal text-[#666666]">
                   Already have an account?{" "}
                   <Link href="/host/login" className="text-[#333333] underline">
@@ -247,9 +263,9 @@ export default function HostSignupPage() {
         </div>
 
         {/* Mobile Layout */}
-        <div className="md:hidden w-full px-5 flex flex-col font-poppins">
+        <div className="md:hidden w-full max-w-md mx-auto flex flex-col font-poppins">
           <h2 className="text-white text-[1.5rem] font-medium text-center mb-8 leading-[136%]">
-            Create Your Account
+            Create your host account
           </h2>
 
           <div className="space-y-5">
@@ -289,16 +305,25 @@ export default function HostSignupPage() {
               />
             </div>
 
-            {/* Phone */}
+            {/* Phone with Country Flags */}
             <div>
               <label className="block text-[0.875rem] font-normal text-[#C8C8C8] mb-2">Phone Number</label>
               <div className="flex border border-white/30 rounded-lg overflow-hidden focus-within:border-[#ED5A2E] transition-colors">
                 <div className="flex items-center gap-1.5 px-3 border-r border-white/20 bg-white/5 shrink-0">
-                  <span className="text-base">🇺🇸</span>
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" className="opacity-60">
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                  <span className="text-sm text-white/70">+1</span>
+                  <select
+                    value={selectedCountry.code}
+                    onChange={(e) => {
+                      const found = COUNTRIES.find((c) => c.code === e.target.value);
+                      if (found) setSelectedCountry(found);
+                    }}
+                    className="bg-transparent text-sm text-white outline-none cursor-pointer [&>option]:bg-black [&>option]:text-white"
+                  >
+                    {COUNTRIES.map((c) => (
+                      <option key={c.name} value={c.code}>
+                        {c.flag} {c.code}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <input
                   type="tel"
@@ -320,7 +345,7 @@ export default function HostSignupPage() {
                   className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 transition-colors"
                 >
                   {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
-                  <span>{showPassword ? "Hide" : "Hide"}</span>
+                  <span>{showPassword ? "Hide" : "Show"}</span>
                 </button>
               </div>
               <input
@@ -364,14 +389,16 @@ export default function HostSignupPage() {
               </label>
             </div>
 
-            {/* Mobile Sign Up Button — fills width like inputs, radius 7.1px */}
-            <button
-              type="button"
-              style={{ borderRadius: 7.1 }}
-              className="w-full py-4 bg-[#ED5E2E] text-white text-[1.1rem] font-medium flex items-center justify-center hover:bg-[#d44d24] active:scale-[0.98] transition-all mt-2"
-            >
-              Sign up
-            </button>
+            {/* Mobile Sign Up Button using Reusable HostButton */}
+            <div className="pt-2">
+              <HostButton
+                href="/host/onboarding/business-info"
+                disabled={!isFormValid}
+                fullWidth={true}
+              >
+                Sign up
+              </HostButton>
+            </div>
 
             <p className="text-center text-xs text-white/50 pb-6">
               Already have an account?{" "}

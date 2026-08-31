@@ -19,7 +19,9 @@ import {
   ChevronLeft,
   ChevronDown,
   Zap,
+  X,
 } from "lucide-react";
+import { HostButton } from "@/components/host";
 
 const STEPS = ["Step 1", "Step 2", "Step 3", "Step 4"];
 
@@ -36,6 +38,7 @@ const NAV_ITEMS = [
   {
     section: "Management",
     items: [
+      // TODO: Management screens (Users, Tickets, Events, Earnings) awaiting designer/product specifications
       { label: "Users", icon: Users, href: "#" },
       { label: "Tickets", icon: Ticket, href: "#" },
       { label: "Events", icon: Music, href: "#" },
@@ -46,6 +49,7 @@ const NAV_ITEMS = [
   {
     section: "Other",
     items: [
+      // TODO: Report and Settings screens awaiting designer/product specifications
       { label: "Report", icon: FileText, href: "#" },
       { label: "Settings", icon: Settings, href: "#" },
     ],
@@ -64,6 +68,7 @@ export default function KYCVerificationPage() {
   const [addressFile, setAddressFile] = useState<File | null>(null);
   const [confirmed, setConfirmed] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const years = Array.from({ length: 80 }, (_, i) => String(2006 - i));
   const months = [
@@ -73,11 +78,11 @@ export default function KYCVerificationPage() {
   const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
 
   return (
-    <div className="min-h-screen bg-[#000000] text-white flex flex-col font-montserrat">
+    <div className="min-h-screen bg-[#000000] text-white flex flex-col font-montserrat overflow-x-hidden">
 
       {/* ── WHITE TOP HEADER (Desktop) ─────────────────── */}
       <header className="hidden md:flex h-[70px] bg-white items-center justify-between px-6 border-b border-gray-100 shrink-0 z-20">
-        <span className="text-black font-semibold text-[1rem] font-poppins">Dashboard</span>
+        <span className="text-black font-semibold text-[1rem] font-poppins">KYC Verification</span>
         <div className="flex items-center gap-3">
           <button className="relative p-1.5 text-gray-500 hover:text-gray-700 transition-colors">
             <Bell size={20} />
@@ -99,13 +104,21 @@ export default function KYCVerificationPage() {
       {/* ── MOBILE HEADER ───────────────────────────────── */}
       <div className="md:hidden flex flex-col shrink-0">
         <header className="flex items-center justify-between px-4 py-3 bg-[#000000]">
-          {/* Hamburger */}
-          <button className="w-10 h-10 border-2 border-dashed border-white/40 rounded-lg flex items-center justify-center text-white">
-            <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
-              <rect width="18" height="2" rx="1" fill="white"/>
-              <rect y="6" width="18" height="2" rx="1" fill="white"/>
-              <rect y="12" width="18" height="2" rx="1" fill="white"/>
-            </svg>
+          {/* Hamburger button with toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="w-10 h-10 border-2 border-dashed border-white/40 rounded-lg flex items-center justify-center text-white active:scale-95 transition-all"
+            aria-label="Toggle Host Menu"
+          >
+            {mobileMenuOpen ? (
+              <X size={18} />
+            ) : (
+              <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+                <rect width="18" height="2" rx="1" fill="white"/>
+                <rect y="6" width="18" height="2" rx="1" fill="white"/>
+                <rect y="12" width="18" height="2" rx="1" fill="white"/>
+              </svg>
+            )}
           </button>
           {/* Right icons */}
           <div className="flex items-center gap-4">
@@ -125,6 +138,30 @@ export default function KYCVerificationPage() {
         </header>
         {/* Blue brand line */}
         <div className="h-[3px] bg-[#0099FF] w-full" />
+
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="bg-[#121212] border-b border-white/15 px-4 py-5 space-y-4 animate-in slide-in-from-top-2 duration-200">
+            <p className="text-[0.7rem] font-bold uppercase tracking-wider text-white/40">Host Navigation</p>
+            <div className="grid grid-cols-2 gap-2">
+              <Link href="/host/dashboard" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-xs text-white hover:bg-[#ED5828]">
+                <LayoutDashboard size={14} /> Dashboard
+              </Link>
+              <Link href="/host/calendar" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-xs text-white hover:bg-[#ED5828]">
+                <CalendarIcon size={14} /> Calendar
+              </Link>
+              <Link href="/host/promotions" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-xs text-white hover:bg-[#ED5828]">
+                <Megaphone size={14} /> Promotions
+              </Link>
+              <Link href="/host/payouts" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-xs text-white hover:bg-[#ED5828]">
+                <Wallet size={14} /> Payouts
+              </Link>
+              <Link href="/host/reviews" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-xs text-white hover:bg-[#ED5828]">
+                <Star size={14} /> Reviews
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ── BODY: SIDEBAR + CONTENT ──────────────────── */}
@@ -403,12 +440,14 @@ export default function KYCVerificationPage() {
 
               {/* Continue Button */}
               <div className="flex justify-center pt-2">
-                <Link
+                <HostButton
                   href="/host/onboarding/bank-verification"
-                  className="flex items-center justify-center w-full max-w-[600px] h-[52px] rounded-[11px] bg-[#ED5828] text-white font-poppins font-medium text-[1rem] hover:bg-[#d44d24] active:scale-[0.98] transition-all"
+                  disabled={!confirmed}
+                  fullWidth={true}
+                  className="max-w-[600px]"
                 >
                   Continue
-                </Link>
+                </HostButton>
               </div>
             </div>
           </div>

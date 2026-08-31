@@ -1,10 +1,24 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
 
 export default function Page() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navLinks = [
+    { label: "Track", href: "/home", isBrand: true },
+    { label: "Personal", href: "/explore" },
+    { label: "Business", href: "/host/signup" },
+    { label: "Trck+", href: "/onboarding/step-1" },
+    { label: "Company", href: "#" },
+  ];
+
   return (
-    <div className="relative min-h-screen overflow-hidden font-[var(--font-montserrat)]">
+    <div className="relative min-h-screen overflow-x-hidden font-[var(--font-montserrat)]">
       {/* ── Background image ── */}
       <Image
         src="/carnival-hero-bg.jpg"
@@ -21,24 +35,32 @@ export default function Page() {
       <div className="relative z-10 flex min-h-screen flex-col">
 
         {/* ── Navbar ── */}
-        <nav className="flex items-center justify-between px-8 py-5 lg:px-14">
-          {/* Logo */}
-          <Logo width={120} height={44} className="h-9 w-auto brightness-0 invert" />
+        <nav className="flex items-center justify-between px-6 py-5 sm:px-8 lg:px-14">
+          {/* Left section: Logo + Grouped Nav Items */}
+          <div className="flex items-center gap-10">
+            <Link href="/" className="inline-flex items-center">
+              <Logo width={120} height={44} className="h-9 w-auto brightness-0 invert" />
+            </Link>
 
-          {/* Nav links */}
-          <div className="hidden items-center gap-8 md:flex">
-            {["Personal", "Business", "Trck+", "Company"].map((link) => (
-              <Link
-                key={link}
-                href="#"
-                className="text-[0.9rem] font-medium text-white/85 transition-colors hover:text-white"
-              >
-                {link}
-              </Link>
-            ))}
+            {/* Nav links grouped together */}
+            <div className="hidden items-center gap-7 lg:flex">
+              {navLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`text-[0.9rem] transition-colors ${
+                    item.isBrand
+                      ? "font-bold text-[#ED5A2E] hover:text-[#d4501f]"
+                      : "font-medium text-white/85 hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
           </div>
 
-          {/* Auth buttons */}
+          {/* Right section: Auth buttons + Mobile menu button */}
           <div className="flex items-center gap-3">
             <Link
               href="/login"
@@ -50,18 +72,69 @@ export default function Page() {
             <Link
               href="/signup"
               id="nav-signup"
-              className="rounded-full bg-white px-5 py-2 text-[0.88rem] font-bold text-gray-900 shadow-md transition-all hover:bg-white/90 hover:shadow-lg active:scale-[0.97]"
+              className="hidden sm:inline-flex rounded-full bg-white px-5 py-2 text-[0.88rem] font-bold text-gray-900 shadow-md transition-all hover:bg-white/90 hover:shadow-lg active:scale-[0.97]"
             >
               Sign up
             </Link>
+
+            {/* Mobile Hamburger Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Navigation"
+              className="lg:hidden flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-95"
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
         </nav>
 
+        {/* ── Mobile Navigation Drawer ── */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden fixed inset-0 top-[72px] z-50 bg-black/90 backdrop-blur-xl px-6 py-8 flex flex-col justify-between border-t border-white/10 animate-in fade-in slide-in-from-top-4 duration-200">
+            <div className="space-y-4">
+              <p className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-2">
+                Navigation
+              </p>
+              {navLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`block py-3 px-4 rounded-xl text-base transition-colors ${
+                    item.isBrand
+                      ? "bg-[#ED5A2E]/10 font-bold text-[#ED5A2E]"
+                      : "font-medium text-white/90 hover:bg-white/5 hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="space-y-3 pt-6 border-t border-white/10">
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex w-full items-center justify-center rounded-xl border border-white/20 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                Log in
+              </Link>
+              <Link
+                href="/signup"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex w-full items-center justify-center rounded-xl bg-[#ED5A2E] py-3.5 text-sm font-bold text-white shadow-md transition-colors hover:bg-[#d4501f]"
+              >
+                Sign up
+              </Link>
+            </div>
+          </div>
+        )}
+
         {/* ── Hero ── */}
-        <div className="flex flex-1 flex-col justify-center px-8 pb-24 pt-8 lg:px-14">
+        <div className="flex flex-1 flex-col justify-center px-6 pb-24 pt-8 sm:px-8 lg:px-14">
           <div className="max-w-[580px]">
             {/* Headline */}
-            <h1 className="text-[2.6rem] font-extrabold uppercase leading-[1.1] tracking-tight text-white sm:text-[3rem] lg:text-[3.4rem]">
+            <h1 className="text-[2.5rem] font-extrabold uppercase leading-[1.1] tracking-tight text-white sm:text-[3rem] lg:text-[3.4rem]">
               Book Incredible
               <br />
               <span className="text-[#ED5A2E]">Experiences</span>

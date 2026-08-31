@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown, X, Zap } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
+import { HostButton } from "@/components/host";
 
 const INDUSTRIES = [
   "Music",
@@ -59,7 +60,7 @@ export default function BusinessInfoPage() {
   const isValid = orgName && businessType && country;
 
   return (
-    <div className="min-h-screen bg-black flex flex-col font-poppins">
+    <div className="min-h-screen bg-black flex flex-col font-poppins overflow-x-hidden">
       {/* Top Nav — white header */}
       <nav className="flex items-center justify-between px-4 py-3 md:px-10 bg-white border-b border-gray-100">
         <Logo width={120} height={44} className="h-9 w-auto" />
@@ -324,17 +325,13 @@ export default function BusinessInfoPage() {
 
             {/* Continue */}
             <div className="flex justify-center pt-1">
-              <button
-                type="button"
-                className={`w-full max-w-full rounded-[10px] text-[0.95rem] font-semibold transition-all flex items-center justify-center ${
-                  isValid
-                    ? "bg-[#ED5A2E] text-white hover:bg-[#d44d24] opacity-100"
-                    : "bg-[#ED5A2E] text-white opacity-25 cursor-not-allowed"
-                }`}
-                style={{ height: 44 }}
+              <HostButton
+                href="/host/onboarding/kyc"
+                disabled={!isValid}
+                fullWidth={true}
               >
                 Continue
-              </button>
+              </HostButton>
             </div>
           </div>
         </div>
@@ -516,13 +513,14 @@ export default function BusinessInfoPage() {
             </label>
 
             {/* Continue */}
-            <div className="flex justify-center">
-              <button
-                type="button"
-                className="w-[338px] max-w-full h-[58.92px] rounded-[7.09px] bg-[#ED5A2E] text-white text-[1.256rem] font-medium flex items-center justify-center hover:bg-[#d44d24] active:scale-[0.98] transition-all mb-6"
+            <div className="flex justify-center pt-2 pb-6">
+              <HostButton
+                href="/host/onboarding/kyc"
+                disabled={!isValid}
+                fullWidth={true}
               >
                 Continue
-              </button>
+              </HostButton>
             </div>
           </div>
         </div>
