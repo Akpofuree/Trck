@@ -51,7 +51,8 @@ export default function OnboardingStep3Page() {
     } catch (e) {
       console.error("Failed to post onboarding choice", e);
     }
-    router.push("/onboarding/step-4");
+    window.localStorage.setItem("trck-journey", selectedJourney);
+    router.push(selectedJourney === "admin" ? "/admin/dashboard" : selectedJourney === "host" ? "/host/signup" : "/onboarding/step-4");
   };
 
   const getIcon = (id: JourneyOption) => {

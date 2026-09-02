@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { CalendarDays, ChevronDown, ChevronLeft, Clock3, Heart, MapPin, Share2, Star, Users, Sparkles } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
+import { SeriesPassCard } from "@/components/shared/series-pass-card";
+import { OrganizerCard } from "@/components/shared/organizer-card";
 
 const details = [
   { title: "GENRE", value: "AFROBEATS", icon: "/icon-calendar.png" },
@@ -31,6 +34,8 @@ const faqs = [
 ];
 
 export default function Page() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   return (
     <main className="min-h-screen bg-black text-white">
       <section className="relative overflow-hidden">
@@ -59,40 +64,18 @@ export default function Page() {
             </header>
 
             <div className="mt-10 max-w-[720px]">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#f0b31f] px-4 py-2 text-[0.88rem] font-medium text-black shadow-md">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black font-bold">D</span>
-                <span>Elizabeth R Events</span>
-                <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#ED5A2E] text-[0.65rem] text-white">{"✓"}</span>
-              </div>
-
               <h1 className="text-[3.2rem] font-black uppercase leading-[0.88] tracking-tight sm:text-[5.1rem]">
                 5IVE LIVE AT <span className="text-[#ED5A2E]">02</span> ARENA
               </h1>
 
-              <div className="mt-6 flex flex-wrap items-center gap-6 text-[0.82rem] text-white/80">
-                <span className="inline-flex items-center gap-2">
-                  <span className="text-[#FFD400]">{'★★★★★'}</span>
-                  <span>4.8 (127 Reviews)</span>
-                </span>
-                <span className="inline-flex items-center gap-2">
-                  <Users className="h-4 w-4 text-[#ED5A2E]" />
-                  <span>40,034 people are attending</span>
-                </span>
-              </div>
-
-              <div className="mt-6 flex items-center gap-3 text-[0.9rem] text-white/85">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-black font-semibold">E</div>
-                <span>
-                  Hosted by <span className="font-medium">Elizabeth R Events</span> <span className="text-[#ED5A2E]">{"✓"}</span>
-                </span>
-              </div>
-
-              <div className="mt-8 flex flex-wrap gap-4">
-                <button className="rounded-full bg-[#ED5A2E] px-6 py-3 text-[0.95rem] font-semibold text-white shadow-lg shadow-black/20">
-                  View All Dates
-                </button>
-                <button className="rounded-full bg-white px-6 py-3 text-[0.95rem] font-semibold text-[#ED5A2E] shadow-lg shadow-black/10">
-                  Add to Calendar
+              <div className="mt-6 flex flex-wrap items-center gap-5 text-[0.82rem] text-white/80">
+                <span>by Elizabeth R Events <span className="text-[#ED5A2E]">{"✓"}</span></span>
+                <span className="inline-flex items-center gap-2"><CalendarDays className="h-4 w-4 text-[#ED5A2E]" /> 8 Events</span>
+                <span className="text-[#ED5A2E]">•</span><span>4 Weeks</span>
+                <span className="text-[#ED5A2E]">•</span>
+                <span className="inline-flex items-center gap-2"><MapPin className="h-4 w-4 text-[#ED5A2E]" /> 02 Arena London, United Kingdom</span>
+                <button className="ml-auto rounded-[12px] bg-[#ED5A2E] px-6 py-3 text-[0.95rem] font-semibold text-white shadow-lg shadow-black/20">
+                  Book Event <span className="ml-2">{"→"}</span>
                 </button>
               </div>
             </div>
@@ -146,36 +129,9 @@ export default function Page() {
             </div>
           </section>
 
-          <section className="mt-20 rounded-[22px] border border-[#2b9fff] bg-[linear-gradient(90deg,#FFFFFF_0%,#f8b39b_15%,#ED5A2E_100%)] p-6 text-white">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-              <div className="max-w-[560px]">
-                <div className="mb-4 inline-flex items-center gap-2 text-[0.85rem] font-medium text-white/95">
-                  <Sparkles className="h-4 w-4" />
-                  Best Value
-                </div>
-                <h3 className="text-[2rem] font-bold leading-tight">Get the Series Pass</h3>
-                <p className="mt-4 text-[0.95rem] text-white/90">Attend all 8 events and save on individual tickets</p>
-                <ul className="mt-6 space-y-3 text-[0.92rem]">
-                  {["Priority Seating", "Exclusive Meet & Greet Opportunity", "10% Discount on Food and Beverages", "Free Series Merchandise Package"].map((item) => (
-                    <li key={item} className="flex items-center gap-2">
-                      <span>{"✓"}</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="relative flex min-h-[240px] min-w-[220px] items-end justify-end overflow-hidden">
-                <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-white/15" />
-                <div className="relative z-10 text-right">
-                  <span className="inline-flex rounded-full bg-white/18 px-4 py-1 text-[0.9rem]">Save 25%</span>
-                  <div className="mt-14 text-white/80 line-through">$980</div>
-                  <div className="text-[3rem] font-black">$700</div>
-                  <button className="mt-8 rounded-xl bg-white px-6 py-3 text-[1rem] font-semibold text-[#ED5A2E] shadow-lg">Buy Series Pass</button>
-                </div>
-              </div>
-            </div>
-          </section>
+          <div className="mt-20">
+            <SeriesPassCard />
+          </div>
 
           <section className="mt-16">
             <div className="mb-6 flex items-center justify-between">
@@ -255,47 +211,28 @@ export default function Page() {
             </div>
           </section>
 
-          <section className="mt-16 rounded-[22px] border border-[#8f5f4d] bg-[linear-gradient(90deg,#2d201c_0%,#141414_45%,#6e6657_100%)] p-6">
-            <h2 className="text-[1.35rem] font-bold">Meet The Organizer</h2>
-            <div className="mt-6 grid gap-8 lg:grid-cols-[240px_1fr]">
-              <div className="flex items-center justify-center">
-                <div className="flex h-56 w-56 items-center justify-center rounded-full bg-white text-[6rem] font-light text-black">E</div>
-              </div>
-              <div>
-                <div className="flex items-center gap-3">
-                  <h3 className="text-[1.2rem] font-medium">Elizabeth R Events</h3>
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#ED5A2E] text-[0.65rem] text-white">{"✓"}</span>
-                </div>
-                <p className="mt-4 max-w-[760px] text-[0.95rem] leading-relaxed text-white/85">
-                  Passionate about bringing world-class experiences to Lagos. We&apos;ve been curating unforgettable music events since 2018, hosting over 150 performers and welcoming 10,000+ artists worldwide.
-                </p>
-                <div className="mt-6 flex flex-wrap items-center gap-6 text-[0.9rem] text-white/85">
-                  <span className="inline-flex items-center gap-2"><CalendarDays className="h-4 w-4 text-[#ED5A2E]" /> 24 Event Series</span>
-                  <span className="inline-flex items-center gap-2"><Users className="h-4 w-4 text-[#ED5A2E]" /> 12.5k followers</span>
-                </div>
-                <div className="mt-6 flex flex-wrap items-center gap-4">
-                  <button className="rounded-xl bg-[#ED5A2E] px-10 py-3 text-[0.95rem] font-semibold text-white">Follow</button>
-                  <button className="rounded-xl bg-[#ED5A2E] px-10 py-3 text-[0.95rem] font-semibold text-white">View Profile</button>
-                  <div className="ml-auto flex items-center gap-5 text-white">
-                    <span className="text-[1.8rem]">{"◌"}</span>
-                    <span className="text-[1.8rem]">{"X"}</span>
-                    <span className="text-[1.8rem]">{"◯"}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+          <div className="mt-16">
+            <OrganizerCard
+              title="Meet the Organizer"
+              name="Elizabeth R Events"
+              bio="Passionate about bringing world-class experiences to Lagos. We've been curating unforgettable music events since 2018, hosting over 150 performers and welcoming 10,000+ artists worldwide."
+              eventSeriesCount="24 Event Series"
+              followersCount="12.5k Followers"
+              avatarLetter="E"
+              verified={true}
+            />
+          </div>
 
           <section className="mt-16">
             <h2 className="text-[1.35rem] font-bold uppercase tracking-tight">Frequently Asked Questions</h2>
             <div className="mt-6">
               {faqs.map((faq, idx) => (
                 <div key={faq.q} className="border-b border-[#ED5A2E] py-5">
-                  <button className="flex w-full items-center justify-between text-left text-[1rem] font-medium">
+                  <button onClick={() => setOpenFaq(openFaq === idx ? null : idx)} className="flex w-full items-center justify-between text-left text-[1rem] font-medium">
                     <span>{faq.q}</span>
-                    <ChevronDown className="h-5 w-5 text-[#ED5A2E]" />
+                    <ChevronDown className={`h-5 w-5 text-[#ED5A2E] transition-transform ${openFaq === idx ? "rotate-180" : ""}`} />
                   </button>
-                  {idx === 4 ? <p className="mt-3 max-w-[900px] text-[0.92rem] leading-relaxed text-[#ED5A2E]">{faq.a}</p> : null}
+                  {openFaq === idx ? <p className="mt-3 max-w-[900px] text-[0.92rem] leading-relaxed text-[#ED5A2E]">{faq.a}</p> : null}
                 </div>
               ))}
             </div>
@@ -335,7 +272,7 @@ export default function Page() {
         </div>
       </section>
 
-      <footer className="border-t border-white/10 bg-black px-6 py-12 text-white lg:px-16">
+      <footer className="hidden border-t border-white/10 bg-black px-6 py-12 text-white lg:px-16">
         <div className="mx-auto max-w-[1440px]">
           <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-12 sm:grid-cols-2 md:grid-cols-4">
             <div>

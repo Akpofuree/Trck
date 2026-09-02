@@ -35,6 +35,7 @@ import {
   Layers,
   DollarSign,
   MessageSquare,
+  Plus,
   X,
 } from "lucide-react";
 
@@ -443,6 +444,10 @@ export default function HostPromotionsPage() {
                   </div>
                 </div>
               )}
+
+              <Link href="/host/promotions/new" className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#ED5828] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[#d44d24] sm:w-auto sm:self-end">
+                <Plus size={16} /> Create Promotion
+              </Link>
             </div>
           </div>
         </main>

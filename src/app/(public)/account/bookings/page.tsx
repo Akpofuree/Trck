@@ -283,7 +283,7 @@ export default function BookingHistoryPage() {
       <AccountMobileNav />
 
       {/* ── Full Dark Footer ── */}
-      <footer className="bg-black px-6 py-12 text-white lg:px-16 border-t border-white/10">
+      <footer className="hidden bg-black px-6 py-12 text-white lg:px-16 border-t border-white/10">
         <div className="mx-auto max-w-[1300px]">
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 pb-12 border-b border-white/10">
             <div>

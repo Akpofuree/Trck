@@ -426,6 +426,10 @@ export default function HostPayoutsPage() {
                 </div>
               </div>
             </div>
+
+            <Link href="/host/promotions/new" className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#ED5828] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[#d44d24] sm:w-auto sm:self-end">
+              <Megaphone size={16} /> Create Promotion
+            </Link>
           </div>
         </main>
       </div>

@@ -359,7 +359,7 @@ export default function KYCStatusPage() {
                 <HostButton
                   href="/host/onboarding/kyc"
                   fullWidth={true}
-                  className="max-w-[400px]"
+                  className="w-full"
                 >
                   Re-submit Documents
                 </HostButton>
@@ -370,7 +370,7 @@ export default function KYCStatusPage() {
                 <HostButton
                   href="/host/dashboard"
                   fullWidth={true}
-                  className="max-w-[400px]"
+                  className="w-full"
                 >
                   Continue to Dashboard
                 </HostButton>

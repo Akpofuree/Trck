@@ -7,7 +7,7 @@ import { Logo } from "@/components/shared/logo";
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black px-4 py-10 text-white lg:px-8">
+    <footer className="hidden border-t border-white/10 bg-black px-4 py-10 text-white lg:px-8">
       <div className="mx-auto max-w-[1120px] text-[0.75rem] text-white/40">
         <p>TRCK is a leisure technology platform based in Nigeria.</p>
       </div>
@@ -20,7 +20,7 @@ export default function Page() {
     <main className="min-h-screen bg-black text-white">
       <div className="border-b border-[#ED5A2E]/40 bg-[#151515] px-4 py-4 lg:px-8">
         <div className="mx-auto flex max-w-[1120px] items-center gap-4">
-          <button className="text-[1.2rem] text-white/90"><ChevronLeft className="h-5 w-5" /></button>
+          <button type="button" data-transaction="Back" className="text-[1.2rem] text-white/90"><ChevronLeft className="h-5 w-5" /></button>
           <Image src="/event-feature.jpg" alt="event" width={88} height={88} className="h-[72px] w-[72px] rounded-[12px] object-cover" />
           <div className="min-w-0 flex-1">
             <h1 className="text-[1rem] font-semibold">5IVE LIVE AT 02 ARENA</h1>
@@ -80,11 +80,11 @@ export default function Page() {
         <div className="mx-auto mt-8 max-w-[760px] rounded-[16px] bg-[#171717] p-5">
           <h3 className="text-[1.05rem] font-semibold">Find Recipient</h3>
           <div className="mt-4 flex gap-2">
-            <div className="flex flex-1 items-center gap-2 rounded-[10px] bg-[#2b2b2b] px-4 py-3 text-white/45">
+            <label className="flex flex-1 items-center gap-2 rounded-[10px] bg-[#2b2b2b] px-4 py-3 text-white/45 focus-within:ring-1 focus-within:ring-[#ED5A2E]">
               <Search className="h-4 w-4" />
-              <span>Search by username</span>
-            </div>
-            <button className="rounded-[10px] bg-[#ED5A2E] px-4 py-3 text-[0.85rem] font-semibold text-white">Search</button>
+              <input aria-label="Search by username" placeholder="Search by username" className="min-w-0 flex-1 bg-transparent text-[0.85rem] text-white outline-none placeholder:text-white/45" />
+            </label>
+            <button type="button" data-transaction="Search recipient" className="rounded-[10px] bg-[#ED5A2E] px-4 py-3 text-[0.85rem] font-semibold text-white transition hover:bg-[#d94d25]">Search</button>
           </div>
 
           <h4 className="mt-5 text-[1rem] font-semibold">Recents</h4>
@@ -102,14 +102,14 @@ export default function Page() {
 
           <div className="mt-5">
             <div className="text-[0.95rem] font-semibold">Personal Message (Optional)</div>
-            <div className="mt-3 rounded-[10px] bg-[#2b2b2b] px-4 py-4 text-[0.85rem] text-white/45">Add a message for the recipient</div>
+            <textarea aria-label="Personal message" placeholder="Add a message for the recipient" className="mt-3 min-h-24 w-full resize-y rounded-[10px] bg-[#2b2b2b] px-4 py-4 text-[0.85rem] text-white outline-none placeholder:text-white/45 focus:ring-1 focus:ring-[#ED5A2E]" />
           </div>
 
           <label className="mt-4 flex items-start gap-2 text-[0.75rem] text-white/60">
             <span className="mt-0.5 flex h-4 w-4 items-center justify-center rounded-[0.2rem] bg-[#ED5A2E] text-[0.7rem]">✓</span>
             <span>I confirm I want to transfer this ticket to <span className="text-[#ED5A2E]">@johndoe</span>. This action cannot be undone once accepted.</span>
           </label>
-          <button className="mt-4 w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white">Transfer Ticket</button>
+          <button type="button" data-transaction="Transfer ticket" className="mt-4 w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white transition hover:bg-[#d94d25]">Transfer Ticket</button>
         </div>
 
         <div className="mt-10"><Footer /></div>

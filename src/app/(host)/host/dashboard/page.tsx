@@ -27,6 +27,8 @@ import {
   MapPin,
   CalendarDays,
   UserCheck,
+  Building2,
+  ShieldCheck,
   CircleDollarSign,
   CheckCircle2,
   ArrowLeftRight,
@@ -45,6 +47,16 @@ const NAV_ITEMS = [
       { label: "Calenders", icon: CalendarIcon, href: "/host/calendar" },
       { label: "Promotions", icon: Megaphone, href: "/host/promotions" },
       { label: "Payouts", icon: Wallet, href: "/host/payouts" },
+    ],
+  },
+  {
+    section: "Host Portal",
+    items: [
+      { label: "Host Sign Up", icon: UserCheck, href: "/host/signup", active: false },
+      { label: "Business Info", icon: Building2, href: "/host/onboarding/business-info", active: false },
+      { label: "KYC Verification", icon: ShieldCheck, href: "/host/onboarding/kyc", active: false },
+      { label: "Bank Verification", icon: Wallet, href: "/host/onboarding/bank-verification", active: false },
+      { label: "KYC Status", icon: CheckCircle2, href: "/host/onboarding/status", active: false },
     ],
   },
   {

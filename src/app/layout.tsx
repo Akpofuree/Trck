@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Open_Sans, Poppins, Montserrat, Inter, Lato, Outfit, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { TransactionFeedback } from "@/components/shared/transaction-feedback";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -60,6 +61,7 @@ export default function RootLayout({
     <html lang="en" className={`${openSans.variable} ${poppins.variable} ${montserrat.variable} ${inter.variable} ${lato.variable} ${outfit.variable} ${playfair.variable} font-sans h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-black text-white selection:bg-[#ED5A2E] selection:text-white">
         {children}
+        <TransactionFeedback />
       </body>
     </html>
   );

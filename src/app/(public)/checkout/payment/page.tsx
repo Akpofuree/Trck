@@ -7,7 +7,7 @@ import { Logo } from "@/components/shared/logo";
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black px-6 py-12 text-white lg:px-16">
+    <footer className="hidden border-t border-white/10 bg-black px-6 py-12 text-white lg:px-16">
       <div className="mx-auto max-w-[1440px]">
         <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-12 sm:grid-cols-2 md:grid-cols-4">
           <div>
@@ -150,18 +150,16 @@ export default function Page() {
                   ].map(([label, value]) => (
                     <div key={label}>
                       <label className="mb-2 block text-[0.8rem] text-white/75">{label}</label>
-                      <div className="rounded-[0.45rem] bg-[#2b2b2b] px-3 py-3 text-[0.85rem] text-white/55">{value}</div>
+                      <input aria-label={label} defaultValue={value} className="w-full rounded-[0.45rem] bg-[#2b2b2b] px-3 py-3 text-[0.85rem] text-white outline-none focus:ring-1 focus:ring-[#ED5A2E]" />
                     </div>
                   ))}
                 </div>
               </SectionCard>
 
               <SectionCard title="Special Requests (Optional)">
-                <div className="rounded-[0.45rem] border border-white/20 bg-[#2b2b2b] px-3 py-3 text-[0.85rem] text-white/35">
-                  Any special requirements? (dietary, accessibility, etc)
-                </div>
+                <textarea aria-label="Special requests" placeholder="Any special requirements? (dietary, accessibility, etc)" className="min-h-24 w-full resize-y rounded-[0.45rem] border border-white/20 bg-[#2b2b2b] px-3 py-3 text-[0.85rem] text-white outline-none placeholder:text-white/35 focus:ring-1 focus:ring-[#ED5A2E]" />
                 <div className="mt-4 flex justify-end">
-                  <button className="rounded-[0.45rem] bg-[#ED5A2E] px-4 py-2 text-[0.85rem] font-semibold text-white">Submit</button>
+                  <button type="button" data-transaction="Submit special requests" className="rounded-[0.45rem] bg-[#ED5A2E] px-4 py-2 text-[0.85rem] font-semibold text-white">Submit</button>
                 </div>
               </SectionCard>
 
@@ -178,13 +176,13 @@ export default function Page() {
               <SectionCard title="FAQs">
                 <div className="space-y-4">
                   {["Can I attend individual events?", "What’s the cancellation policy?", "Is there parking available?", "Are recordings available?", "Are there age restrictions?"].map((q, idx) => (
-                    <div key={q} className="border-b border-[#ED5A2E] pb-3">
-                      <div className="flex items-center justify-between gap-3 text-[0.82rem]">
+                    <details key={q} className="border-b border-[#ED5A2E] pb-3 group">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[0.82rem]">
                         <span>{q}</span>
-                        <ChevronDown className="h-4 w-4 text-[#ED5A2E]" />
-                      </div>
-                      {idx === 4 ? <p className="mt-2 max-w-[620px] text-[0.72rem] leading-relaxed text-[#ED5A2E]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer blandit justo a est pellentesque pulvinar.</p> : null}
-                    </div>
+                        <ChevronDown className="h-4 w-4 text-[#ED5A2E] transition-transform group-open:rotate-180" />
+                      </summary>
+                      <p className="mt-2 max-w-[620px] text-[0.72rem] leading-relaxed text-[#ED5A2E]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer blandit justo a est pellentesque pulvinar.</p>
+                    </details>
                   ))}
                 </div>
               </SectionCard>
@@ -223,7 +221,7 @@ export default function Page() {
                     </div>
                   ))}
                 </div>
-                <button className="mt-5 rounded-[10px] bg-[#ED5A2E] px-5 py-3 text-[0.85rem] font-semibold text-white">Load More Reviews</button>
+                <button type="button" data-transaction="Load more reviews" className="mt-5 rounded-[10px] bg-[#ED5A2E] px-5 py-3 text-[0.85rem] font-semibold text-white">Load More Reviews</button>
               </SectionCard>
             </div>
 
@@ -253,14 +251,14 @@ export default function Page() {
                 </div>
                 <div className="mt-4 flex gap-2">
                   <input className="h-11 flex-1 rounded-[0.35rem] border border-[#ED5A2E] bg-[#5a3b31] px-3 text-[0.85rem] text-white placeholder:text-white/50" placeholder="Promo Code" />
-                  <button className="h-11 rounded-[0.35rem] bg-[#ED5A2E] px-4 text-[0.85rem] font-semibold text-white">Apply</button>
+                  <button type="button" data-transaction="Apply promo code" className="h-11 rounded-[0.35rem] bg-[#ED5A2E] px-4 text-[0.85rem] font-semibold text-white">Apply</button>
                 </div>
                 <div className="mt-4 flex justify-between border-t border-[#ED5A2E]/30 pt-4">
                   <span className="text-[1rem] font-semibold">Total</span>
                   <span className="text-[1rem] font-semibold text-[#ED5A2E]">N89,500</span>
                 </div>
-                <button className="mt-5 w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white">Continue to Payment</button>
-                <button className="mt-3 w-full rounded-[10px] border border-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white">Save for later</button>
+                <Link href="/checkout/payment" data-transaction="Continue to payment" className="mt-5 block w-full rounded-[10px] bg-[#ED5A2E] py-3 text-center text-[0.9rem] font-semibold text-white">Continue to Payment</Link>
+                <button type="button" data-transaction="Save checkout for later" className="mt-3 w-full rounded-[10px] border border-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white">Save for later</button>
                 <div className="mt-4 space-y-3 border-t border-[#ED5A2E]/30 pt-4 text-[0.8rem] text-white/70">
                   <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#ED5A2E]" /> Secure checkout</div>
                   <div className="flex items-center gap-2"><Ticket className="h-4 w-4 text-[#ED5A2E]" /> Instant delivery</div>
@@ -320,14 +318,14 @@ export default function Page() {
             </div>
             <div className="mt-3 flex gap-2">
               <input className="h-10 flex-1 rounded-[0.35rem] border border-[#ED5A2E] bg-[#5a3b31] px-3 text-[0.82rem] text-white placeholder:text-white/50" placeholder="Promo Code" />
-              <button className="h-10 rounded-[0.35rem] bg-[#ED5A2E] px-4 text-[0.82rem] font-semibold text-white">Apply</button>
+              <button type="button" data-transaction="Apply promo code" className="h-10 rounded-[0.35rem] bg-[#ED5A2E] px-4 text-[0.82rem] font-semibold text-white">Apply</button>
             </div>
             <div className="mt-3 flex justify-between border-t border-[#ED5A2E]/30 pt-3">
               <span className="text-[0.95rem] font-semibold">Total</span>
               <span className="text-[0.95rem] font-semibold text-[#ED5A2E]">N89,500</span>
             </div>
-            <button className="mt-4 w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.85rem] font-semibold text-white">Continue to Payment</button>
-            <button className="mt-3 w-full rounded-[10px] border border-[#ED5A2E] py-3 text-[0.85rem] font-semibold text-white">Save for later</button>
+            <Link href="/checkout/payment" data-transaction="Continue to payment" className="mt-4 block w-full rounded-[10px] bg-[#ED5A2E] py-3 text-center text-[0.85rem] font-semibold text-white">Continue to Payment</Link>
+            <button type="button" data-transaction="Save checkout for later" className="mt-3 w-full rounded-[10px] border border-[#ED5A2E] py-3 text-[0.85rem] font-semibold text-white">Save for later</button>
           </SectionCard>
 
           <SectionCard title="Important Information &amp; Policies">
@@ -350,7 +348,7 @@ export default function Page() {
                     <div className="mt-1 text-[0.68rem] text-white/55">Exclusive event t-shirt and poster</div>
                     <div className="mt-3 flex items-center justify-between">
                       <span className="text-[0.82rem] font-semibold text-[#ED5A2E]">N20,000</span>
-                      <button className="rounded-[8px] border border-[#ED5A2E] px-2 py-1 text-[0.65rem]">+ Add</button>
+                      <button type="button" data-transaction="Add merchandise" className="rounded-[8px] border border-[#ED5A2E] px-2 py-1 text-[0.65rem]">+ Add</button>
                     </div>
                   </div>
                 </article>
@@ -361,13 +359,13 @@ export default function Page() {
           <SectionCard title="Frequently Asked Questions">
             <div className="space-y-3">
               {["Can I attend individual events?", "What’s the cancellation policy?", "Is there parking available?", "Are recordings available?", "Are there age restrictions?"].map((q, idx) => (
-                <div key={q} className="border-b border-[#ED5A2E] pb-3">
-                  <div className="flex items-center justify-between gap-3 text-[0.8rem]">
-                    <span>{q}</span>
-                    <ChevronDown className="h-4 w-4 text-[#ED5A2E]" />
-                  </div>
-                  {idx === 4 ? <p className="mt-2 text-[0.72rem] leading-relaxed text-[#ED5A2E]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer blandit justo a est pellentesque pulvinar.</p> : null}
-                </div>
+                <details key={q} className="border-b border-[#ED5A2E] pb-3 group">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[0.8rem]">
+                        <span>{q}</span>
+                        <ChevronDown className="h-4 w-4 text-[#ED5A2E] transition-transform group-open:rotate-180" />
+                      </summary>
+                      <p className="mt-2 text-[0.72rem] leading-relaxed text-[#ED5A2E]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer blandit justo a est pellentesque pulvinar.</p>
+                    </details>
               ))}
             </div>
           </SectionCard>
@@ -402,7 +400,7 @@ export default function Page() {
                 </div>
               ))}
             </div>
-            <button className="mt-4 rounded-[10px] bg-[#ED5A2E] px-5 py-3 text-[0.85rem] font-semibold text-white">Load More Reviews</button>
+            <button type="button" data-transaction="Load more reviews" className="mt-4 rounded-[10px] bg-[#ED5A2E] px-5 py-3 text-[0.85rem] font-semibold text-white">Load More Reviews</button>
           </SectionCard>
 
           <div className="mt-6"><Footer /></div>

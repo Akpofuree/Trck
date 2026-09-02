@@ -7,7 +7,7 @@ import { Logo } from "@/components/shared/logo";
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black px-6 py-12 text-white lg:px-16">
+    <footer className="hidden border-t border-white/10 bg-black px-6 py-12 text-white lg:px-16">
       <div className="mx-auto max-w-[1440px] text-[0.75rem] text-white/40">
         <p>TRCK is a leisure technology platform based in Nigeria.</p>
       </div>

@@ -29,6 +29,8 @@ import {
   MapPin,
   CalendarDays,
   UserCheck,
+  Building2,
+  ShieldCheck,
   CircleDollarSign,
   CheckCircle2,
   ArrowLeftRight,
@@ -45,6 +47,16 @@ const NAV_ITEMS = [
       { label: "Calenders", icon: CalendarIcon, href: "/host/calendar", active: true },
       { label: "Promotions", icon: Megaphone, href: "/host/promotions" },
       { label: "Payouts", icon: Wallet, href: "/host/payouts" },
+    ],
+  },
+  {
+    section: "Host Portal",
+    items: [
+      { label: "Host Sign Up", icon: UserCheck, href: "/host/signup", active: false },
+      { label: "Business Info", icon: Building2, href: "/host/onboarding/business-info", active: false },
+      { label: "KYC Verification", icon: ShieldCheck, href: "/host/onboarding/kyc", active: false },
+      { label: "Bank Verification", icon: Wallet, href: "/host/onboarding/bank-verification", active: false },
+      { label: "KYC Status", icon: CheckCircle2, href: "/host/onboarding/status", active: false },
     ],
   },
   {
@@ -298,7 +310,7 @@ export default function HostCalendarPage() {
             </div>
 
             {/* Controls Toolbar Directly Under Heading (Item 27) */}
-            <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-[#141414] border border-white/10 p-3 sm:p-4 rounded-2xl">
+            <div className={`${activeView === "calendar" ? "hidden" : ""} flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-[#141414] border border-white/10 p-3 sm:p-4 rounded-2xl`}>
               {/* View Switcher Tabs: List | Calendar | Timeline */}
               <div className="flex items-center bg-[#1E1E1E] p-1 rounded-xl border border-white/10 shrink-0">
                 <button
@@ -423,6 +435,20 @@ export default function HostCalendarPage() {
                       ))}
                     </div>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {activeView === "calendar" && (
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-2xl bg-[#141414] border border-white/10 p-3 sm:p-4">
+                <div className="flex items-center bg-[#1E1E1E] p-1 rounded-xl border border-white/10 shrink-0">
+                  <button onClick={() => setActiveView("list")} className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold text-white/60 hover:text-white"><ListIcon size={14} /> List</button>
+                  <button onClick={() => setActiveView("calendar")} className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold bg-[#ED5828] text-white shadow-lg"><CalendarIcon size={14} /> Calendar</button>
+                  <button onClick={() => setActiveView("timeline")} className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold text-white/60 hover:text-white"><Activity size={14} /> Timeline</button>
+                </div>
+                <div className="flex items-center gap-2 flex-1 sm:max-w-lg">
+                  <div className="relative flex-1"><Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" /><input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search by event date" className="w-full bg-[#1A1A1A] border border-white/10 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder:text-white/40 outline-none focus:border-[#ED5828]" /></div>
+                  <Link href="/host/events/new" className="flex items-center gap-1.5 px-4 py-2.5 bg-[#ED5828] text-white rounded-xl text-xs font-bold shadow shrink-0"><Plus size={14} /> <span className="hidden sm:inline">Create Event</span></Link>
                 </div>
               </div>
             )}

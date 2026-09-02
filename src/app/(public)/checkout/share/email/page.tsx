@@ -2,10 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { ChevronLeft, Check, ChevronDown, Clock3, CircleDot, Link2, Mail, Send } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
 
 export default function Page() {
+  const [sent, setSent] = useState(false);
+
   return (
     <main className="min-h-screen bg-black text-white">
       <div className="border-b border-[#ED5A2E]/40 bg-[#151515] px-8 py-4">
@@ -91,7 +94,7 @@ export default function Page() {
             <div className="mt-4 space-y-4">
               <div>
                 <div className="text-[0.78rem] text-white/60">Send to</div>
-                <div className="mt-2 rounded-[10px] bg-[#2b2b2b] px-4 py-3 text-[0.85rem] text-white/45">Input Email</div>
+                <input type="email" required placeholder="Input Email" className="mt-2 w-full rounded-[10px] border border-white/10 bg-[#2b2b2b] px-4 py-3 text-[0.85rem] text-white outline-none placeholder:text-white/45 focus:border-[#ED5A2E]" />
                 <div className="mt-3 text-[0.78rem] text-white/60">+ Add another recipient</div>
               </div>
             </div>
@@ -102,23 +105,23 @@ export default function Page() {
             <div className="mt-4 space-y-4">
               <div>
                 <div className="text-[0.78rem] text-white/60">Your name</div>
-                <div className="mt-2 rounded-[10px] bg-[#2b2b2b] px-4 py-3 text-[0.85rem] text-white/45">Input Name</div>
+                <input type="text" required placeholder="Input Name" className="mt-2 w-full rounded-[10px] border border-white/10 bg-[#2b2b2b] px-4 py-3 text-[0.85rem] text-white outline-none placeholder:text-white/45 focus:border-[#ED5A2E]" />
               </div>
               <div>
                 <div className="text-[0.78rem] text-white/60">Your email</div>
-                <div className="mt-2 rounded-[10px] bg-[#2b2b2b] px-4 py-3 text-[0.85rem] text-white/45">Input Email</div>
+                <input type="email" required placeholder="Input Email" className="mt-2 w-full rounded-[10px] border border-white/10 bg-[#2b2b2b] px-4 py-3 text-[0.85rem] text-white outline-none placeholder:text-white/45 focus:border-[#ED5A2E]" />
               </div>
             </div>
           </div>
 
           <div className="mt-5 max-w-[760px] rounded-[16px] bg-[#171717] p-5">
             <h3 className="text-[1.05rem] font-semibold">Personal Message (Optional)</h3>
-            <div className="mt-4 rounded-[10px] bg-[#2b2b2b] px-4 py-4 text-[0.85rem] text-white/45">Add a message for the recipient</div>
+            <textarea placeholder="Add a message for the recipient" className="mt-4 min-h-24 w-full rounded-[10px] border border-white/10 bg-[#2b2b2b] px-4 py-4 text-[0.85rem] text-white outline-none placeholder:text-white/45 focus:border-[#ED5A2E]" />
             <label className="mt-4 flex items-center gap-2 text-[0.75rem] text-white/60">
               <span className="flex h-4 w-4 items-center justify-center rounded-[0.2rem] bg-[#ED5A2E] text-[0.7rem]">✓</span>
               I confirm I want to transfer this ticket
             </label>
-            <button className="mt-4 w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white">Send Ticket</button>
+            <button type="button" data-transaction="Send ticket by email" onClick={() => setSent(true)} className="mt-4 w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white transition-colors hover:bg-[#d44d24]">{sent ? "Ticket Sent" : "Send Ticket"}</button>
           </div>
         </div>
         <div className="mt-10 border-t border-white/10 px-6 py-12 text-[0.75rem] text-white/40">

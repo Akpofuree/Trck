@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import type { ReactNode } from "react";
 import { ChevronLeft, Clock3, Minus, Plus, Ticket, CircleDot, CreditCard, Building2, Phone, CheckCircle2 } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
@@ -61,21 +62,22 @@ function Stepper() {
   );
 }
 
-function MethodCard({ method, active }: { method: Method; active?: boolean }) {
+function MethodCard({ method, active, onSelect }: { method: Method; active?: boolean; onSelect: () => void }) {
   const item = methods[method];
   return (
-    <div className={`rounded-[14px] p-5 ${active ? item.selectedBg : "bg-[#2f2f2f]"}`}>
+    <button type="button" data-transaction={`Select ${item.label}`} onClick={onSelect} className={`w-full text-left rounded-[14px] p-5 transition-colors hover:bg-[#3a3a3a] ${active ? item.selectedBg : "bg-[#2f2f2f]"}`}>
       <div className="text-[#ED5A2E]">{item.icon}</div>
       <div className="mt-10">
         <div className="text-[1rem] font-semibold">{item.label}</div>
         <div className="mt-1 text-[0.8rem] text-white/55">{item.subtitle}</div>
       </div>
-    </div>
+    </button>
   );
 }
 
 export function PaymentGatewayPage({ method }: { method: Method }) {
-  const selected = methods[method];
+  const [selectedMethod, setSelectedMethod] = useState<Method>(method);
+  const selected = methods[selectedMethod];
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -90,9 +92,9 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
 
               <section className="mt-8 rounded-[18px] bg-[#171717] p-5">
                 <div className="grid gap-5 md:grid-cols-2">
-                  <MethodCard method="card" active={method === "card"} />
-                  <MethodCard method="bank" active={method === "bank"} />
-                  <MethodCard method="ussd" active={method === "ussd"} />
+                  <MethodCard method="card" active={selectedMethod === "card"} onSelect={() => setSelectedMethod("card")} />
+                  <MethodCard method="bank" active={selectedMethod === "bank"} onSelect={() => setSelectedMethod("bank")} />
+                  <MethodCard method="ussd" active={selectedMethod === "ussd"} onSelect={() => setSelectedMethod("ussd")} />
                   <div className="rounded-[14px] bg-[#2f2f2f] p-5">
                     <div className="text-[#ED5A2E]"><Phone className="h-5 w-5" /></div>
                     <div className="mt-10">
@@ -108,7 +110,7 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
                     <div className="text-[0.82rem] text-[#ED5A2E]">Selected</div>
                   </div>
 
-                  {method === "card" ? (
+                  {selectedMethod === "card" ? (
                     <div className="mt-5 space-y-4">
                       <div className="rounded-[16px] border border-[#ED5A2E] bg-[#5b5b5b] p-5">
                         <div className="flex items-start justify-between">
@@ -125,7 +127,7 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
                         <div className="mt-8 text-[1.2rem] font-semibold tracking-wider">•••• •••• 1234</div>
                         <div className="mt-4 text-[0.8rem] text-white/90">Visa Card</div>
                       </div>
-                      <button className="inline-flex items-center gap-3 rounded-[12px] bg-[#ED5A2E] px-5 py-3 text-[0.9rem] font-semibold text-white">
+                      <button type="button" data-transaction="Add payment method" className="inline-flex items-center gap-3 rounded-[12px] bg-[#ED5A2E] px-5 py-3 text-[0.9rem] font-semibold text-white">
                         <Plus className="h-5 w-5" /> Add payment method
                       </button>
                       <label className="flex items-center gap-2 text-[0.78rem] text-white/70">
@@ -137,7 +139,7 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
                         <div>Trusted by 80,000+ businesses in Africa</div>
                       </div>
                     </div>
-                  ) : method === "bank" ? (
+                  ) : selectedMethod === "bank" ? (
                     <div className="mt-5 rounded-[16px] bg-[#2f2f2f] p-5 text-[0.88rem] text-white/75">
                       <p>Transfer the exact amount to the account below. Your payment will be confirmed automatically within 5 minutes</p>
                       <div className="mt-4 space-y-4">
@@ -219,13 +221,13 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
                 </div>
                 <div className="mt-4 flex gap-2">
                   <input className="h-11 flex-1 rounded-[0.35rem] border border-[#ED5A2E] bg-[#5a3b31] px-3 text-[0.85rem] text-white placeholder:text-white/50" placeholder="Promo Code" />
-                  <button className="h-11 rounded-[0.35rem] bg-[#ED5A2E] px-4 text-[0.85rem] font-semibold text-white">Apply</button>
+                  <button type="button" data-transaction="Apply promo code" className="h-11 rounded-[0.35rem] bg-[#ED5A2E] px-4 py-0 text-[0.85rem] font-semibold text-white">Apply</button>
                 </div>
                 <div className="mt-4 flex justify-between border-t border-[#ED5A2E]/30 pt-4">
                   <span className="text-[1rem] font-semibold">Total</span>
                   <span className="text-[1rem] font-semibold text-[#ED5A2E]">N89,500</span>
                 </div>
-                <button className="mt-5 w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.95rem] font-semibold text-white">{method === "card" ? "Pay N89,500" : "Continue to Review"}</button>
+                <Link href="/checkout/confirmation" data-transaction={selectedMethod === "card" ? "Pay N89,500" : "Continue to review"} className="mt-5 flex w-full items-center justify-center rounded-[10px] bg-[#ED5A2E] py-3 text-[0.95rem] font-semibold text-white transition-colors hover:bg-[#d44d24]">{selectedMethod === "card" ? "Pay N89,500" : "Continue to Review"}</Link>
                 <div className="mt-4 space-y-3 border-t border-[#ED5A2E]/30 pt-4 text-[0.8rem] text-white/70">
                   <div className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-[#ED5A2E]" /> Secure checkout</div>
                   <div className="flex items-center gap-2"><Ticket className="h-4 w-4 text-[#ED5A2E]" /> Instant delivery</div>

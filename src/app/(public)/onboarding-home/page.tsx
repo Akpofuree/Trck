@@ -8,12 +8,11 @@ import {
   ChevronDown,
   Star,
   ArrowUpRight,
-  ArrowRight,
   Heart,
-  ChevronLeft,
-  ChevronRight,
+  Menu,
 } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
+import { MobileSidebar } from "@/components/shared/mobile-sidebar";
 
 interface HomeData {
   hero: {
@@ -52,10 +51,126 @@ interface HomeData {
   }>;
 }
 
+const defaultData: HomeData = {
+  hero: {
+    titleLine1: "5IVE AT",
+    titleLine2Part1: "02",
+    titleLine2Part2: "ARENA02",
+    stars: 3,
+    subtitle: "13-15 APRIL 2026, LEGEND SIAM - PATTAYA",
+    ctaText: "GET TICKETS",
+  },
+  featureCards: [
+    {
+      id: "fc-1",
+      title: "Lagos Investors Hangout",
+      description: "",
+    },
+    {
+      id: "fc-2",
+      title: "Pvc For Cate Even at the Home",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    },
+    {
+      id: "fc-3",
+      title: "Pvc For Cate Even Home",
+      description: "",
+    },
+  ],
+  vipPackages: [
+    {
+      id: "vip-1",
+      category: "Meet & Greets, Special Access",
+      title: "Browse",
+      image: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=600&auto=format&fit=crop&q=80",
+    },
+    {
+      id: "vip-2",
+      category: "Special Country Concerts",
+      title: "Davido",
+      image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
+    },
+    {
+      id: "vip-3",
+      category: "Special Country Concerts",
+      title: "Davido",
+      image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&auto=format&fit=crop&q=80",
+    },
+    {
+      id: "vip-4",
+      category: "Special Country Concerts",
+      title: "Davido",
+      image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80",
+    },
+  ],
+  trendingEvents: [
+    {
+      id: "trend-1",
+      title: "Alan Jacjson One more st...",
+      date: "Oct 17",
+      price: "From $166",
+      image: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&auto=format&fit=crop&q=80",
+    },
+    {
+      id: "trend-2",
+      title: "Alan Jacjson One more st...",
+      date: "Oct 17",
+      price: "From $166",
+      image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80",
+    },
+    {
+      id: "trend-3",
+      title: "Alan Jacjson One more st...",
+      date: "Oct 17",
+      price: "From $166",
+      image: "https://images.unsplash.com/photo-1429962714451-bb934ecdc436?w=600&auto=format&fit=crop&q=80",
+    },
+    {
+      id: "trend-4",
+      title: "Alan Jacjson One more st...",
+      date: "Oct 17",
+      price: "From $166",
+      image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&auto=format&fit=crop&q=80",
+    },
+  ],
+  categories: [
+    "Design Workshops",
+    "Design",
+    "Designer",
+    "Design",
+    "Design gigs",
+    "Design Multiply",
+  ],
+  discoverArticles: [
+    {
+      id: "art-1",
+      category: "Tips",
+      title: "How All In Prices Make Buying Tickets Easier",
+      excerpt: "Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      image: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=600&auto=format&fit=crop&q=80",
+    },
+    {
+      id: "art-2",
+      category: "Tips",
+      title: "How All In Prices Make Buying Tickets Easier",
+      excerpt: "Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600&auto=format&fit=crop&q=80",
+    },
+    {
+      id: "art-3",
+      category: "Tips",
+      title: "How All In Prices Make Buying Tickets Easier",
+      excerpt: "Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&auto=format&fit=crop&q=80",
+    },
+  ],
+};
+
 export default function OnboardingHomePage() {
-  const [data, setData] = useState<HomeData | null>(null);
+  const [data, setData] = useState<HomeData>(defaultData);
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [activeSlide, setActiveSlide] = useState(1);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [spotifyConnected, setSpotifyConnected] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -78,16 +193,55 @@ export default function OnboardingHomePage() {
     );
   };
 
+  const hero = data.hero || defaultData.hero;
+  const featureCards = data.featureCards?.length ? data.featureCards : defaultData.featureCards;
+  const vipPackages = data.vipPackages?.length ? data.vipPackages : defaultData.vipPackages;
+  const trendingEvents = data.trendingEvents?.length ? data.trendingEvents : defaultData.trendingEvents;
+  const discoverArticles = data.discoverArticles?.length ? data.discoverArticles : defaultData.discoverArticles;
+
   return (
     <div className="min-h-screen bg-black text-white font-[var(--font-inter)] selection:bg-[#ED5A2E] selection:text-white">
-      {/* ── Navbar ── */}
-      <header className="flex items-center justify-between border-b border-white/10 px-6 py-4 lg:px-12">
-        {/* Left: Logo & Nav items */}
+      {/* ── Working Mobile Sidebar Drawer ── */}
+      <MobileSidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
+
+      {/* ── Mobile Header (Screenshots 2) ── */}
+      <header className="lg:hidden flex items-center justify-between gap-3 px-4 py-3 border-b border-white/10 sticky top-0 z-40 bg-black/90 backdrop-blur-md">
+        {/* Left: Brand Logo */}
+        <Link href="/" className="inline-flex shrink-0 items-center">
+          <Logo width={76} height={26} className="h-5 w-auto brightness-0 invert" />
+        </Link>
+
+        {/* Center: Search by categories capsule */}
+        <div className="relative flex-1 max-w-[220px] sm:max-w-xs">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/50" />
+          <input
+            type="text"
+            placeholder="Search by categories"
+            className="w-full rounded-full border border-white/20 bg-[#1A1A1A] pl-8 pr-3 py-1.5 text-[0.75rem] text-white outline-none placeholder:text-white/50 focus:border-[#ED5A2E] focus:ring-1 focus:ring-[#ED5A2E]"
+          />
+        </div>
+
+        {/* Right: Hamburger button (3 lines) */}
+        <button
+          type="button"
+          onClick={() => setIsSidebarOpen(true)}
+          aria-label="Open menu"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-white/90 hover:text-white transition-colors active:scale-95"
+        >
+          <Menu className="h-6 w-6 stroke-[2]" />
+        </button>
+      </header>
+
+      {/* ── Desktop Navbar (Preserved for Large Screens) ── */}
+      <header className="hidden lg:flex items-center justify-between border-b border-white/10 px-12 py-4">
         <div className="flex items-center gap-8">
           <Link href="/" className="inline-flex items-center">
             <Logo width={100} height={36} className="h-8 w-auto brightness-0 invert" />
           </Link>
-          <nav className="hidden md:flex items-center gap-6 text-[0.88rem] font-medium text-white/80">
+          <nav className="flex items-center gap-6 text-[0.88rem] font-medium text-white/80">
             <Link href="/explore" className="hover:text-white transition-colors">
               Sports
             </Link>
@@ -100,8 +254,7 @@ export default function OnboardingHomePage() {
           </nav>
         </div>
 
-        {/* Center: Search input */}
-        <div className="relative flex-1 max-w-[380px] hidden sm:block">
+        <div className="relative flex-1 max-w-[380px]">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/70" />
           <input
             type="text"
@@ -110,7 +263,6 @@ export default function OnboardingHomePage() {
           />
         </div>
 
-        {/* Right: Sign in & Support */}
         <div className="flex items-center gap-6 text-[0.88rem] font-medium">
           <Link href="/login" className="text-white hover:text-white/80 transition-colors">
             Sign in
@@ -121,278 +273,231 @@ export default function OnboardingHomePage() {
         </div>
       </header>
 
-      {/* ── Hero Section ── */}
-      <section className="relative px-6 pt-12 pb-24 lg:px-12">
-        <div className="mx-auto max-w-[1300px]">
+      {/* ── Hero Section (Screenshots 2) ── */}
+      <section className="relative px-4 pt-8 pb-10 sm:px-6 lg:px-12 lg:py-16 overflow-hidden">
+        {/* Background Image with Dark Overlay */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/event-hero.jpg"
+            alt="Hero Concert Background"
+            fill
+            className="object-cover object-center opacity-40"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/65 to-black" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-[1300px]">
           {/* Main Headline */}
-          <div className="mb-6">
-            <h1 className="text-[3.5rem] sm:text-[5rem] lg:text-[6rem] font-black uppercase leading-[0.95] tracking-tight font-[var(--font-montserrat)]">
-              5IVE AT
+          <div className="text-center lg:text-left">
+            <h1 className="text-[2.6rem] sm:text-[4rem] lg:text-[5.5rem] font-black uppercase leading-[0.92] tracking-tight font-[var(--font-montserrat)]">
+              {hero.titleLine1 || "5IVE AT"}
               <br />
-              <span className="text-[#ED5A2E]">02</span>ARENA
+              <span className="text-[#ED5A2E]">{hero.titleLine2Part1 || "02"}</span>
+              <span className="text-white">{hero.titleLine2Part2 || "ARENA02"}</span>
             </h1>
           </div>
 
-          {/* Rating & Date Subtitle */}
-          <div className="flex flex-wrap items-center gap-3 text-[0.82rem] font-semibold text-white/70 tracking-wider mb-8 uppercase">
-            <div className="flex text-white gap-0.5">
-              <Star className="h-3.5 w-3.5 fill-white text-white" />
-              <Star className="h-3.5 w-3.5 fill-white text-white" />
-              <Star className="h-3.5 w-3.5 fill-white text-white" />
-            </div>
-            <span>13-15 APRIL 2026, LEGEND SIAM - PATTAYA</span>
+          {/* Rating Stars (3 solid white stars) */}
+          <div className="mt-3.5 flex items-center justify-center lg:justify-start gap-1 text-white">
+            <Star className="h-4 w-4 fill-white text-white" />
+            <Star className="h-4 w-4 fill-white text-white" />
+            <Star className="h-4 w-4 fill-white text-white" />
           </div>
 
-          {/* Primary CTA */}
-          <Link
-            href="/onboarding/step-1"
-            className="inline-flex items-center justify-center rounded-full bg-[#ED5A2E] px-8 py-3.5 text-[0.92rem] font-bold text-white shadow-lg shadow-[#ED5A2E]/40 transition-all hover:bg-[#d4501f] hover:shadow-xl hover:shadow-[#ED5A2E]/50 active:scale-[0.98]"
-          >
-            GET TICKETS
-          </Link>
-        </div>
+          {/* Date Subtitle */}
+          <p className="mt-2 text-[0.72rem] sm:text-xs font-semibold text-white/80 tracking-wider uppercase text-center lg:text-left">
+            {hero.subtitle || "13-15 APRIL 2026, LEGEND SIAM - PATTAYA"}
+          </p>
 
-        {/* Overlapping Feature Cards Row */}
-        <div className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-3 mx-auto max-w-[1300px]">
-          {data?.featureCards.map((card, idx) => (
-            <div
-              key={card.id}
-              className="flex flex-col justify-between rounded-2xl border border-white/10 bg-[#121212] p-6 transition-all hover:border-white/20"
+          {/* Primary CTA Button: GET TICKETS */}
+          <div className="mt-6 flex justify-center lg:justify-start">
+            <Link
+              href="/explore"
+              className="inline-flex items-center justify-center rounded-2xl bg-[#ED5A2E] px-8 py-3.5 text-sm sm:text-base font-bold text-white shadow-lg shadow-[#ED5A2E]/40 transition-all hover:bg-[#d4501f] active:scale-95"
             >
-              <div>
-                <h3 className="text-[1.05rem] font-bold text-white mb-2">
-                  {card.title}
-                </h3>
-                {card.description && (
-                  <p className="text-[0.8rem] text-white/50 leading-relaxed">
-                    {card.description}
-                  </p>
-                )}
-              </div>
+              {hero.ctaText || "GET TICKETS"}
+            </Link>
+          </div>
 
-              <div className="mt-8 flex items-center justify-between pt-4 border-t border-white/10 text-[0.85rem] font-medium text-white/80">
-                <span>Visite</span>
-                {/* Second item PVC for Kids arrow: horizontal with orange background */}
-                {idx === 1 ? (
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#ED5A2E] text-white shadow-sm">
-                    <ArrowRight className="h-4 w-4" />
-                  </div>
-                ) : (
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black">
-                    <ArrowUpRight className="h-4 w-4" />
-                  </div>
-                )}
+          {/* ── Feature Cards (Screenshots 2 & 3) ── */}
+          <div className="mt-10 space-y-4 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-5">
+            {/* Feature Card 1: Lagos Investors Hangout */}
+            <div className="rounded-2xl border border-white/10 bg-[#141414] p-5 flex flex-col justify-between min-h-[140px] hover:border-white/20 transition-all">
+              <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight">
+                Lagos Investors<br />Hangout
+              </h3>
+              <div className="mt-6 flex items-center justify-between">
+                <span className="text-sm font-medium text-white/90">Visit</span>
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-black shadow-sm">
+                  <ArrowUpRight className="h-5 w-5 stroke-[2.5]" />
+                </div>
               </div>
             </div>
-          )) || [1, 2, 3].map((i) => (
-            <div key={i} className="h-36 rounded-2xl bg-white/5 animate-pulse" />
-          ))}
+
+            {/* Feature Card 2: Pvc For Cate Even at the Home (Split layout with thumbnail) */}
+            <div className="rounded-2xl border border-white/10 bg-[#141414] p-5 flex items-center justify-between gap-4 min-h-[140px] hover:border-white/20 transition-all">
+              <div className="flex flex-col justify-between h-full py-1">
+                <div>
+                  <h3 className="text-sm font-medium text-white leading-tight">
+                    Pvc For Cate
+                  </h3>
+                  <p className="text-sm font-medium text-white leading-tight">
+                    Even at the Home
+                  </p>
+                </div>
+                <div className="mt-6 flex items-center gap-3">
+                  <span className="text-sm font-medium text-white/90">Visit</span>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#ED5A2E] text-white shadow-sm">
+                    <ArrowUpRight className="h-4 w-4 stroke-[2.5]" />
+                  </div>
+                </div>
+              </div>
+              <div className="relative h-24 w-28 shrink-0 overflow-hidden rounded-xl bg-[#1f1f1f] border border-white/5">
+                <Image
+                  src="/event-feature.jpg"
+                  alt="Thumbnail"
+                  fill
+                  className="object-cover opacity-80"
+                />
+              </div>
+            </div>
+
+            {/* Feature Card 3: Pvc For Cate Even Home */}
+            <div className="rounded-2xl border border-white/10 bg-[#141414] p-5 flex flex-col justify-between min-h-[140px] hover:border-white/20 transition-all">
+              <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight">
+                Pvc For Cate<br />Even Home
+              </h3>
+              <div className="mt-6 flex items-center justify-between">
+                <span className="text-sm font-medium text-white/90">Visit</span>
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-black shadow-sm">
+                  <ArrowUpRight className="h-5 w-5 stroke-[2.5]" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ── Spotify Connect Integration Banner ── */}
-      <section className="bg-black py-10 px-6 lg:px-12 border-t border-white/10">
-        <div className="mx-auto max-w-[1300px] flex flex-wrap items-center justify-between gap-6 rounded-2xl bg-[#0D0D0D] border border-white/10 p-6 sm:p-8">
-          <div className="flex items-center gap-6">
-            {/* 3 Stacked White Cards Graphic (Image 3 asset) */}
-            <div className="relative h-14 w-28 flex-shrink-0">
-              <Image
-                src="/spotify-cards.png"
-                alt="Spotify cards illustration"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-
-            <div>
-              <h3 className="text-[1.1rem] font-bold text-white">
-                Connect to Spotify
-              </h3>
-              <p className="text-[0.82rem] text-white/60">
-                Be the first to know when your favorite artists play nearby
-              </p>
-            </div>
-          </div>
-
-          <button className="flex items-center gap-2 rounded-full bg-[#1DB954] px-6 py-2.5 text-[0.88rem] font-bold text-black shadow-md transition-all hover:bg-[#1ed760] active:scale-[0.98]">
-            <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
+      {/* ── Spotify Connect Section (Screenshot 3) ── */}
+      <section className="bg-black py-8 px-4 sm:px-6 lg:px-12 border-t border-white/10">
+        <div className="mx-auto max-w-[1300px] text-center">
+          <h3 className="text-lg sm:text-xl font-bold text-white">
+            Connect to Spotify
+          </h3>
+          <p className="text-xs sm:text-sm text-white/70 mt-1 max-w-md mx-auto">
+            Be the first to know when your favorite artists play nearby
+          </p>
+          <button
+            type="button"
+            onClick={() => setSpotifyConnected(true)}
+            className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#1DB954] px-6 py-2.5 text-xs sm:text-sm font-bold text-black shadow-md transition-all hover:bg-[#1ed760] active:scale-95 mx-auto"
+          >
+            <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
               <path d="M12 0C5.376 0 0 5.377 0 12s5.376 12 12 12 12-5.377 12-12S18.624 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C13.56 8.4 7.08 8.16 3.36 9.3c-.6.18-1.26-.18-1.44-.72-.18-.6.18-1.26.72-1.44C6.96 5.82 14.16 6.06 18.72 8.76c.54.3.72 1.02.42 1.56-.3.48-1.02.72-1.56.42z" />
             </svg>
-            Connect Spotify
+            {spotifyConnected ? "Connected" : "Connect"}
           </button>
         </div>
       </section>
 
-      {/* ── VIP Packages Section (White Background) ── */}
-      <section className="bg-white text-gray-900 py-16 px-6 lg:px-12">
-        <div className="mx-auto max-w-[1300px]">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {data?.vipPackages.map((pkg) => (
-              <div key={pkg.id} className="group cursor-pointer">
-                {/* Image Placeholder / Thumbnail */}
-                <div className="relative mb-4 h-[220px] w-full overflow-hidden rounded-2xl bg-gray-900">
-                  <Image
-                    src={pkg.image}
-                    alt={pkg.title}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    unoptimized
-                  />
-                  <div className="absolute inset-0 bg-black/20" />
-                </div>
-                <p className="text-[0.75rem] font-semibold text-gray-400 uppercase tracking-wider mb-1">
-                  {pkg.category}
-                </p>
-                <h3 className="text-[1.1rem] font-bold text-gray-900 group-hover:text-[#ED5A2E] transition-colors">
-                  {pkg.title}
-                </h3>
-              </div>
-            )) || [1, 2, 3].map((i) => (
-              <div key={i} className="h-60 rounded-2xl bg-gray-100 animate-pulse" />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Trending Events Section (White Background) ── */}
-      <section className="bg-white text-gray-900 py-12 px-6 lg:px-12 border-t border-gray-100">
-        <div className="mx-auto max-w-[1300px]">
-          {/* Header & Carousel Control */}
-          <div className="mb-8 flex items-center justify-between">
-            <div>
-              <h2 className="text-[1.8rem] font-bold text-gray-900 tracking-tight">
-                Trending Events
-              </h2>
-              {/* TODO: Trending Events 'Book Now' destination to be confirmed with product/designer. */}
-              {/* TODO: Interactive hat element interaction to be clarified with designer. */}
-            </div>
-            <div className="flex items-center gap-2 rounded-full bg-black px-4 py-1.5 text-white text-[0.82rem] font-semibold">
-              <button
-                onClick={() => setActiveSlide((prev) => Math.max(1, prev - 1))}
-                className="hover:text-[#ED5A2E]"
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </button>
-              <span>{activeSlide} of 4</span>
-              <button
-                onClick={() => setActiveSlide((prev) => Math.min(4, prev + 1))}
-                className="hover:text-[#ED5A2E]"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {data?.trendingEvents.map((evt) => {
-              const isFav = favorites.includes(evt.id);
-              return (
-                <div key={evt.id} className="group cursor-pointer">
-                  <div className="relative mb-3 h-[240px] w-full overflow-hidden rounded-2xl bg-gray-900">
+      {/* ── White Background Section (Screenshots 4 & 5) ── */}
+      <div className="bg-white text-gray-900">
+        {/* ── VIP Packages (Screenshot 4) ── */}
+        <section className="py-6 px-4 sm:px-6 lg:px-12">
+          <div className="mx-auto max-w-[1300px]">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
+              {vipPackages.map((pkg) => (
+                <div key={pkg.id} className="group cursor-pointer">
+                  <div className="relative mb-2 aspect-square w-full overflow-hidden bg-black">
                     <Image
-                      src={evt.image}
-                      alt={evt.title}
+                      src={pkg.image}
+                      alt={pkg.title}
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
                       unoptimized
                     />
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleFavorite(evt.id);
-                      }}
-                      className="absolute top-4 right-4 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 backdrop-blur-md text-white transition-all hover:scale-110"
-                    >
-                      <Heart
-                        className={`h-5 w-5 ${
-                          isFav ? "fill-[#ED5A2E] text-[#ED5A2E]" : "text-white"
-                        }`}
-                      />
-                    </button>
                   </div>
-                  <h3 className="text-[1rem] font-bold text-gray-900 group-hover:text-[#ED5A2E] transition-colors">
-                    {evt.title}
-                  </h3>
-                  <div className="mt-1 flex items-center justify-between text-[0.85rem]">
-                    <span className="text-gray-500 font-medium">{evt.date}</span>
-                    <span className="font-bold text-gray-900">{evt.price}</span>
-                  </div>
+                  <p className="text-[0.7rem] sm:text-xs text-gray-700 text-center leading-tight">
+                    {pkg.category}
+                  </p>
+                  <h4 className="text-xs sm:text-sm font-bold text-black text-center mt-0.5">
+                    {pkg.title}
+                  </h4>
                 </div>
-              );
-            }) || [1, 2, 3].map((i) => (
-              <div key={i} className="h-64 rounded-2xl bg-gray-100 animate-pulse" />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Banners & Category Filter Tags ── */}
-      <section className="bg-white text-gray-900 py-12 px-6 lg:px-12 border-t border-gray-100">
-        <div className="mx-auto max-w-[1300px]">
-          {/* Two Large Black Feature Banners */}
-          <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2">
-            {/* Workflow Integration Card */}
-            <div className="rounded-2xl bg-black p-8 text-white flex flex-col justify-between min-h-[200px]">
-              <div>
-                <h3 className="text-[1.3rem] font-black uppercase tracking-tight mb-2">
-                  WORKFLOW INTEGRATION
-                </h3>
-                <p className="text-[0.88rem] text-white/60">
-                  Seamlessly connect all your existing apps
-                </p>
-              </div>
-            </div>
-
-            {/* AI Experiences Card */}
-            <div className="rounded-2xl bg-black p-8 text-white flex items-center justify-between min-h-[200px]">
-              <div className="max-w-[260px]">
-                <h3 className="text-[1.3rem] font-black uppercase tracking-tight mb-2">
-                  WHAT ARE YOU FEELING LIKE TODAY?
-                </h3>
-                <p className="text-[0.85rem] text-white/60">
-                  Trck&apos;s AI creates experiences that match how you feel
-                </p>
-              </div>
-
-              {/* Overlapping Colorful Circles */}
-              <div className="flex -space-x-3">
-                <div className="h-12 w-12 rounded-full border-2 border-black bg-white" />
-                <div className="h-12 w-12 rounded-full border-2 border-black bg-[#ED5A2E]" />
-                <div className="h-12 w-12 rounded-full border-2 border-black bg-[#8B5CF6]" />
-                <div className="h-12 w-12 rounded-full border-2 border-black bg-slate-700" />
-              </div>
+              ))}
             </div>
           </div>
+        </section>
 
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap justify-center gap-3">
-            {data?.categories.map((cat, idx) => (
-              <button
-                key={idx}
-                className="flex items-center gap-2 rounded-2xl border border-gray-200 bg-white px-6 py-3 text-[0.92rem] font-semibold text-gray-800 shadow-sm transition-all hover:border-[#ED5A2E] hover:text-[#ED5A2E] hover:shadow-md"
-              >
-                <Star className="h-4 w-4 fill-[#ED5A2E] text-[#ED5A2E]" />
-                {cat}
-              </button>
-            ))}
+        {/* ── Trending Events (Screenshot 4) ── */}
+        <section className="py-6 px-4 sm:px-6 lg:px-12 border-t border-gray-100">
+          <div className="mx-auto max-w-[1300px]">
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-base sm:text-lg font-bold text-black tracking-tight">
+                Trending Events
+              </h2>
+              <Link href="/explore" className="text-xs sm:text-sm font-medium text-gray-500 hover:text-black">
+                See All
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
+              {trendingEvents.map((evt) => {
+                const isFav = favorites.includes(evt.id);
+                return (
+                  <div key={evt.id} className="group cursor-pointer">
+                    <div className="relative mb-2 aspect-square w-full overflow-hidden bg-black">
+                      <Image
+                        src={evt.image}
+                        alt={evt.title}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        unoptimized
+                      />
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleFavorite(evt.id);
+                        }}
+                        aria-label="Favorite event"
+                        className="absolute top-2 right-2 flex h-7 w-7 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-transform active:scale-90"
+                      >
+                        <Heart
+                          className={`h-4 w-4 ${
+                            isFav ? "fill-[#ED5A2E] text-[#ED5A2E]" : "text-white"
+                          }`}
+                        />
+                      </button>
+                    </div>
+                    <h4 className="text-xs sm:text-sm font-medium text-black text-center truncate">
+                      {evt.title}
+                    </h4>
+                    <p className="text-[0.7rem] text-gray-600 text-center">
+                      {evt.date}
+                    </p>
+                    <p className="text-[0.7rem] font-bold text-black text-center">
+                      {evt.price}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── DISCOVER MORE Section (Light Gray Background) ── */}
-      <section className="bg-gray-50 text-gray-900 py-16 px-6 lg:px-12 border-t border-gray-200/60">
-        <div className="mx-auto max-w-[1300px]">
-          <h2 className="text-[1.8rem] font-black uppercase tracking-tight text-center mb-12">
-            DISCOVER MORE
-          </h2>
+        {/* ── Discover More Section (Screenshot 5) ── */}
+        <section className="py-10 px-4 sm:px-6 lg:px-12 border-t border-gray-100">
+          <div className="mx-auto max-w-[800px]">
+            <h2 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-black text-center mb-8">
+              DISCOVER MORE
+            </h2>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3 mb-12">
-            {data?.discoverArticles.map((art) => (
-              <div key={art.id} className="group cursor-pointer flex flex-col justify-between">
-                <div>
-                  <div className="relative mb-4 h-[220px] w-full overflow-hidden rounded-2xl bg-gray-900">
+            <div className="space-y-8">
+              {discoverArticles.map((art) => (
+                <article key={art.id} className="group flex flex-col items-center text-center">
+                  <div className="relative mb-3 h-48 sm:h-56 w-full overflow-hidden bg-black">
                     <Image
                       src={art.image}
                       alt={art.title}
@@ -401,73 +506,69 @@ export default function OnboardingHomePage() {
                       unoptimized
                     />
                   </div>
-                  <p className="text-[0.8rem] font-semibold text-gray-500 mb-1">
+                  <p className="text-xs font-bold text-black uppercase tracking-wide">
                     {art.category}
                   </p>
-                  <h3 className="text-[1.15rem] font-bold text-gray-900 mb-3 group-hover:text-[#ED5A2E] transition-colors leading-snug">
+                  <h3 className="text-sm sm:text-base font-black text-black mt-1 leading-snug max-w-lg">
                     {art.title}
                   </h3>
-                  <p className="text-[0.85rem] text-gray-500 leading-relaxed mb-4">
+                  <p className="text-xs text-gray-600 mt-2 leading-relaxed max-w-md">
                     {art.excerpt}
                   </p>
-                </div>
+                  <Link
+                    href="#"
+                    className="text-xs font-bold text-[#2563EB] uppercase tracking-wider mt-2.5 hover:underline"
+                  >
+                    DISCOVER MORE
+                  </Link>
+                </article>
+              ))}
+            </div>
+
+            {/* Quick Step Launcher Bar */}
+            <div className="mt-12 rounded-2xl border border-gray-200 bg-gray-50 p-6">
+              <h4 className="text-[0.8rem] font-bold uppercase tracking-wider text-[#ED5A2E] mb-3 text-center">
+                Onboarding Steps Navigation
+              </h4>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                 <Link
-                  href="#"
-                  className="text-[0.85rem] font-bold text-[#2563EB] hover:text-[#1d4ed8] hover:underline uppercase tracking-wide"
+                  href="/onboarding/step-1"
+                  className="rounded-xl border border-gray-200 bg-white p-3 text-center transition-all hover:border-[#ED5A2E] hover:bg-[#ED5A2E]/5"
                 >
-                  DISCOVER MORE
+                  <p className="text-[0.85rem] font-bold text-gray-900">Step 1</p>
+                  <p className="text-[0.72rem] text-gray-500">Your City</p>
+                </Link>
+                <Link
+                  href="/onboarding/step-2"
+                  className="rounded-xl border border-gray-200 bg-white p-3 text-center transition-all hover:border-[#ED5A2E] hover:bg-[#ED5A2E]/5"
+                >
+                  <p className="text-[0.85rem] font-bold text-gray-900">Step 2</p>
+                  <p className="text-[0.72rem] text-gray-500">Lifestyle</p>
+                </Link>
+                <Link
+                  href="/onboarding/step-3"
+                  className="rounded-xl border border-gray-200 bg-white p-3 text-center transition-all hover:border-[#ED5A2E] hover:bg-[#ED5A2E]/5"
+                >
+                  <p className="text-[0.85rem] font-bold text-gray-900">Step 3</p>
+                  <p className="text-[0.72rem] text-gray-500">Journey</p>
+                </Link>
+                <Link
+                  href="/onboarding/step-4"
+                  className="rounded-xl border border-gray-200 bg-white p-3 text-center transition-all hover:border-[#ED5A2E] hover:bg-[#ED5A2E]/5"
+                >
+                  <p className="text-[0.85rem] font-bold text-gray-900">Step 4</p>
+                  <p className="text-[0.72rem] text-gray-500">Interests</p>
                 </Link>
               </div>
-            )) || [1, 2, 3].map((i) => (
-              <div key={i} className="h-72 rounded-2xl bg-gray-200 animate-pulse" />
-            ))}
-          </div>
-
-          {/* ── Quick Launcher Bar for All Onboarding Screens ── */}
-          {/* TODO: Quick Onboarding Screens Launcher kept functional for navigation per spec; confirm with product/design before production release */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-            <h4 className="text-[0.85rem] font-bold uppercase tracking-wider text-[#ED5A2E] mb-3 text-center">
-              Quick Onboarding Screens Launcher
-            </h4>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <Link
-                href="/onboarding/step-1"
-                className="rounded-xl border border-gray-200 bg-gray-50 p-3 text-center transition-all hover:border-[#ED5A2E] hover:bg-[#ED5A2E]/10"
-              >
-                <p className="text-[0.88rem] font-bold text-gray-900">Step 1</p>
-                <p className="text-[0.75rem] text-gray-500">Your City</p>
-              </Link>
-              <Link
-                href="/onboarding/step-2"
-                className="rounded-xl border border-gray-200 bg-gray-50 p-3 text-center transition-all hover:border-[#ED5A2E] hover:bg-[#ED5A2E]/10"
-              >
-                <p className="text-[0.88rem] font-bold text-gray-900">Step 2</p>
-                <p className="text-[0.75rem] text-gray-500">Lifestyle</p>
-              </Link>
-              <Link
-                href="/onboarding/step-3"
-                className="rounded-xl border border-gray-200 bg-gray-50 p-3 text-center transition-all hover:border-[#ED5A2E] hover:bg-[#ED5A2E]/10"
-              >
-                <p className="text-[0.88rem] font-bold text-gray-900">Step 3</p>
-                <p className="text-[0.75rem] text-gray-500">Journey</p>
-              </Link>
-              <Link
-                href="/onboarding/step-4"
-                className="rounded-xl border border-gray-200 bg-gray-50 p-3 text-center transition-all hover:border-[#ED5A2E] hover:bg-[#ED5A2E]/10"
-              >
-                <p className="text-[0.88rem] font-bold text-gray-900">Step 4</p>
-                <p className="text-[0.75rem] text-gray-500">Interests</p>
-              </Link>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* ── Full Dark Footer ── */}
-      <footer className="bg-black px-6 py-12 text-white lg:px-16 border-t border-white/10">
+      <footer className="hidden bg-black px-6 py-12 text-white lg:px-16 border-t border-white/10">
         <div className="mx-auto max-w-[1300px]">
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 pb-12 border-b border-white/10">
-            {/* Contact */}
             <div>
               <h4 className="text-[0.78rem] font-bold uppercase tracking-wider text-white mb-4">
                 Contact
@@ -491,80 +592,44 @@ export default function OnboardingHomePage() {
               </div>
             </div>
 
-            {/* Company */}
             <div>
               <h4 className="text-[0.78rem] font-bold uppercase tracking-wider text-white mb-4">
                 Company
               </h4>
               <ul className="space-y-2.5 text-[0.85rem] text-white/70">
-                <li>
-                  <Link href="#" className="hover:text-white">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white">
-                    How it works
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white">
-                    Features
-                  </Link>
-                </li>
+                <li><Link href="#" className="hover:text-white">About Us</Link></li>
+                <li><Link href="#" className="hover:text-white">How it works</Link></li>
+                <li><Link href="#" className="hover:text-white">Features</Link></li>
               </ul>
             </div>
 
-            {/* Legal */}
             <div>
               <h4 className="text-[0.78rem] font-bold uppercase tracking-wider text-white mb-4">
                 Legal
               </h4>
               <ul className="space-y-2.5 text-[0.85rem] text-white/70">
-                <li>
-                  <Link href="/privacy" className="hover:text-white">
-                    Privacy policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white">
-                    Terms of service
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-white">
-                    Acceptable use policy
-                  </Link>
-                </li>
+                <li><Link href="/privacy" className="hover:text-white">Privacy policy</Link></li>
+                <li><Link href="#" className="hover:text-white">Terms of service</Link></li>
+                <li><Link href="#" className="hover:text-white">Acceptable use policy</Link></li>
               </ul>
             </div>
 
-            {/* Support */}
             <div>
               <h4 className="text-[0.78rem] font-bold uppercase tracking-wider text-white mb-4">
                 Support
               </h4>
               <ul className="space-y-2.5 text-[0.85rem] text-white/70">
-                <li>
-                  <Link href="#" className="hover:text-white">
-                    FAQ
-                  </Link>
-                </li>
+                <li><Link href="#" className="hover:text-white">FAQ</Link></li>
               </ul>
             </div>
           </div>
 
-          {/* Copyright Disclaimer */}
           <div className="pt-8 text-[0.76rem] text-white/40 leading-relaxed space-y-2">
             <p>
-              TRCK is a leisure technology platform based in Nigeria. All
-              experiences are provided by independent third-party creators. TRCK
-              does not host or supervise these Experiences and disclaims
-              liability for third-party actions.
+              TRCK is a leisure technology platform based in Nigeria. All experiences are provided by independent third-party creators.
             </p>
             <p>
-              Copyright ©2025 Trck Entertainment & Technology Ltd. All rights
-              reserved.
+              Copyright ©2025 Trck Entertainment & Technology Ltd. All rights reserved.
             </p>
           </div>
         </div>

@@ -5,7 +5,7 @@ export async function GET() {
     hero: {
       titleLine1: "5IVE AT",
       titleLine2Part1: "02",
-      titleLine2Part2: "ARENA",
+      titleLine2Part2: "ARENA02",
       stars: 3,
       subtitle: "13-15 APRIL 2026, LEGEND SIAM - PATTAYA",
       ctaText: "GET TICKETS",
@@ -13,7 +13,7 @@ export async function GET() {
     featureCards: [
       {
         id: "fc-1",
-        title: "Pvc For Cate Even Home",
+        title: "Lagos Investors Hangout",
         description: "",
       },
       {
@@ -31,43 +31,56 @@ export async function GET() {
       {
         id: "vip-1",
         category: "Meet & Greets, Special Access",
-        title: "Browse Available VIP Packages",
+        title: "Browse",
         image: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=600&auto=format&fit=crop&q=80",
       },
       {
         id: "vip-2",
-        category: "Meet & Greets, Special Access",
-        title: "Browse Available VIP Packages",
+        category: "Special Country Concerts",
+        title: "Davido",
         image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
       },
       {
         id: "vip-3",
-        category: "Meet & Greets, Special Access",
-        title: "Browse Available VIP Packages",
+        category: "Special Country Concerts",
+        title: "Davido",
         image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&auto=format&fit=crop&q=80",
+      },
+      {
+        id: "vip-4",
+        category: "Special Country Concerts",
+        title: "Davido",
+        image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80",
       },
     ],
     trendingEvents: [
       {
         id: "trend-1",
-        title: "Alan Jackson One stop ho...",
+        title: "Alan Jacjson One more st...",
         date: "Oct 17",
         price: "From $166",
         image: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&auto=format&fit=crop&q=80",
       },
       {
         id: "trend-2",
-        title: "Alan Jackson One stop ho...",
+        title: "Alan Jacjson One more st...",
         date: "Oct 17",
         price: "From $166",
         image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80",
       },
       {
         id: "trend-3",
-        title: "Alan Jackson One stop ho...",
+        title: "Alan Jacjson One more st...",
         date: "Oct 17",
         price: "From $166",
         image: "https://images.unsplash.com/photo-1429962714451-bb934ecdc436?w=600&auto=format&fit=crop&q=80",
+      },
+      {
+        id: "trend-4",
+        title: "Alan Jacjson One more st...",
+        date: "Oct 17",
+        price: "From $166",
+        image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&auto=format&fit=crop&q=80",
       },
     ],
     categories: [

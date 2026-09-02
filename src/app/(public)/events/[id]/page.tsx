@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CalendarDays, ChevronDown, ChevronLeft, Clock3, Heart, MapPin, Share2, Star, Users } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
+import { OrganizerCard } from "@/components/shared/organizer-card";
 
 const details = [
   { title: "Date & Time", value: "3RD - 30TH NOVEMBER, 2025", sub: "7:00 PM - 11:00 PM EST", icon: "/Time Circle 7.png" },
@@ -60,7 +61,7 @@ function SectionRule() {
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black px-6 py-12 text-white lg:px-16">
+    <footer className="hidden border-t border-white/10 bg-black px-6 py-12 text-white lg:px-16">
       <div className="mx-auto max-w-[1440px]">
         <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-12 sm:grid-cols-2 md:grid-cols-4">
           <div>
@@ -463,17 +464,17 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mt-6 rounded-[18px] border border-[#ED5A2E] bg-[#181818] p-4">
-          <div className="flex items-center gap-4">
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white text-black text-[2rem]">E</div>
-            <div className="min-w-0">
-              <div className="text-[0.95rem] font-medium">Elizabeth R Events <span className="text-[#ED5A2E]">{"✦"}</span></div>
-              <p className="mt-2 text-[0.72rem] leading-relaxed text-white/80">
-                Passionate about bringing world-class experiences to Lagos.
-              </p>
-            </div>
-          </div>
-        </section>
+        <div className="mt-6">
+          <OrganizerCard
+            title="Meet the Organizer"
+            name="Elizabeth R Events"
+            bio="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer blandit justo a est pellentesque pulvinar."
+            eventSeriesCount="24 Event Series"
+            followersCount="12.5k Followers"
+            avatarLetter="E"
+            verified={true}
+          />
+        </div>
 
         <h2 className="mt-6 text-[1rem] font-bold uppercase tracking-tight underline decoration-[#ED5A2E] decoration-2 underline-offset-8">Event Schedule</h2>
         <div className="mt-4 rounded-[16px] bg-[#111111] p-4">

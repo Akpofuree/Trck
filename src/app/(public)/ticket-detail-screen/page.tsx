@@ -6,7 +6,7 @@ import { ChevronLeft, CircleCheck, SunMedium, QrCode, BadgeInfo, MapPin, AlertCi
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black px-6 py-12 text-white">
+    <footer className="hidden border-t border-white/10 bg-black px-6 py-12 text-white">
       <div className="mx-auto max-w-[1440px]">
         <div className="grid grid-cols-2 gap-8 border-b border-white/10 pb-10 md:grid-cols-4">
           <div>
@@ -43,6 +43,13 @@ function Footer() {
 }
 
 export default function Page() {
+  const downloadTicket = () => window.print();
+  const addCalendar = () => window.open("https://calendar.google.com/calendar/render", "_blank", "noopener,noreferrer");
+  const shareTicket = async () => {
+    if (navigator.share) await navigator.share({ title: "5IVE LIVE AT 02 ARENA", text: "My event ticket" });
+    else await navigator.clipboard.writeText(window.location.href);
+  };
+
   return (
     <main className="min-h-screen bg-black text-white">
       <section className="px-4 py-4 md:px-6 lg:px-8">
@@ -126,20 +133,20 @@ export default function Page() {
 
               <section className="rounded-[16px] bg-[#171717] p-5">
                 <div className="grid grid-cols-2 gap-4">
-                  <button className="rounded-[14px] bg-[#2b2b2b] px-4 py-5 text-center">
-                    <div className="flex justify-center text-[#ED5A2E]"><PlaneTakeoff className="h-6 w-6" /></div>
+                  <a href="https://www.google.com/maps/search/?api=1&query=The+O2+Arena+London" target="_blank" rel="noreferrer" className="rounded-[14px] bg-[#2b2b2b] px-4 py-5 text-center transition-colors hover:bg-[#3a2721]">
+                    <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#F99E7E] text-[#ED5A2E]"><PlaneTakeoff className="h-6 w-6" /></div>
                     <div className="mt-3 text-[0.9rem] font-medium text-white">Get Directions</div>
-                  </button>
-                  <button className="rounded-[14px] bg-[#2b2b2b] px-4 py-5 text-center">
-                    <div className="flex justify-center text-[#ED5A2E]"><Download className="h-6 w-6" /></div>
+                  </a>
+                  <button type="button" data-transaction="Add to calendar" onClick={addCalendar} className="rounded-[14px] bg-[#2b2b2b] px-4 py-5 text-center transition-colors hover:bg-[#3a2721]">
+                    <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#F99E7E] text-[#ED5A2E]"><Download className="h-6 w-6" /></div>
                     <div className="mt-3 text-[0.9rem] font-medium text-white">Add To Calendar</div>
                   </button>
-                  <button className="rounded-[14px] bg-[#2b2b2b] px-4 py-5 text-center">
-                    <div className="flex justify-center text-[#ED5A2E]"><ArrowRight className="h-6 w-6" /></div>
+                  <button onClick={() => window.location.href = "tel:+442084636000"} className="rounded-[14px] bg-[#2b2b2b] px-4 py-5 text-center transition-colors hover:bg-[#3a2721]">
+                    <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#F99E7E] text-[#ED5A2E]"><ArrowRight className="h-6 w-6" /></div>
                     <div className="mt-3 text-[0.9rem] font-medium text-white">Call Venue</div>
                   </button>
-                  <button className="rounded-[14px] bg-[#2b2b2b] px-4 py-5 text-center">
-                    <div className="flex justify-center text-[#ED5A2E]"><AlertCircle className="h-6 w-6" /></div>
+                  <button type="button" data-transaction="Share ticket" onClick={shareTicket} className="rounded-[14px] bg-[#2b2b2b] px-4 py-5 text-center transition-colors hover:bg-[#3a2721]">
+                    <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#F99E7E] text-[#ED5A2E]"><AlertCircle className="h-6 w-6" /></div>
                     <div className="mt-3 text-[0.9rem] font-medium text-white">Share</div>
                   </button>
                 </div>
@@ -175,19 +182,19 @@ export default function Page() {
               <section className="rounded-[16px] bg-[#171717] p-5">
                 <h2 className="mb-4 text-[1rem] font-semibold">Manage Ticket</h2>
                 <div className="space-y-3">
-                  <button className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left">
+                  <button type="button" data-transaction="Transfer ticket" onClick={() => window.location.href = "/checkout/share/transfer"} className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left transition-colors hover:bg-[#3a2721]">
                     <span className="inline-flex items-center gap-3"><PlaneTakeoff className="h-4 w-4 text-[#ED5A2E]" /> Transfer Ticket</span>
                     <ArrowRight className="h-4 w-4 text-white/80" />
                   </button>
-                  <button className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left">
+                  <button type="button" data-transaction="Download ticket as PDF" onClick={downloadTicket} className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left transition-colors hover:bg-[#3a2721]">
                     <span className="inline-flex items-center gap-3"><Download className="h-4 w-4 text-[#ED5A2E]" /> Download as PDF</span>
                     <ArrowRight className="h-4 w-4 text-white/80" />
                   </button>
-                  <button className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left">
+                  <button type="button" data-transaction="Add ticket to wallet" onClick={() => window.alert("Wallet integration is ready for the connected wallet.")} className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left transition-colors hover:bg-[#3a2721]">
                     <span className="inline-flex items-center gap-3"><WalletCards className="h-4 w-4 text-[#ED5A2E]" /> Add to wallet</span>
                     <ArrowRight className="h-4 w-4 text-white/80" />
                   </button>
-                  <button className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left">
+                  <button type="button" data-transaction="Request ticket refund" onClick={() => window.location.href = "mailto:support@getontrck.com?subject=Ticket%20refund%20request"} className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left transition-colors hover:bg-[#3a2721]">
                     <span className="inline-flex items-center gap-3 text-[#ff4c4c]"><AlertCircle className="h-4 w-4 text-[#ff4c4c]" /> Request Refund</span>
                     <ArrowRight className="h-4 w-4 text-white/80" />
                   </button>
@@ -197,7 +204,7 @@ export default function Page() {
               <section className="rounded-[16px] bg-[#171717] p-5">
                 <h2 className="mb-4 text-[1rem] font-semibold">Need Help?</h2>
                 <p className="text-[0.8rem] text-white/70">Our support team is here to assist you with any questions about your ticket or the event</p>
-                <button className="mt-4 w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white">Chat with support</button>
+                <button type="button" data-transaction="Chat with support" onClick={() => window.location.href = "mailto:support@getontrck.com"} className="mt-4 w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white transition-colors hover:bg-[#d44d24]">Chat with support</button>
               </section>
             </div>
           </div>
@@ -298,19 +305,19 @@ export default function Page() {
             <div className="px-4 pb-5">
               <h2 className="mb-4 text-[1rem] font-semibold">Manage Ticket</h2>
               <div className="space-y-3 rounded-[16px] bg-[#171717] p-4">
-                <button className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left">
+                <button onClick={() => window.location.href = "/checkout/share/transfer"} className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left transition-colors hover:bg-[#3a2721]">
                   <span className="inline-flex items-center gap-3"><PlaneTakeoff className="h-4 w-4 text-[#ED5A2E]" /> Transfer Ticket</span>
                   <ArrowRight className="h-4 w-4 text-white/80" />
                 </button>
-                <button className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left">
+                <button onClick={downloadTicket} className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left transition-colors hover:bg-[#3a2721]">
                   <span className="inline-flex items-center gap-3"><Download className="h-4 w-4 text-[#ED5A2E]" /> Download as PDF</span>
                   <ArrowRight className="h-4 w-4 text-white/80" />
                 </button>
-                <button className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left">
+                <button onClick={() => window.alert("Wallet integration is ready for the connected wallet.")} className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left transition-colors hover:bg-[#3a2721]">
                   <span className="inline-flex items-center gap-3"><WalletCards className="h-4 w-4 text-[#ED5A2E]" /> Add to wallet</span>
                   <ArrowRight className="h-4 w-4 text-white/80" />
                 </button>
-                <button className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left">
+                <button onClick={() => window.location.href = "mailto:support@getontrck.com?subject=Ticket%20refund%20request"} className="flex w-full items-center justify-between rounded-[10px] bg-[#303030] px-4 py-4 text-left transition-colors hover:bg-[#3a2721]">
                   <span className="inline-flex items-center gap-3 text-[#ff4c4c]"><AlertCircle className="h-4 w-4 text-[#ff4c4c]" /> Request Refund</span>
                   <ArrowRight className="h-4 w-4 text-white/80" />
                 </button>
@@ -321,7 +328,7 @@ export default function Page() {
               <h2 className="mb-4 text-[1rem] font-semibold">Need Help?</h2>
               <div className="rounded-[16px] bg-[#171717] p-5">
                 <p className="text-[0.8rem] text-white/70">Our support team is here to assist you with any questions about your ticket or the event</p>
-                <button className="mt-4 w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white">Chat with support</button>
+              <button onClick={() => window.location.href = "mailto:support@getontrck.com"} className="mt-4 w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white transition-colors hover:bg-[#d44d24]">Chat with support</button>
               </div>
             </div>
           </div>

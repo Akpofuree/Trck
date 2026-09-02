@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { ChevronLeft, Check, ChevronDown, Clock3, CircleDot, Link2, Send } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black px-6 py-12 text-white lg:px-16">
+    <footer className="hidden border-t border-white/10 bg-black px-6 py-12 text-white lg:px-16">
       <div className="mx-auto max-w-[1440px] text-[0.75rem] text-white/40">
         <p>TRCK is a leisure technology platform based in Nigeria.</p>
       </div>
@@ -16,6 +17,8 @@ function Footer() {
 }
 
 export default function Page() {
+  const [generatedLink, setGeneratedLink] = useState("");
+
   return (
     <main className="min-h-screen bg-black text-white">
       <div className="border-b border-[#ED5A2E]/40 bg-[#151515] px-8 py-4">
@@ -101,7 +104,8 @@ export default function Page() {
                 <span className="flex h-4 w-4 items-center justify-center rounded-[0.2rem] bg-[#ED5A2E] text-[0.7rem]">✓</span>
                 Require recipient to provide their email address
               </label>
-              <button className="w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white">Generate share link</button>
+              <button type="button" data-transaction="Generate share link" onClick={() => setGeneratedLink(`${window.location.origin}/tickets/shared/TRK-2024-0547`)} className="w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white transition-colors hover:bg-[#d44d24]">Generate share link</button>
+              {generatedLink ? <div className="mt-3 break-all rounded-[10px] border border-[#ED5A2E]/50 bg-[#2b2b2b] px-4 py-3 text-[0.8rem] text-[#ffb39d]">{generatedLink}</div> : null}
             </div>
           </div>
         </div>

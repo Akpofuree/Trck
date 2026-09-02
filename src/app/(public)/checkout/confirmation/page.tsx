@@ -7,7 +7,7 @@ import { Logo } from "@/components/shared/logo";
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black px-6 py-12 text-white lg:px-16">
+    <footer className="hidden border-t border-white/10 bg-black px-6 py-12 text-white lg:px-16">
       <div className="mx-auto max-w-[1440px]">
         <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-12 sm:grid-cols-2 md:grid-cols-4">
           <div>
@@ -92,14 +92,14 @@ export default function Page() {
               <span className="inline-flex items-center gap-2"><Check className="h-4 w-4 text-white/70" /> Confirmation email sent to john.doe@example.com</span>
             </div>
             <div className="mt-8 flex items-center justify-center gap-4">
-              <button className="inline-flex items-center gap-2 rounded-[10px] border border-[#ED5A2E] bg-[#ED5A2E] px-5 py-3 text-[0.92rem] font-medium text-white">
-                <Download className="h-4 w-4" /> Download Tickets
+              <button type="button" data-transaction="Download tickets" onClick={() => window.print()} className="inline-flex items-center gap-2 rounded-[10px] border border-[#ED5A2E] bg-white px-5 py-3 text-[0.92rem] font-medium text-[#ED5A2E] transition-colors hover:bg-[#FDDDD5]">
+                Download Tickets <Download className="h-4 w-4" />
               </button>
-              <button className="inline-flex items-center gap-2 rounded-[10px] border border-[#ED5A2E] bg-[#ED5A2E] px-5 py-3 text-[0.92rem] font-medium text-white">
-                <CalendarDays className="h-4 w-4" /> Add To Calendar
+              <button type="button" data-transaction="Add to calendar" onClick={() => window.open("https://calendar.google.com/calendar/render", "_blank", "noopener,noreferrer")} className="inline-flex items-center gap-2 rounded-[10px] border border-[#ED5A2E] bg-white px-5 py-3 text-[0.92rem] font-medium text-[#ED5A2E] transition-colors hover:bg-[#FDDDD5]">
+                Add To Calendar <CalendarDays className="h-4 w-4" />
               </button>
-              <Link href="/checkout/share" className="inline-flex items-center gap-2 rounded-[10px] border border-[#ED5A2E] bg-[#ED5A2E] px-5 py-3 text-[0.92rem] font-medium text-white">
-                <Share2 className="h-4 w-4" /> Share Event
+              <Link href="/checkout/share" data-transaction="Share event" className="inline-flex items-center gap-2 rounded-[10px] border border-[#ED5A2E] bg-white px-5 py-3 text-[0.92rem] font-medium text-[#ED5A2E] transition-colors hover:bg-[#FDDDD5]">
+                Share Event <Share2 className="h-4 w-4" />
               </Link>
             </div>
           </div>
@@ -133,21 +133,17 @@ export default function Page() {
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center justify-center">
-                        <div className="h-40 w-40 rounded-[16px] bg-[repeating-linear-gradient(90deg,#fff_0,#fff_4px,#000_4px,#000_8px)] p-3">
-                          <div className="flex h-full items-center justify-center rounded-[10px] bg-white text-black text-[0.85rem] font-semibold">
-                            QR
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between gap-4 p-5 text-[0.88rem] text-white/80">
+                  <div className="flex items-end gap-5 p-5 text-[0.88rem] text-white/80">
+                    <div className="h-32 w-32 shrink-0 rounded-[16px] bg-[repeating-linear-gradient(90deg,#fff_0,#fff_4px,#000_4px,#000_8px)] p-3">
+                      <div className="flex h-full items-center justify-center rounded-[10px] bg-white text-black text-[0.85rem] font-semibold">QR</div>
+                    </div>
                     <div>
                       <div className="font-medium text-white">Show this QR code at entry</div>
                       <div className="mt-1 text-white/55">Present this code at the venue entrance for quick check-in</div>
                     </div>
-                    <button className="rounded-[10px] bg-[#ED5A2E] px-4 py-3 text-[0.85rem] font-semibold text-white">View Details</button>
+                    <button type="button" data-transaction="View ticket details" className="rounded-[10px] bg-[#ED5A2E] px-4 py-3 text-[0.85rem] font-semibold text-white">View Details</button>
                   </div>
                   <div className="border-t border-[#ED5A2E]/40 bg-[#ED5A2E] px-5 py-3 text-[0.8rem] text-white">Priority Entry - Skip the line with VIP access</div>
                 </div>
@@ -188,7 +184,7 @@ export default function Page() {
                   <div className="mt-6">
                     <h4 className="text-[1.25rem] font-medium">02 Arena</h4>
                     <p className="mt-2 text-[0.92rem] text-white/80">Peninsula Square London SE10 0DX United Kingdom</p>
-                    <button className="mt-5 inline-flex items-center gap-2 rounded-[10px] bg-[#ED5A2E] px-4 py-3 text-[0.85rem] font-semibold text-white">
+                    <button type="button" data-transaction="Get directions" className="mt-5 inline-flex items-center gap-2 rounded-[10px] bg-[#ED5A2E] px-4 py-3 text-[0.85rem] font-semibold text-white">
                       <MapPin className="h-4 w-4" /> Get Directions
                     </button>
                   </div>
@@ -231,7 +227,7 @@ export default function Page() {
                   <div className="text-[0.85rem] text-white/70">Payment Method</div>
                   <div className="mt-2 text-[1rem] font-semibold">•••• •••• 1234</div>
                 </div>
-                <button className="mt-4 w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.95rem] font-semibold text-white">Download Receipt</button>
+                <button type="button" data-transaction="Download receipt" className="mt-4 w-full rounded-[10px] bg-[#ED5A2E] py-3 text-[0.95rem] font-semibold text-white">Download Receipt</button>
                 <div className="mt-4 space-y-3 border-t border-[#ED5A2E]/30 pt-4 text-[0.8rem] text-white/70">
                   <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#ED5A2E]" /> Secure checkout</div>
                   <div className="flex items-center gap-2"><Ticket className="h-4 w-4 text-[#ED5A2E]" /> Instant delivery</div>
@@ -271,12 +267,13 @@ export default function Page() {
             <p className="mt-2 text-[0.82rem] text-white/70">Your tickets are ready and waiting for you</p>
             <div className="mx-auto mt-4 w-fit rounded-[10px] bg-[#2b2b2b] px-4 py-3 text-[0.82rem]">Order ID - #TRK-2024-0547</div>
             <div className="mt-4 text-[0.78rem] text-white/70">Confirmation email sent to john.doe@example.com</div>
-            <div className="mt-5 grid grid-cols-2 gap-2">
-              <button className="rounded-[10px] bg-[#ED5A2E] px-2 py-3 text-[0.72rem] font-medium text-white">Download Tickets</button>
-              <button className="rounded-[10px] bg-[#ED5A2E] px-2 py-3 text-[0.72rem] font-medium text-white">Share event</button>
+            <div className="mt-5 grid grid-cols-1 gap-2">
+              <button type="button" data-transaction="Download tickets" onClick={() => window.print()} className="inline-flex items-center justify-center gap-2 rounded-[10px] border border-[#ED5A2E] bg-white px-2 py-3 text-[0.72rem] font-medium text-[#ED5A2E] transition-colors hover:bg-[#FDDDD5]">Download Tickets <Download className="h-4 w-4" /></button>
+              <button type="button" data-transaction="Add to calendar" onClick={() => window.open("https://calendar.google.com/calendar/render", "_blank", "noopener,noreferrer")} className="inline-flex items-center justify-center gap-2 rounded-[10px] border border-[#ED5A2E] bg-white px-2 py-3 text-[0.72rem] font-medium text-[#ED5A2E] transition-colors hover:bg-[#FDDDD5]">Add To Calendar <CalendarDays className="h-4 w-4" /></button>
+              <Link href="/checkout/share" data-transaction="Share event" className="inline-flex items-center justify-center gap-2 rounded-[10px] border border-[#ED5A2E] bg-white px-2 py-3 text-[0.72rem] font-medium text-[#ED5A2E] transition-colors hover:bg-[#FDDDD5]">Share event <Share2 className="h-4 w-4" /></Link>
             </div>
             <div className="mt-2">
-              <button className="w-full rounded-[10px] bg-[#ED5A2E] px-2 py-3 text-[0.72rem] font-medium text-white">View Order Summary</button>
+              <button type="button" data-transaction="View order summary" className="w-full rounded-[10px] bg-[#ED5A2E] px-2 py-3 text-[0.72rem] font-medium text-white">View Order Summary</button>
             </div>
           </section>
 
@@ -322,7 +319,7 @@ export default function Page() {
                 <div className="flex-1">
                   <div className="text-[0.95rem] font-medium">Show this QR code at entry</div>
                   <p className="mt-3 text-[0.82rem] text-white/70">Present this at the venue for quick check-in</p>
-                  <button className="mt-4 rounded-[8px] bg-[#ED5A2E] px-4 py-2 text-[0.78rem] font-medium text-white">View Details</button>
+                  <button type="button" data-transaction="View ticket details" className="mt-4 rounded-[8px] bg-[#ED5A2E] px-4 py-2 text-[0.78rem] font-medium text-white">View Details</button>
                 </div>
               </div>
             </div>
@@ -372,7 +369,7 @@ export default function Page() {
             <p className="mt-2 text-[0.8rem] text-white/65">We&apos;re excited to have you join us for an unforgettable experience.</p>
           </section>
 
-          <Footer />
+          <div className="hidden"><Footer /></div>
         </div>
       </section>
     </main>

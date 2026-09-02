@@ -9,8 +9,10 @@ import {
   MapPin,
   Heart,
   X,
+  Search,
 } from "lucide-react";
 import { EventItem, FilterState } from "@/types";
+import { Logo } from "@/components/shared/logo";
 
 const categories = [
   "All Categories",
@@ -119,6 +121,21 @@ export function EventListingPage() {
 
   return (
     <div className="min-h-screen bg-[#141414] text-white">
+      <header className="border-b border-gray-100 bg-white text-gray-900">
+        <div className="mx-auto flex max-w-[1440px] items-center gap-3 px-4 py-4 sm:gap-5 sm:px-6 lg:px-8">
+          <Logo width={100} height={36} className="h-7 w-auto shrink-0" />
+          <div className="relative min-w-0 flex-1 md:max-w-[460px]">
+            <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <input value={query} onChange={(e) => { setQuery(e.target.value); setActivePage(1); }} placeholder="Search event..." className="w-full rounded-full bg-[#f4f4f4] py-2.5 pl-11 pr-4 text-[0.9rem] outline-none placeholder:text-gray-500 focus:ring-2 focus:ring-[#ED5A2E]/20" />
+          </div>
+          <button type="button" onClick={() => setFiltersOpen(true)} className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#f4f4f4] px-4 py-2.5 text-[0.85rem] font-medium text-gray-800 hover:bg-gray-200 sm:px-5"><SlidersHorizontal className="h-4 w-4" /> <span className="hidden sm:inline">Filter</span></button>
+          <label className="relative hidden shrink-0 sm:block">
+            <select value={category} onChange={(e) => setCategory(e.target.value)} className="appearance-none rounded-full bg-[#f4f4f4] px-5 py-2.5 pr-10 text-[0.85rem] text-gray-800 outline-none"><option>All Categories</option>{categories.slice(1).map((item) => <option key={item}>{item}</option>)}</select>
+            <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
+          </label>
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#ED5A2E] text-sm font-semibold text-white">D</div>
+        </div>
+      </header>
       <main className="bg-white text-gray-900">
         <section className="mx-auto max-w-[1440px] px-4 py-10 sm:px-6 lg:px-8">
           <div className="mb-6 flex items-start justify-between gap-4">

@@ -52,8 +52,8 @@ export default function Page() {
       </div>
 
       {/* Main content */}
-      <div className="flex flex-1 items-center justify-center px-8">
-        <div className="flex w-full max-w-[700px] items-center justify-between gap-16">
+      <div className="flex flex-1 items-center justify-center px-4 sm:px-8">
+        <div className="flex w-full max-w-[700px] flex-col items-center justify-between gap-10 sm:flex-row sm:gap-16">
           {/* Left: Passcode entry */}
           <div className="flex-1">
             <h1 className="mb-8 text-[2rem] font-semibold text-gray-800 tracking-tight">
@@ -62,7 +62,7 @@ export default function Page() {
 
             {/* Digit inputs */}
             <div
-              className="flex items-center gap-3"
+              className="flex w-full items-center justify-center gap-1.5 sm:justify-start sm:gap-3"
               onPaste={handlePaste}
             >
               {/* Group 1 */}
@@ -77,7 +77,7 @@ export default function Page() {
                   value={digits[idx]}
                   onChange={(e) => handleChange(e.target.value, idx)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className="h-[3.2rem] w-[3.2rem] rounded-[0.55rem] border-0 bg-[#FDDDD5] text-center text-[1.2rem] font-semibold text-[#ED5A2E] outline-none ring-2 ring-transparent transition-all focus:ring-[#ED5A2E] placeholder:text-[#ED5A2E]/40 caret-[#ED5A2E]"
+                  className="h-10 w-10 rounded-[0.55rem] border-0 bg-[#FDDDD5] text-center text-[1.1rem] font-semibold text-[#ED5A2E] outline-none ring-2 ring-transparent transition-all focus:ring-[#ED5A2E] placeholder:text-[#ED5A2E]/40 caret-[#ED5A2E] sm:h-[3.2rem] sm:w-[3.2rem] sm:text-[1.2rem]"
                 />
               ))}
 
@@ -96,7 +96,7 @@ export default function Page() {
                   value={digits[idx]}
                   onChange={(e) => handleChange(e.target.value, idx)}
                   onKeyDown={(e) => handleKeyDown(e, idx)}
-                  className="h-[3.2rem] w-[3.2rem] rounded-[0.55rem] border-0 bg-[#FDDDD5] text-center text-[1.2rem] font-semibold text-[#ED5A2E] outline-none ring-2 ring-transparent transition-all focus:ring-[#ED5A2E] placeholder:text-[#ED5A2E]/40 caret-[#ED5A2E]"
+                  className="h-10 w-10 rounded-[0.55rem] border-0 bg-[#FDDDD5] text-center text-[1.1rem] font-semibold text-[#ED5A2E] outline-none ring-2 ring-transparent transition-all focus:ring-[#ED5A2E] placeholder:text-[#ED5A2E]/40 caret-[#ED5A2E] sm:h-[3.2rem] sm:w-[3.2rem] sm:text-[1.2rem]"
                 />
               ))}
             </div>
