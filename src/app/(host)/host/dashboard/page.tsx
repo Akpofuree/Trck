@@ -18,25 +18,13 @@ import {
   Bell,
   ChevronLeft,
   ChevronDown,
-  Eye,
+  ArrowUpRight,
+  ArrowRight,
+  MessageSquare,
   Pencil,
-  Copy,
-  BarChart2,
-  Share2,
   MoreVertical,
-  MapPin,
-  CalendarDays,
-  UserCheck,
-  Building2,
-  ShieldCheck,
-  CircleDollarSign,
-  CheckCircle2,
-  ArrowLeftRight,
-  Plus,
-  DollarSign,
-  Target,
-  Award,
   X,
+  Menu,
 } from "lucide-react";
 
 const NAV_ITEMS = [
@@ -50,19 +38,8 @@ const NAV_ITEMS = [
     ],
   },
   {
-    section: "Host Portal",
-    items: [
-      { label: "Host Sign Up", icon: UserCheck, href: "/host/signup", active: false },
-      { label: "Business Info", icon: Building2, href: "/host/onboarding/business-info", active: false },
-      { label: "KYC Verification", icon: ShieldCheck, href: "/host/onboarding/kyc", active: false },
-      { label: "Bank Verification", icon: Wallet, href: "/host/onboarding/bank-verification", active: false },
-      { label: "KYC Status", icon: CheckCircle2, href: "/host/onboarding/status", active: false },
-    ],
-  },
-  {
     section: "Management",
     items: [
-      // TODO: Management screens (Users, Tickets, Events, Earnings) awaiting designer/product specifications
       { label: "Users", icon: Users, href: "#" },
       { label: "Tickets", icon: Ticket, href: "#" },
       { label: "Events", icon: Music, href: "#" },
@@ -73,122 +50,105 @@ const NAV_ITEMS = [
   {
     section: "Other",
     items: [
-      // TODO: Report and Settings screens awaiting designer/product specifications
       { label: "Report", icon: FileText, href: "#" },
       { label: "Settings", icon: Settings, href: "#" },
     ],
   },
 ];
 
+const customers = [
+  {
+    id: 1,
+    name: "Chris Friedkly",
+    company: "Supermarket Villanova",
+    avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80",
+    active: false,
+  },
+  {
+    id: 2,
+    name: "Maggie Johnson",
+    company: "Oasis Organic Inc.",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80",
+    active: true,
+  },
+  {
+    id: 3,
+    name: "Gael Harry",
+    company: "New York Finest Fruits",
+    avatar: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=120&auto=format&fit=crop&q=80",
+    active: false,
+  },
+  {
+    id: 4,
+    name: "Jenna Sullivan",
+    company: "Walmart",
+    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120&auto=format&fit=crop&q=80",
+    active: false,
+  },
+];
+
+const upcomingEvents = [
+  { id: 1, date: "01 Jan", title: "NYE Party", tickets: "45 available tickets", status: "On Session" },
+  { id: 2, date: "01 Jan", title: "NYE Party", tickets: "45 available tickets", status: "On Session" },
+  { id: 3, date: "01 Jan", title: "NYE Party", tickets: "45 available tickets", status: "On Session" },
+];
+
 export default function HostDashboardPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [sortBy, setSortBy] = useState("Newest");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeCustomer, setActiveCustomer] = useState(2);
 
   return (
-    <div className="min-h-screen bg-[#000000] text-white flex flex-col font-montserrat overflow-x-hidden">
-      {/* ── WHITE TOP HEADER (Desktop) ─────────────────── */}
-      <header className="hidden md:flex h-[70px] bg-white items-center justify-between px-6 border-b border-gray-100 shrink-0 z-20">
-        <span className="text-black font-semibold text-[1rem] font-poppins">Dashboard Overview</span>
-        <div className="flex items-center gap-3">
-          <Link
-            href="/host/events/new"
-            className="flex items-center gap-1.5 bg-[#ED5828] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#d44d24] transition-colors"
+    <div className="min-h-screen bg-black text-white flex flex-col font-[var(--font-inter)] selection:bg-[#ED5A2E] selection:text-white">
+      {/* ── TOP HEADER (Screenshot 4) ─────────────────────────────────── */}
+      <header className="h-[68px] bg-black border-b border-white/10 flex items-center justify-between px-6 shrink-0 z-20 sticky top-0">
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 text-white"
           >
-            <Plus size={14} /> Create Event
-          </Link>
-          <button className="relative p-1.5 text-gray-500 hover:text-gray-700 transition-colors">
-            <Bell size={20} />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <div className="w-px h-6 bg-gray-200" />
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#ED5828] flex items-center justify-center text-white text-xs font-bold">
+          <h1 className="text-xl font-bold text-white tracking-tight">Dashboard</h1>
+        </div>
+
+        {/* Right side: Bell icon & Profile */}
+        <div className="flex items-center gap-4">
+          <button className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-white/80 hover:text-white transition-colors">
+            <Bell size={18} />
+            <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-black" />
+          </button>
+
+          <div className="flex items-center gap-2.5 pl-2 border-l border-white/10">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#ED5A2E] text-white font-bold text-xs shadow-md">
               DO
             </div>
-            <div className="font-poppins">
-              <p className="text-[0.826rem] font-normal leading-none text-black">Dominion Ogbaji</p>
-              <p className="text-[0.641rem] font-normal leading-none text-gray-500 mt-0.5">Super Admin</p>
+            <div className="hidden sm:block leading-tight">
+              <p className="text-xs font-semibold text-white">Dominion Ogbaji</p>
+              <p className="text-[0.68rem] text-white/50">Super Admin</p>
             </div>
           </div>
         </div>
       </header>
 
-      {/* ── MOBILE HEADER ───────────────────────────────── */}
-      <div className="md:hidden flex flex-col shrink-0">
-        <header className="flex items-center justify-between px-4 py-3 bg-[#000000]">
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="w-10 h-10 border-2 border-dashed border-white/40 rounded-lg flex items-center justify-center text-white active:scale-95 transition-all"
-            aria-label="Toggle Navigation"
-          >
-            {mobileMenuOpen ? (
-              <X size={18} />
-            ) : (
-              <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
-                <rect width="18" height="2" rx="1" fill="white" />
-                <rect y="6" width="18" height="2" rx="1" fill="white" />
-                <rect y="12" width="18" height="2" rx="1" fill="white" />
-              </svg>
-            )}
-          </button>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/host/events/new"
-              className="flex items-center gap-1 bg-[#ED5828] text-white text-[11px] font-bold px-3 py-1.5 rounded-lg"
-            >
-              <Plus size={12} /> New
-            </Link>
-            <button className="relative w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/80">
-              <Bell size={18} />
-              <span className="absolute top-0.5 right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border border-black" />
-            </button>
-            <div className="w-9 h-9 rounded-full bg-[#5B9BD5] flex items-center justify-center">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-                <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-              </svg>
-            </div>
-          </div>
-        </header>
-        <div className="h-[3px] bg-[#0099FF] w-full" />
-
-        {/* Mobile Navigation Drawer */}
-        {mobileMenuOpen && (
-          <div className="bg-[#121212] border-b border-white/15 px-4 py-5 space-y-4 animate-in slide-in-from-top-2 duration-200">
-            <p className="text-[0.7rem] font-bold uppercase tracking-wider text-white/40">Host Navigation</p>
-            <div className="grid grid-cols-2 gap-2">
-              <Link href="/host/dashboard" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-[#ED5828] text-xs font-semibold text-white">
-                <LayoutDashboard size={14} /> Dashboard
-              </Link>
-              <Link href="/host/calendar" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-xs text-white hover:bg-[#ED5828]">
-                <CalendarIcon size={14} /> Calendar
-              </Link>
-              <Link href="/host/promotions" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-xs text-white hover:bg-[#ED5828]">
-                <Megaphone size={14} /> Promotions
-              </Link>
-              <Link href="/host/payouts" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-xs text-white hover:bg-[#ED5828]">
-                <Wallet size={14} /> Payouts
-              </Link>
-              <Link href="/host/reviews" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 p-2.5 rounded-lg bg-white/5 text-xs text-white hover:bg-[#ED5828]">
-                <Star size={14} /> Reviews
-              </Link>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* ── BODY: SIDEBAR + CONTENT ──────────────────── */}
-      <div className="flex flex-1">
-        {/* ── SIDEBAR ────────────────────────────────── */}
+      {/* ── BODY: SIDEBAR + CONTENT ───────────────────────────────────── */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* ── LEFT SIDEBAR (Screenshot 4) ─────────────────────────────── */}
         <aside
-          className={`hidden md:flex flex-col bg-[#0D0D0D] border-r border-white/10 transition-all duration-300 shrink-0 ${
-            sidebarCollapsed ? "w-[60px]" : "w-[240px]"
+          className={`hidden md:flex flex-col bg-[#0A0A0A] border-r border-white/10 transition-all duration-300 shrink-0 ${
+            sidebarCollapsed ? "w-[68px]" : "w-[240px]"
           }`}
         >
-          <div className="flex items-center justify-end px-3 pt-4 pb-2">
+          {/* Top Sidebar: Logo + Collapse Icon */}
+          <div className="flex items-center justify-between px-4 py-4 border-b border-white/5">
+            {!sidebarCollapsed && (
+              <span className="text-xs font-bold uppercase tracking-wider text-white/40">
+                Menu
+              </span>
+            )}
             <button
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="w-7 h-7 rounded-lg border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all"
+              className="ml-auto flex h-7 w-7 items-center justify-center rounded-lg border border-white/15 text-white/60 hover:text-white transition-colors"
             >
               <ChevronLeft
                 size={14}
@@ -197,47 +157,48 @@ export default function HostDashboardPage() {
             </button>
           </div>
 
+          {/* Search Box */}
           {!sidebarCollapsed && (
-            <div className="px-3 pb-4">
-              <div className="flex items-center gap-2 bg-[#1A1A1A] border border-white/10 rounded-lg px-3 py-2">
-                <Search size={13} className="text-white/40 shrink-0" />
-                <span className="text-white/30 text-xs flex-1">Search</span>
-                <div className="flex items-center gap-0.5">
-                  <span className="text-[10px] text-white/30 border border-white/20 rounded px-1">⌘</span>
-                  <span className="text-[10px] text-white/30 border border-white/20 rounded px-1">K</span>
+            <div className="p-3">
+              <div className="flex items-center gap-2 rounded-xl bg-[#141414] border border-white/10 px-3 py-2">
+                <Search size={14} className="text-white/40 shrink-0" />
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="w-full bg-transparent text-xs text-white placeholder:text-white/30 outline-none"
+                />
+                <div className="flex items-center gap-0.5 text-[10px] text-white/40 font-mono border border-white/15 rounded px-1">
+                  <span>⌘</span>
+                  <span>K</span>
                 </div>
               </div>
             </div>
           )}
 
-          <nav className="flex-1 overflow-y-auto px-2 space-y-4 pb-6">
+          {/* Nav Items */}
+          <nav className="flex-1 overflow-y-auto px-3 py-2 space-y-5">
             {NAV_ITEMS.map((section) => (
               <div key={section.section}>
                 {!sidebarCollapsed && (
-                  <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-white/30 px-3 mb-2">
+                  <p className="px-3 text-[0.68rem] font-bold uppercase tracking-wider text-white/35 mb-1.5">
                     {section.section}
                   </p>
                 )}
-                <div className="space-y-0.5">
+                <div className="space-y-1">
                   {section.items.map((item) => {
                     const Icon = item.icon;
                     return (
                       <Link
                         key={item.label}
                         href={item.href}
-                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all group relative ${
+                        className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium transition-all ${
                           item.active
-                            ? "bg-[#ED5828] text-white"
-                            : "text-white/60 hover:text-white hover:bg-white/5"
+                            ? "bg-[#ED5A2E] text-white font-semibold shadow-md shadow-[#ED5A2E]/20"
+                            : "text-white/65 hover:text-white hover:bg-white/5"
                         }`}
                       >
-                        {item.active && !sidebarCollapsed && (
-                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#ED5828] rounded-r-full -ml-2" />
-                        )}
-                        <Icon size={17} className="shrink-0" />
-                        {!sidebarCollapsed && (
-                          <span className="text-[0.82rem] font-medium">{item.label}</span>
-                        )}
+                        <Icon size={16} className="shrink-0" />
+                        {!sidebarCollapsed && <span>{item.label}</span>}
                       </Link>
                     );
                   })}
@@ -247,342 +208,301 @@ export default function HostDashboardPage() {
           </nav>
         </aside>
 
-        {/* ── MAIN CONTENT ───────────────────────────── */}
-        <main className="flex-1 bg-[#0D0D0D] overflow-y-auto p-4 sm:p-6 lg:p-8">
-          <div className="max-w-6xl mx-auto space-y-8">
-            {/* ── KPI PERFORMANCE METRICS ROW (Item 25 Restoration) ── */}
-            <div>
-              <h2 className="text-sm font-bold uppercase tracking-wider text-white/40 mb-4 font-poppins">
-                Performance Overview
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="md:hidden fixed inset-0 top-[68px] z-50 bg-black/95 backdrop-blur-md px-6 py-6 overflow-y-auto border-t border-white/10 animate-in fade-in duration-200">
+            <div className="space-y-6">
+              {NAV_ITEMS.map((section) => (
+                <div key={section.section}>
+                  <p className="text-[0.7rem] font-bold uppercase tracking-wider text-white/40 mb-2">
+                    {section.section}
+                  </p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {section.items.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <Link
+                          key={item.label}
+                          href={item.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className={`flex items-center gap-2 p-3 rounded-xl text-xs font-semibold ${
+                            item.active ? "bg-[#ED5A2E] text-white" : "bg-[#141414] text-white/80 hover:text-white"
+                          }`}
+                        >
+                          <Icon size={16} />
+                          <span>{item.label}</span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── MAIN DASHBOARD CONTENT (Screenshot 4) ────────────────────── */}
+        <main className="flex-1 bg-black overflow-y-auto p-4 sm:p-6 lg:p-8">
+          <div className="max-w-[1400px] mx-auto space-y-6">
+            {/* ── TOP 3 KPI CARDS (Screenshot 4) ── */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {/* Card 1: Revenues */}
+              <div className="rounded-[20px] border border-white/10 bg-[#121212] p-6 flex flex-col justify-between min-h-[190px]">
+                <div>
+                  <h3 className="text-sm font-semibold text-white/80">Revenues</h3>
+                  <div className="mt-3 flex items-baseline gap-2">
+                    <span className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
+                      15%
+                    </span>
+                    <span className="text-2xl font-bold text-[#22C55E]">↗</span>
+                  </div>
+                  <p className="text-xs text-white/50 mt-1.5">
+                    Increase compared to last week
+                  </p>
+                </div>
+                <Link
+                  href="#"
+                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-white/70 hover:text-white transition-colors"
+                >
+                  <span>Revenues report</span>
+                  <span>→</span>
+                </Link>
+              </div>
+
+              {/* Card 2: Ticket Sold */}
+              <div className="rounded-[20px] border border-white/10 bg-[#121212] p-6 flex flex-col justify-between min-h-[190px]">
+                <div>
+                  <h3 className="text-sm font-semibold text-white/80">Ticket Sold</h3>
+                  <div className="mt-3 text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
+                    3k
+                  </div>
+                  <p className="text-xs text-white/50 mt-1.5">
+                    You closed 3K out of 5K Tickets created
+                  </p>
+                </div>
+                <Link
+                  href="#"
+                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-white/70 hover:text-white transition-colors"
+                >
+                  <span>All deals</span>
+                  <span>→</span>
+                </Link>
+              </div>
+
+              {/* Card 3: Quarter goal (Semi-circular progress gauge) */}
+              <div className="rounded-[20px] border border-white/10 bg-[#121212] p-6 flex flex-col justify-between min-h-[190px]">
+                <div>
+                  <h3 className="text-sm font-semibold text-white/80">Quarter goal</h3>
+                  <div className="mt-1 flex items-center justify-center relative h-24">
+                    {/* SVG Gauge */}
+                    <svg className="w-48 h-24 overflow-visible" viewBox="0 0 100 50">
+                      {/* Background track */}
+                      <path
+                        d="M 10 50 A 40 40 0 0 1 90 50"
+                        fill="none"
+                        stroke="#262626"
+                        strokeWidth="8"
+                        strokeLinecap="round"
+                      />
+                      {/* Active progress arc (84%) */}
+                      <path
+                        d="M 10 50 A 40 40 0 0 1 78 22"
+                        fill="none"
+                        stroke="#22C55E"
+                        strokeWidth="8"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    <div className="absolute bottom-0 text-center">
+                      <span className="text-2xl sm:text-3xl font-extrabold text-white">84%</span>
+                    </div>
+                  </div>
+                </div>
+                <Link
+                  href="#"
+                  className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-white/70 hover:text-white transition-colors"
+                >
+                  <span>All goals</span>
+                  <span>→</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* ── MIDDLE ROW: CUSTOMERS (Left) & SALES ANALYTICS (Right) (Screenshot 4) ── */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+              {/* Left Column (Customer List - 5 Cols) */}
+              <div className="lg:col-span-5 rounded-[20px] border border-white/10 bg-[#121212] p-5 sm:p-6 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-end mb-4">
+                    <button className="flex items-center gap-1 text-xs text-white/60 hover:text-white">
+                      <span>Sort by</span>
+                      <span className="font-semibold text-white">Newest</span>
+                      <ChevronDown size={13} />
+                    </button>
+                  </div>
+
+                  <div className="space-y-3">
+                    {customers.map((c) => {
+                      const isSelected = activeCustomer === c.id;
+                      return (
+                        <div
+                          key={c.id}
+                          onClick={() => setActiveCustomer(c.id)}
+                          className={`flex items-center justify-between p-3 rounded-xl cursor-pointer transition-all ${
+                            isSelected
+                              ? "bg-[#FAF4E6] text-gray-900 shadow-md"
+                              : "hover:bg-white/5 text-white"
+                          }`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <img
+                              src={c.avatar}
+                              alt={c.name}
+                              className="h-10 w-10 rounded-full object-cover shrink-0"
+                            />
+                            <div>
+                              <p className={`text-xs font-bold leading-tight ${isSelected ? "text-gray-900" : "text-white"}`}>
+                                {c.name}
+                              </p>
+                              <p className={`text-[0.68rem] leading-tight ${isSelected ? "text-gray-600" : "text-white/50"}`}>
+                                {c.company}
+                              </p>
+                            </div>
+                          </div>
+
+                          {isSelected && (
+                            <div className="flex items-center gap-3 text-gray-700">
+                              <MessageSquare size={14} className="hover:text-black" />
+                              <Star size={14} className="hover:text-black" />
+                              <Pencil size={14} className="hover:text-black" />
+                              <MoreVertical size={14} className="hover:text-black" />
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <Link
+                  href="#"
+                  className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium text-white/70 hover:text-white transition-colors"
+                >
+                  <span>All customers</span>
+                  <span>→</span>
+                </Link>
+              </div>
+
+              {/* Right Column (Analytics Chart + 3 Mini Cards - 7 Cols) */}
+              <div className="lg:col-span-7 space-y-5">
+                {/* Area Chart Box */}
+                <div className="rounded-[20px] border border-white/10 bg-[#121212] p-5 sm:p-6">
+                  <div className="flex items-center justify-end mb-4">
+                    <button className="flex items-center gap-1 text-xs text-white/70 hover:text-white bg-[#1A1A1A] border border-white/10 px-2.5 py-1 rounded-lg">
+                      <span>Yearly</span>
+                      <ChevronDown size={12} />
+                    </button>
+                  </div>
+
+                  {/* SVG Line / Area Graph spanning 2016 to 2023 */}
+                  <div className="relative h-44 w-full">
+                    <svg className="w-full h-full" viewBox="0 0 500 150" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#ED5A2E" stopOpacity="0.45" />
+                          <stop offset="100%" stopColor="#ED5A2E" stopOpacity="0.0" />
+                        </linearGradient>
+                      </defs>
+
+                      {/* Y-axis gridlines */}
+                      <line x1="40" y1="20" x2="490" y2="20" stroke="#222" strokeDasharray="3 3" />
+                      <line x1="40" y1="55" x2="490" y2="55" stroke="#222" strokeDasharray="3 3" />
+                      <line x1="40" y1="90" x2="490" y2="90" stroke="#222" strokeDasharray="3 3" />
+                      <line x1="40" y1="125" x2="490" y2="125" stroke="#222" strokeDasharray="3 3" />
+
+                      {/* Area Fill */}
+                      <path
+                        d="M 50 115 Q 120 105 180 85 T 260 50 T 320 110 T 380 95 T 480 40 L 480 130 L 50 130 Z"
+                        fill="url(#chartGradient)"
+                      />
+
+                      {/* Stroke Curve */}
+                      <path
+                        d="M 50 115 Q 120 105 180 85 T 260 50 T 320 110 T 380 95 T 480 40"
+                        fill="none"
+                        stroke="#ED5A2E"
+                        strokeWidth="2.5"
+                      />
+
+                      {/* Y-axis labels */}
+                      <text x="5" y="24" fill="#555" fontSize="9">100k</text>
+                      <text x="8" y="59" fill="#555" fontSize="9">50k</text>
+                      <text x="8" y="94" fill="#555" fontSize="9">20k</text>
+                      <text x="8" y="129" fill="#555" fontSize="9">0</text>
+
+                      {/* X-axis year labels */}
+                      <text x="50" y="145" fill="#555" fontSize="9">2016</text>
+                      <text x="110" y="145" fill="#555" fontSize="9">2017</text>
+                      <text x="170" y="145" fill="#555" fontSize="9">2018</text>
+                      <text x="230" y="145" fill="#555" fontSize="9">2019</text>
+                      <text x="290" y="145" fill="#555" fontSize="9">2020</text>
+                      <text x="350" y="145" fill="#555" fontSize="9">2021</text>
+                      <text x="410" y="145" fill="#555" fontSize="9">2022</text>
+                      <text x="465" y="145" fill="#555" fontSize="9">2023</text>
+                    </svg>
+                  </div>
+                </div>
+
+                {/* 3 Mini Metric Cards in a row (Screenshot 4) */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {/* Top month */}
+                  <div className="rounded-2xl border border-white/10 bg-[#121212] p-4">
+                    <p className="text-xs text-white/50">Top month</p>
+                    <p className="text-base font-bold text-[#ED5A2E] mt-1">November</p>
+                    <p className="text-[0.68rem] text-white/40">2024</p>
+                  </div>
+
+                  {/* Top year */}
+                  <div className="rounded-2xl border border-white/10 bg-[#121212] p-4">
+                    <p className="text-xs text-white/50">Top year</p>
+                    <p className="text-base font-bold text-[#ED5A2E] mt-1">2025</p>
+                    <p className="text-[0.68rem] text-white/40">26K sold so far</p>
+                  </div>
+
+                  {/* Top buyer */}
+                  <div className="rounded-2xl border border-white/10 bg-[#121212] p-4">
+                    <p className="text-xs text-white/50">Top buyer</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <img
+                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80"
+                        alt="Oasis Organic"
+                        className="h-5 w-5 rounded-full object-cover"
+                      />
+                      <p className="text-xs font-semibold text-white truncate">Oasis Organic Inc.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ── BOTTOM SECTION: UPCOMING EVENTS (Screenshot 4) ── */}
+            <div className="space-y-3">
+              <h2 className="text-lg font-bold text-white tracking-tight">
+                Upcoming Events
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {/* Revenue */}
-                <div className="rounded-2xl border border-white/10 bg-[#141414] p-5 relative overflow-hidden">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-medium text-white/60">Total Revenue</span>
-                    <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400">
-                      <DollarSign size={16} />
-                    </div>
-                  </div>
-                  <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                    $128,450
-                  </div>
-                  <div className="mt-2 flex items-center gap-1.5 text-xs text-emerald-400 font-medium">
-                    <span className="font-bold">+18.2%</span>
-                    <span className="text-white/40">vs last month</span>
-                  </div>
-                </div>
 
-                {/* Tickets Sold */}
-                <div className="rounded-2xl border border-white/10 bg-[#141414] p-5 relative overflow-hidden">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-medium text-white/60">Tickets Sold</span>
-                    <div className="p-2 rounded-xl bg-[#ED5828]/10 text-[#ED5828]">
-                      <Ticket size={16} />
-                    </div>
-                  </div>
-                  <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                    4,820
-                  </div>
-                  <div className="mt-2 flex items-center gap-1.5 text-xs text-[#ED5828] font-medium">
-                    <span className="font-bold">85.4%</span>
-                    <span className="text-white/40">capacity rate</span>
-                  </div>
-                </div>
-
-                {/* Current Quarter */}
-                <div className="rounded-2xl border border-white/10 bg-[#141414] p-5 relative overflow-hidden">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-medium text-white/60">Quarter Target</span>
-                    <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400">
-                      <Award size={16} />
-                    </div>
-                  </div>
-                  <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                    Q4 2026
-                  </div>
-                  <div className="mt-2 flex items-center gap-1.5 text-xs text-blue-400 font-medium">
-                    <span className="font-bold">$150,000</span>
-                    <span className="text-white/40">quarter goal</span>
-                  </div>
-                </div>
-
-                {/* Goal Completion */}
-                <div className="rounded-2xl border border-white/10 bg-[#141414] p-5 relative overflow-hidden">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-medium text-white/60">Goal Progress</span>
-                    <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400">
-                      <Target size={16} />
-                    </div>
-                  </div>
-                  <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                    85.6%
-                  </div>
-                  <div className="mt-2 flex items-center gap-1.5 text-xs text-amber-400 font-medium">
-                    <span className="font-bold">On track</span>
-                    <span className="text-white/40">to reach target</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Header controls */}
-            <div className="flex items-center justify-between pt-2">
-              <div>
-                <h1 className="text-xl font-bold text-white font-montserrat">Recent Events List</h1>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-white/70">
-                <span>Sort by:</span>
-                <div className="relative">
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    className="bg-[#1A1A1A] border border-white/20 text-white rounded-lg px-3 py-1.5 pr-8 appearance-none text-xs outline-none cursor-pointer focus:border-[#ED5828]"
+              <div className="rounded-[20px] border border-white/10 bg-[#121212] divide-y divide-white/5 overflow-hidden">
+                {upcomingEvents.map((evt) => (
+                  <div
+                    key={evt.id}
+                    className="grid grid-cols-1 sm:grid-cols-4 gap-2 sm:gap-4 p-4 sm:px-6 items-center text-xs hover:bg-white/[0.02] transition-colors"
                   >
-                    <option>Newest</option>
-                    <option>Oldest</option>
-                    <option>Most Revenue</option>
-                    <option>Most Sold</option>
-                  </select>
-                  <ChevronDown size={13} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/50 pointer-events-none" />
-                </div>
-              </div>
-            </div>
-
-            {/* Event List Items */}
-            <div className="space-y-4">
-              {/* Event Card 1 - LIVE */}
-              <div className="bg-[#121212] border border-white/10 rounded-2xl p-5 relative overflow-hidden transition-all hover:border-white/20">
-                <div className="flex flex-col md:flex-row gap-4 items-start">
-                  {/* Left Checkbox */}
-                  <div className="pt-2 hidden sm:block">
-                    <input
-                      type="checkbox"
-                      className="w-4 h-4 rounded border-white/30 accent-[#ED5828] bg-transparent cursor-pointer"
-                    />
+                    <div className="font-bold text-[#ED5A2E] text-sm sm:text-xs">{evt.date}</div>
+                    <div className="font-semibold text-white">{evt.title}</div>
+                    <div className="text-white/60">{evt.tickets}</div>
+                    <div className="text-white/85 sm:text-right font-medium">{evt.status}</div>
                   </div>
-
-                  {/* Thumbnail with LIVE badge */}
-                  <div className="relative w-full md:w-[155px] h-[105px] rounded-xl overflow-hidden bg-cover bg-center shrink-0"
-                    style={{
-                      backgroundImage: `url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=400&auto=format&fit=crop')`,
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-black/20" />
-                    <span className="absolute top-2 left-2 bg-[#22C55E] text-white text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                      LIVE
-                    </span>
-                  </div>
-
-                  {/* Content details */}
-                  <div className="flex-1 space-y-2">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <h2 className="text-white font-bold text-lg font-poppins">
-                        5IVE LIVE AT 02 ARENA
-                      </h2>
-                    </div>
-
-                    {/* Tag + series */}
-                    <div className="flex items-center gap-2 text-xs">
-                      <span className="text-[#ED5828] font-semibold bg-[#ED5828]/10 px-2 py-0.5 rounded-md">Concert</span>
-                      <span className="text-white/40">•</span>
-                      <span className="text-white/60">Series #102</span>
-                    </div>
-
-                    {/* Location & Date */}
-                    <div className="flex flex-wrap items-center gap-4 text-xs text-white/70">
-                      <div className="flex items-center gap-1">
-                        <MapPin size={13} className="text-white/50" />
-                        <span>O2 Arena, London, UK</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <CalendarDays size={13} className="text-white/50" />
-                        <span>15 Nov 2026, 19:00</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Metrics & Actions */}
-                  <div className="flex flex-wrap md:flex-col items-end justify-between gap-3 w-full md:w-auto border-t md:border-t-0 border-white/10 pt-3 md:pt-0">
-                    <div className="text-right">
-                      <p className="text-xs text-white/50">Revenue</p>
-                      <p className="text-lg font-bold text-emerald-400 font-poppins">$45,200</p>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <Link
-                        href="/host/events/new"
-                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-colors"
-                        title="Edit"
-                      >
-                        <Pencil size={14} />
-                      </Link>
-                      <button
-                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-colors"
-                        title="Analytics"
-                      >
-                        <BarChart2 size={14} />
-                      </button>
-                      <Link
-                        href="/host/calendar"
-                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-colors"
-                        title="View Schedule"
-                      >
-                        <Eye size={14} />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Event Card 2 - UPCOMING */}
-              <div className="bg-[#121212] border border-white/10 rounded-2xl p-5 relative overflow-hidden transition-all hover:border-white/20">
-                <div className="flex flex-col md:flex-row gap-4 items-start">
-                  <div className="pt-2 hidden sm:block">
-                    <input
-                      type="checkbox"
-                      className="w-4 h-4 rounded border-white/30 accent-[#ED5828] bg-transparent cursor-pointer"
-                    />
-                  </div>
-
-                  <div className="relative w-full md:w-[155px] h-[105px] rounded-xl overflow-hidden bg-cover bg-center shrink-0"
-                    style={{
-                      backgroundImage: `url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=400&auto=format&fit=crop')`,
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-black/20" />
-                    <span className="absolute top-2 left-2 bg-[#3B82F6] text-white text-[10px] font-bold px-2 py-0.5 rounded-md">
-                      UPCOMING
-                    </span>
-                  </div>
-
-                  <div className="flex-1 space-y-2">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <h2 className="text-white font-bold text-lg font-poppins">
-                        Afrobeats Beach Festival
-                      </h2>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-xs">
-                      <span className="text-[#3B82F6] font-semibold bg-[#3B82F6]/10 px-2 py-0.5 rounded-md">Festival</span>
-                      <span className="text-white/40">•</span>
-                      <span className="text-white/60">Series #103</span>
-                    </div>
-
-                    <div className="flex flex-wrap items-center gap-4 text-xs text-white/70">
-                      <div className="flex items-center gap-1">
-                        <MapPin size={13} className="text-white/50" />
-                        <span>Landmark Beach, Lagos</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <CalendarDays size={13} className="text-white/50" />
-                        <span>22 Dec 2026, 14:00</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap md:flex-col items-end justify-between gap-3 w-full md:w-auto border-t md:border-t-0 border-white/10 pt-3 md:pt-0">
-                    <div className="text-right">
-                      <p className="text-xs text-white/50">Revenue</p>
-                      <p className="text-lg font-bold text-emerald-400 font-poppins">$28,900</p>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <Link
-                        href="/host/events/new"
-                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-colors"
-                        title="Edit"
-                      >
-                        <Pencil size={14} />
-                      </Link>
-                      <button
-                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-colors"
-                        title="Analytics"
-                      >
-                        <BarChart2 size={14} />
-                      </button>
-                      <Link
-                        href="/host/calendar"
-                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-colors"
-                        title="View Schedule"
-                      >
-                        <Eye size={14} />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Event Card 3 - COMPLETED */}
-              <div className="bg-[#121212] border border-white/10 rounded-2xl p-5 relative overflow-hidden transition-all hover:border-white/20 opacity-80">
-                <div className="flex flex-col md:flex-row gap-4 items-start">
-                  <div className="pt-2 hidden sm:block">
-                    <input
-                      type="checkbox"
-                      className="w-4 h-4 rounded border-white/30 accent-[#ED5828] bg-transparent cursor-pointer"
-                    />
-                  </div>
-
-                  <div className="relative w-full md:w-[155px] h-[105px] rounded-xl overflow-hidden bg-cover bg-center shrink-0"
-                    style={{
-                      backgroundImage: `url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=400&auto=format&fit=crop')`,
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-black/40" />
-                    <span className="absolute top-2 left-2 bg-gray-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">
-                      COMPLETED
-                    </span>
-                  </div>
-
-                  <div className="flex-1 space-y-2">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <h2 className="text-white font-bold text-lg font-poppins">
-                        Lagos Tech & Music Summit
-                      </h2>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-xs">
-                      <span className="text-gray-400 font-semibold bg-white/5 px-2 py-0.5 rounded-md">Conference</span>
-                      <span className="text-white/40">•</span>
-                      <span className="text-white/60">Series #101</span>
-                    </div>
-
-                    <div className="flex flex-wrap items-center gap-4 text-xs text-white/70">
-                      <div className="flex items-center gap-1">
-                        <MapPin size={13} className="text-white/50" />
-                        <span>Eko Convention Centre, Lagos</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <CalendarDays size={13} className="text-white/50" />
-                        <span>10 Oct 2026, 09:00</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap md:flex-col items-end justify-between gap-3 w-full md:w-auto border-t md:border-t-0 border-white/10 pt-3 md:pt-0">
-                    <div className="text-right">
-                      <p className="text-xs text-white/50">Revenue</p>
-                      <p className="text-lg font-bold text-white/80 font-poppins">$54,350</p>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <button
-                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-colors"
-                        title="Analytics"
-                      >
-                        <BarChart2 size={14} />
-                      </button>
-                      <Link
-                        href="/host/calendar"
-                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-colors"
-                        title="View Schedule"
-                      >
-                        <Eye size={14} />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>

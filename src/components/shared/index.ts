@@ -6,3 +6,4 @@ export { PublicHeader } from "./public-header";
 export { SeriesPassCard } from "./series-pass-card";
 export { OrganizerCard } from "./organizer-card";
 export { MobileSidebar } from "./mobile-sidebar";
+export { CheckoutButton, CheckoutStepper } from "./checkout-button";

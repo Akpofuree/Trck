@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, ChevronLeft, Clock3, Plus, Minus, Ticket, CircleDot, Search, Star, CheckCircle2 } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
+import { Footer } from "@/components/shared/footer";
+import { CheckoutButton, CheckoutStepper } from "@/components/shared/checkout-button";
 
 const ticketCards = [
   {
@@ -33,68 +35,14 @@ const ticketCards = [
   },
 ];
 
-function Footer() {
-  return (
-    <footer className="hidden border-t border-white/10 bg-black px-6 py-12 text-white lg:px-16">
-      <div className="mx-auto max-w-[1440px]">
-        <div className="grid grid-cols-1 gap-10 border-b border-white/10 pb-12 sm:grid-cols-2 md:grid-cols-4">
-          <div>
-            <h4 className="mb-4 text-[0.78rem] font-bold uppercase tracking-wider text-white">Contact</h4>
-            <p className="mb-4 text-[0.88rem] font-semibold text-[#ED5A2E]">info@getontrck.com</p>
-            <p className="text-[0.85rem] text-white/70">Follow the brand across the channels you already know.</p>
-          </div>
-          <div>
-            <h4 className="mb-4 text-[0.78rem] font-bold uppercase tracking-wider text-white">Company</h4>
-            <ul className="space-y-2.5 text-[0.85rem] text-white/70">
-              <li><Link href="#" className="hover:text-white">About Us</Link></li>
-              <li><Link href="#" className="hover:text-white">How it works</Link></li>
-              <li><Link href="#" className="hover:text-white">Features</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="mb-4 text-[0.78rem] font-bold uppercase tracking-wider text-white">Legal</h4>
-            <ul className="space-y-2.5 text-[0.85rem] text-white/70">
-              <li><Link href="#" className="hover:text-white">Privacy policy</Link></li>
-              <li><Link href="#" className="hover:text-white">Terms of service</Link></li>
-              <li><Link href="#" className="hover:text-white">Acceptable use policy</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="mb-4 text-[0.78rem] font-bold uppercase tracking-wider text-white">Support</h4>
-            <ul className="space-y-2.5 text-[0.85rem] text-white/70">
-              <li><Link href="#" className="hover:text-white">FAQ</Link></li>
-            </ul>
-          </div>
-        </div>
-        <div className="space-y-2 pt-8 text-[0.76rem] leading-relaxed text-white/40">
-          <p>TRCK is a leisure technology platform based in Nigeria. All experiences are provided by independent third-party creators.</p>
-          <p>Copyright &copy; 2025 Trck Entertainment &amp; Technology Ltd. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-function Stepper() {
-  return (
-    <div className="flex items-center justify-center gap-4 md:gap-8">
-      {[
-        ["1", "Select Tickets"],
-        ["2", "Review"],
-        ["3", "Payment"],
-      ].map(([num, label], idx) => (
-        <div key={label} className="flex items-center gap-4">
-          <div className="flex flex-col items-center">
-            <div className={`flex h-8 w-8 items-center justify-center rounded-full text-[0.95rem] font-semibold ${idx === 0 ? "bg-[#ED5A2E] text-white" : "border border-[#ED5A2E]/50 text-white/70"}`}>
-              {num}
-            </div>
-            <div className="mt-2 text-[0.78rem] text-white/70">{label}</div>
-          </div>
-          {idx < 2 ? <div className="hidden h-px w-28 bg-white/20 md:block" /> : null}
-        </div>
-      ))}
-    </div>
-  );
+interface TicketCardProps {
+  name: string;
+  badge: string;
+  price: string;
+  subtitle: string;
+  features: string[];
+  stock: string;
+  highlighted?: boolean;
 }
 
 function TicketCard({
@@ -105,15 +53,8 @@ function TicketCard({
   features,
   stock,
   highlighted,
-}: {
-  name: string;
-  badge: string;
-  price: string;
-  subtitle: string;
-  features: string[];
-  stock: string;
-  highlighted?: boolean;
-}) {
+}: TicketCardProps) {
+
   return (
     <article className={`rounded-[16px] bg-[#171717] p-5 ${highlighted ? "shadow-[0_0_0_1px_rgba(237,90,46,0.65),0_0_20px_rgba(237,90,46,0.25)]" : "shadow-[0_0_0_1px_rgba(255,255,255,0.04)]"}`}>
       <div className="flex items-start justify-between gap-4">
@@ -126,16 +67,9 @@ function TicketCard({
         </span>
       </div>
 
-      <div className="mt-4 flex items-end justify-between gap-4 border-b border-[#ED5A2E]/50 pb-4">
-        <div>
-          <div className="text-[1.8rem] font-semibold text-[#ED5A2E]">{price}</div>
-          {name === "Early Bird Special" ? <div className="mt-1 text-[0.8rem] text-[#ED5A2E]"><Clock3 className="mr-1 inline-block h-3.5 w-3.5" />Offer ends in 2h 34m</div> : null}
-        </div>
-        <div className="flex items-center gap-2 text-white/80">
-          <button type="button" data-transaction="Decrease ticket quantity" className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-[#5b3c32]"><Minus className="h-3.5 w-3.5" /></button>
-          <div className="w-6 text-center text-[1rem] font-medium">1</div>
-          <button type="button" data-transaction="Increase ticket quantity" className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-[#5b3c32]"><Plus className="h-3.5 w-3.5" /></button>
-        </div>
+      <div className="mt-4">
+        <div className="text-[1.8rem] font-semibold text-[#ED5A2E]">{price}</div>
+        {name === "Early Bird Special" ? <div className="mt-1 text-[0.8rem] text-[#ED5A2E]"><Clock3 className="mr-1 inline-block h-3.5 w-3.5" />Offer ends in 2h 34m</div> : null}
       </div>
 
       <ul className="mt-4 space-y-2 text-[0.85rem] text-white/80">
@@ -147,7 +81,14 @@ function TicketCard({
         ))}
       </ul>
 
-      <div className="mt-3 text-[0.8rem] text-white/55">Max 10 per order {stock ? <span className={`ml-3 rounded-full border px-3 py-1 text-[0.72rem] ${highlighted ? "border-red-500 text-red-500" : "border-[#ED5A2E] text-[#ED5A2E]"}`}>{stock}</span> : null}</div>
+      <div className="mt-4 flex items-center justify-between gap-4 border-t border-[#ED5A2E]/50 pt-4 text-[0.8rem] text-white/55">
+        <div>Max 10 per order {stock ? <span className={`ml-3 inline-block rounded-full border px-3 py-1 text-[0.72rem] ${highlighted ? "border-red-500 text-red-500" : "border-[#ED5A2E] text-[#ED5A2E]"}`}>{stock}</span> : null}</div>
+        <div className="flex shrink-0 items-center gap-3 text-white/80">
+          <button type="button" data-transaction="Decrease ticket quantity" className="flex h-8 w-8 items-center justify-center rounded-[8px] bg-[#5b3c32] transition hover:bg-[#70483b]"><Minus className="h-3.5 w-3.5" /></button>
+          <div className="w-5 text-center text-[1rem] font-medium text-white">1</div>
+          <button type="button" data-transaction="Increase ticket quantity" className="flex h-8 w-8 items-center justify-center rounded-[8px] bg-[#5b3c32] transition hover:bg-[#70483b]"><Plus className="h-3.5 w-3.5" /></button>
+        </div>
+      </div>
     </article>
   );
 }
@@ -174,9 +115,9 @@ export default function Page() {
         </div>
 
         <div className="mx-auto max-w-[1440px] px-8 py-10">
-          <Stepper />
+          <CheckoutStepper currentStep={1} />
 
-          <div className="mt-10 grid gap-8 lg:grid-cols-[1.3fr_0.9fr]">
+          <div className="mt-10 grid gap-8 rounded-[20px] bg-[#0d0d0d] p-4 lg:grid-cols-[1.3fr_0.9fr] lg:p-6">
             <div>
               <h2 className="text-[2rem] font-semibold">Select Your Ticket</h2>
               <p className="mt-2 text-[0.9rem] text-white/55">Choose ticket types and quantities</p>
@@ -200,7 +141,7 @@ export default function Page() {
                 </div>
               </section>
 
-              <section className="mt-5 rounded-[16px] bg-[#171717] p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
+              <section className="mt-8 rounded-[16px] bg-[#171717] p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
                 <h3 className="text-[1rem] font-semibold">Ticket Policies</h3>
                 <div className="mt-4 space-y-4 text-[0.85rem] text-white/70">
                   <div>
@@ -230,11 +171,10 @@ export default function Page() {
                     <article key={idx} className="overflow-hidden rounded-[12px] bg-[#171717] shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
                       <div className="h-[170px] bg-[#999]" />
                       <div className="p-4">
-                        <h4 className="text-[0.95rem] font-semibold">Event Merchandise</h4>
-                        <p className="mt-1 text-[0.72rem] text-white/55">Exclusive event t-shirt and poster</p>
-                        <div className="mt-4 flex items-center justify-between">
-                          <span className="text-[0.95rem] font-semibold text-[#ED5A2E]">N20,000</span>
-                          <button type="button" data-transaction="Add merchandise" className="rounded-[8px] border border-[#ED5A2E] px-3 py-1 text-[0.72rem] text-white/85">+ Add</button>
+                        <h4 className="text-[0.95rem] font-medium">VIP Parking Pass</h4>
+                        <div className="mt-3 flex items-center justify-between">
+                          <span className="text-[1.05rem] font-semibold text-[#ED5A2E]">N20,000</span>
+                          <button type="button" data-transaction="Add add-on to order" className="rounded-[8px] bg-[#ED5A2E] px-4 py-2 text-[0.78rem] font-semibold text-white">Add</button>
                         </div>
                       </div>
                     </article>
@@ -243,77 +183,42 @@ export default function Page() {
               </section>
 
               <section className="mt-8 rounded-[16px] bg-[#171717] p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
-                <h3 className="text-[1rem] font-semibold">Frequently Asked Questions</h3>
-                <div className="mt-4 space-y-0">
+                <h3 className="text-[1rem] font-semibold">Contact Information</h3>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  {[
+                    ["First Name", "John"],
+                    ["Last Name", "Doe"],
+                    ["Email Address", "john.doe@example.com"],
+                    ["Phone Number", "+234 801 234 5678"],
+                  ].map(([label, value]) => (
+                    <div key={label}>
+                      <label className="mb-1 block text-[0.78rem] text-white/75">{label}</label>
+                      <input aria-label={label} defaultValue={value} className="w-full rounded-[0.45rem] bg-[#2b2b2b] px-3 py-3 text-[0.82rem] text-white outline-none focus:ring-1 focus:ring-[#ED5A2E]" />
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <section className="mt-8 rounded-[16px] bg-[#171717] p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
+                <h3 className="text-[1rem] font-semibold">Special Requests (Optional)</h3>
+                <textarea aria-label="Special requests" placeholder="Any special requirements? (dietary, accessibility, etc)" className="mt-3 min-h-20 w-full resize-y rounded-[0.45rem] border border-white/20 bg-[#2b2b2b] px-3 py-3 text-[0.82rem] text-white outline-none placeholder:text-white/35 focus:ring-1 focus:ring-[#ED5A2E]" />
+                <button type="button" data-transaction="Submit special requests" className="mt-3 rounded-[0.45rem] bg-[#ED5A2E] px-4 py-2 text-[0.82rem] font-semibold text-white">Submit</button>
+              </section>
+
+              <section className="mt-8 rounded-[16px] bg-[#171717] p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
+                <h3 className="text-[1rem] font-semibold">FAQs</h3>
+                <div className="mt-4 space-y-3">
                   {["Can I attend individual events?", "What’s the cancellation policy?", "Is there parking available?", "Are recordings available?", "Are there age restrictions?"].map((q, idx) => (
-                    <details key={q} className="border-b border-[#ED5A2E] py-4 group">
-                      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[0.9rem]">
-                        <span>{q}</span>
-                        <ChevronDown className="h-4 w-4 text-[#ED5A2E] transition-transform group-open:rotate-180" />
-                      </summary>
-                      <p className="mt-2 max-w-[600px] text-[0.78rem] leading-relaxed text-[#ED5A2E]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer blandit justo a est pellentesque pulvinar.</p>
+                    <details key={q} className="border-b border-[#ED5A2E] pb-3 group">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[0.85rem]"><span>{q}</span><ChevronDown className="h-4 w-4 text-[#ED5A2E] transition-transform group-open:rotate-180" /></summary>
+                      <p className="mt-2 text-[0.78rem] leading-relaxed text-[#ED5A2E]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer blandit justo a est pellentesque pulvinar.</p>
                     </details>
                   ))}
                 </div>
               </section>
-
-              <section className="mt-8 rounded-[16px] bg-[#171717] p-5">
-                <h3 className="text-[1rem] font-semibold">Why Book with Trck?</h3>
-                <div className="mt-6 grid gap-4 sm:grid-cols-3 text-center">
-                  {[
-                    ["Secure Payment", "Your payment information is encrypted and secure"],
-                    ["Instant Confirmation", "Receive your tickets immediately via email"],
-                    ["Best Price Guarantee", "We offer competitive pricing and exclusive deals"],
-                  ].map(([title, desc]) => (
-                    <div key={title}>
-                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#ED5A2E]/75"><CheckCircle2 className="h-5 w-5" /></div>
-                      <div className="mt-3 text-[0.88rem] font-medium">{title}</div>
-                      <p className="mt-2 text-[0.75rem] leading-relaxed text-white/60">{desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              <section className="mt-8 rounded-[16px] bg-[#171717] p-5">
-                <h3 className="text-[1rem] font-semibold">What Our Customers Say</h3>
-                <div className="mt-6 space-y-6">
-                  {Array.from({ length: 2 }).map((_, idx) => (
-                    <div key={idx} className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-full bg-[#b76d4c]" />
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="font-medium">Jane Doe</p>
-                            <p className="text-[0.72rem] text-white/55">November 3rd, 2025</p>
-                          </div>
-                          <div className="text-[#FFD400]">{'★★★★★'}</div>
-                        </div>
-                        <p className="mt-2 text-[0.78rem] leading-relaxed text-white/65">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu luctus risus. Sed eu pharetra mi, vel suscipit nibh.</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <button type="button" data-transaction="Load more reviews" className="mt-6 rounded-[10px] bg-[#ED5A2E] px-5 py-3 text-[0.85rem] font-semibold text-white">Load More Reviews</button>
-              </section>
             </div>
 
-            <aside className="space-y-5">
-              <section className="rounded-[16px] bg-[#171717] p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
-                <div className="flex items-center gap-4">
-                  <div className="rounded-full bg-[#2b2b2b] p-4 text-[0.8rem] text-white/75">
-                    <Clock3 className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-[0.9rem] text-white/70">Tickets reserved for</p>
-                    <div className="text-[2rem] font-semibold">11:32</div>
-                    <div className="mt-2 h-1.5 w-full rounded-full bg-white/20">
-                      <div className="h-full w-[82%] rounded-full bg-[#ED5A2E]" />
-                    </div>
-                    <p className="mt-2 text-[0.8rem] text-white/55">Complete checkout to secure your tickets</p>
-                  </div>
-                </div>
-              </section>
-
+            <aside className="space-y-5 lg:pt-[5.25rem]">
               <section className="rounded-[16px] bg-[#171717] p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
                 <h3 className="text-[0.95rem] font-semibold text-white/80">Order Total</h3>
                 <div className="mt-4 flex items-center justify-between">
@@ -336,8 +241,14 @@ export default function Page() {
                   <span className="text-[1rem] font-semibold">Total</span>
                   <span className="text-[1rem] font-semibold text-[#ED5A2E]">N89,500</span>
                 </div>
-                <Link href="/checkout/payment" data-transaction="Continue to review" className="mt-5 flex w-full items-center justify-center rounded-[10px] bg-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white transition-colors hover:bg-[#d44d24]">Continue to Review</Link>
-                <button type="button" data-transaction="Save checkout for later" onClick={() => window.localStorage.setItem("trck-checkout-progress", "saved")} className="mt-3 w-full rounded-[10px] border border-[#ED5A2E] py-3 text-[0.9rem] font-semibold text-white transition-colors hover:bg-[#3a2721]">Save for later</button>
+                <div className="space-y-2 pt-4">
+                  <CheckoutButton href="/checkout/payment" variant="primary" size="lg" className="w-full">
+                    Continue to Review
+                  </CheckoutButton>
+                  <CheckoutButton variant="secondary" size="md" className="w-full">
+                    Save for later
+                  </CheckoutButton>
+                </div>
                 <div className="mt-4 space-y-3 border-t border-[#ED5A2E]/30 pt-4 text-[0.8rem] text-white/70">
                   <div className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-[#ED5A2E]" /> Secure checkout</div>
                   <div className="flex items-center gap-2"><Ticket className="h-4 w-4 text-[#ED5A2E]" /> Instant delivery</div>
@@ -359,7 +270,7 @@ export default function Page() {
         <div className="mx-auto max-w-[28rem]">
           <div className="flex items-center justify-between pb-4">
             <button className="text-[1.2rem]"><ChevronLeft className="h-5 w-5" /></button>
-            <div className="text-[0.95rem] font-semibold">Review Your Order</div>
+            <div className="text-[0.95rem] font-semibold">Select Your Ticket</div>
             <div />
           </div>
 
@@ -372,23 +283,9 @@ export default function Page() {
                 <div className="mt-1 text-[0.75rem] text-white/75">02 Arena, London, United Kingdom</div>
               </div>
             </div>
-            <div className="mt-4 border-t border-[#ED5A2E]/40 pt-4">
-              <Stepper />
-            </div>
+            <div className="mt-4 border-t border-[#ED5A2E]/40 pt-4"><CheckoutStepper currentStep={1} /></div>
           </div>
 
-          <div className="mt-4 rounded-[16px] bg-[#171717] p-4">
-            <div className="text-center text-[1.05rem] font-semibold">Review Your Order</div>
-            <div className="mt-4 rounded-[14px] bg-[#2b2b2b] p-4">
-              <div className="flex items-center gap-2 text-white/75">
-                <Clock3 className="h-4 w-4" />
-                <span className="text-[0.82rem]">Tickets reserved for</span>
-              </div>
-              <div className="mt-3 text-[1.6rem] font-semibold">11:32</div>
-              <div className="mt-3 h-1.5 rounded-full bg-white/20"><div className="h-full w-[82%] rounded-full bg-[#ED5A2E]" /></div>
-              <p className="mt-3 text-[0.78rem] text-white/55">Complete checkout to secure your tickets</p>
-            </div>
-          </div>
 
           <div className="mt-4 space-y-4">
             <section className="rounded-[16px] bg-[#171717] p-4">
@@ -403,12 +300,13 @@ export default function Page() {
                       </div>
                       <span className="rounded-[8px] bg-[#ED5A2E] px-2 py-1 text-[0.65rem]">{card.badge}</span>
                     </div>
-                    <div className="mt-3 flex items-center justify-between">
-                      <div className="text-[1.4rem] font-semibold text-[#ED5A2E]">{card.price}</div>
-                      <div className="flex items-center gap-2">
-                        <button className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-[#5b3c32] text-white"><Minus className="h-3.5 w-3.5" /></button>
-                        <span className="w-5 text-center">1</span>
-                        <button className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-[#5b3c32] text-white"><Plus className="h-3.5 w-3.5" /></button>
+                    <div className="mt-3 text-[1.4rem] font-semibold text-[#ED5A2E]">{card.price}</div>
+                    <div className="mt-4 flex items-center justify-between gap-3 border-t border-[#ED5A2E]/50 pt-4 text-[0.7rem] text-white/55">
+                      <span>Max 10 per order</span>
+                      <div className="flex items-center gap-3 text-white">
+                        <button type="button" data-transaction="Decrease ticket quantity" className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-[#5b3c32]"><Minus className="h-3.5 w-3.5" /></button>
+                        <span className="w-4 text-center">1</span>
+                        <button type="button" data-transaction="Increase ticket quantity" className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-[#5b3c32]"><Plus className="h-3.5 w-3.5" /></button>
                       </div>
                     </div>
                   </div>
@@ -453,7 +351,7 @@ export default function Page() {
                 ].map(([label, value]) => (
                   <div key={label}>
                     <label className="mb-1 block text-[0.78rem] text-white/75">{label}</label>
-                    <div className="rounded-[0.45rem] bg-[#2b2b2b] px-3 py-3 text-[0.82rem] text-white/55">{value}</div>
+                    <input aria-label={label} defaultValue={value} className="w-full rounded-[0.45rem] bg-[#2b2b2b] px-3 py-3 text-[0.82rem] text-white outline-none focus:ring-1 focus:ring-[#ED5A2E]" />
                   </div>
                 ))}
               </div>
@@ -488,7 +386,7 @@ export default function Page() {
               </div>
             </section>
 
-            <section className="rounded-[16px] bg-[#171717] p-4">
+            <section className="hidden rounded-[16px] bg-[#171717] p-4">
               <h2 className="text-[0.95rem] font-semibold">Why Book with Trck?</h2>
               <div className="mt-4 grid gap-4">
                 {["Secure Payment", "Instant Confirmation", "Best Price Guarantee"].map((title) => (
@@ -503,7 +401,7 @@ export default function Page() {
               </div>
             </section>
 
-            <section className="rounded-[16px] bg-[#171717] p-4">
+            <section className="hidden rounded-[16px] bg-[#171717] p-4">
               <h2 className="text-[0.95rem] font-semibold">What Our Customers Say</h2>
               <div className="mt-4 space-y-4">
                 {Array.from({ length: 2 }).map((_, idx) => (
