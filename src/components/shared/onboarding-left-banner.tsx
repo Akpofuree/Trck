@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Logo } from "./logo";
 
 export function OnboardingLeftBanner() {
   return (
@@ -20,14 +21,7 @@ export function OnboardingLeftBanner() {
 
         {/* Trck Logo at bottom left */}
         <div className="flex items-center gap-2">
-          <Image
-            src="/trck-logo.png"
-            alt="Trck"
-            width={110}
-            height={38}
-            className="object-contain"
-            priority
-          />
+          <Logo width={120} height={44} className="h-9 w-auto" />
         </div>
       </div>
     </div>

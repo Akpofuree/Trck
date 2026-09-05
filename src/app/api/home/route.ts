@@ -3,9 +3,10 @@ import { NextResponse } from "next/server";
 export async function GET() {
   const data = {
     hero: {
+      eventId: "sample-event",
       titleLine1: "5IVE AT",
       titleLine2Part1: "02",
-      titleLine2Part2: "ARENA02",
+      titleLine2Part2: "ARENA",
       stars: 3,
       subtitle: "13-15 APRIL 2026, LEGEND SIAM - PATTAYA",
       ctaText: "GET TICKETS",

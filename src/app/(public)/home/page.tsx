@@ -10,7 +10,6 @@ export default function Page() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: "Track", href: "/home", isBrand: true },
     { label: "Personal", href: "/explore" },
     { label: "Business", href: "/host/signup" },
     { label: "Trck+", href: "/onboarding/step-1" },
@@ -33,13 +32,16 @@ export default function Page() {
 
       {/* ── Page content ── */}
       <div className="relative z-10 flex min-h-screen flex-col">
-
         {/* ── Navbar ── */}
         <nav className="flex items-center justify-between px-6 py-5 sm:px-8 lg:px-14">
           {/* Left section: Logo + Grouped Nav Items */}
           <div className="flex items-center gap-10">
             <Link href="/" className="inline-flex items-center">
-              <Logo width={120} height={44} className="h-9 w-auto brightness-0 invert" />
+              <Logo
+                width={194}
+                height={72}
+                className="h-10 w-auto shrink-0 lg:h-[72px]"
+              />
             </Link>
 
             {/* Nav links grouped together */}
@@ -48,11 +50,7 @@ export default function Page() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`text-[0.9rem] transition-colors ${
-                    item.isBrand
-                      ? "font-bold text-[#ED5A2E] hover:text-[#d4501f]"
-                      : "font-medium text-white/85 hover:text-white"
-                  }`}
+                  className="text-[0.9rem] font-medium text-white/85 transition-colors hover:text-white"
                 >
                   {item.label}
                 </Link>
@@ -100,11 +98,7 @@ export default function Page() {
                   key={item.label}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`block py-3 px-4 rounded-xl text-base transition-colors ${
-                    item.isBrand
-                      ? "bg-[#ED5A2E]/10 font-bold text-[#ED5A2E]"
-                      : "font-medium text-white/90 hover:bg-white/5 hover:text-white"
-                  }`}
+                  className="block py-3 px-4 rounded-xl text-base font-medium text-white/90 hover:bg-white/5 hover:text-white transition-colors"
                 >
                   {item.label}
                 </Link>
@@ -172,16 +166,19 @@ export default function Page() {
             {/* Social proof */}
             <div className="mt-10 flex items-center gap-6">
               <div className="flex -space-x-2">
-                {["#ED5A2E", "#f4a26c", "#c0392b", "#e67e22"].map((color, i) => (
-                  <div
-                    key={i}
-                    className="h-8 w-8 rounded-full border-2 border-white/30"
-                    style={{ backgroundColor: color }}
-                  />
-                ))}
+                {["#ED5A2E", "#f4a26c", "#c0392b", "#e67e22"].map(
+                  (color, i) => (
+                    <div
+                      key={i}
+                      className="h-8 w-8 rounded-full border-2 border-white/30"
+                      style={{ backgroundColor: color }}
+                    />
+                  ),
+                )}
               </div>
               <p className="text-[0.8rem] text-white/60">
-                <span className="font-bold text-white">10,000+</span> events booked this month
+                <span className="font-bold text-white">10,000+</span> events
+                booked this month
               </p>
             </div>
           </div>

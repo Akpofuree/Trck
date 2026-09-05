@@ -19,28 +19,37 @@ import {
   Check,
 } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
-import { CheckoutButton, CheckoutStepper } from "@/components/shared/checkout-button";
+import {
+  CheckoutButton,
+  CheckoutStepper,
+} from "@/components/shared/checkout-button";
 
 type Method = "card" | "bank" | "ussd";
 
-const methods: Record<Method, { label: string; subtitle: string; icon: ReactNode; selectedBg: string }> = {
+const methods: Record<
+  Method,
+  { label: string; subtitle: string; icon: ReactNode; selectedBg: string }
+> = {
   card: {
     label: "Card Payment",
     subtitle: "Visa, Mastercard, Verve",
     icon: <CreditCard className="h-5 w-5" />,
-    selectedBg: "border-[#ED5A2E] bg-[#222222] shadow-[0_0_15px_rgba(237,90,46,0.3)]",
+    selectedBg:
+      "border-[#ED5A2E] bg-[#222222] shadow-[0_0_15px_rgba(237,90,46,0.3)]",
   },
   bank: {
     label: "Bank Transfer",
     subtitle: "Instant Verification",
     icon: <Building2 className="h-5 w-5" />,
-    selectedBg: "border-[#ED5A2E] bg-[#222222] shadow-[0_0_15px_rgba(237,90,46,0.3)]",
+    selectedBg:
+      "border-[#ED5A2E] bg-[#222222] shadow-[0_0_15px_rgba(237,90,46,0.3)]",
   },
   ussd: {
     label: "USSD",
     subtitle: "Dial code to pay",
     icon: <Phone className="h-5 w-5" />,
-    selectedBg: "border-[#ED5A2E] bg-[#222222] shadow-[0_0_15px_rgba(237,90,46,0.3)]",
+    selectedBg:
+      "border-[#ED5A2E] bg-[#222222] shadow-[0_0_15px_rgba(237,90,46,0.3)]",
   },
 };
 
@@ -48,34 +57,61 @@ function Header() {
   return (
     <div className="border-b border-[#ED5A2E]/40 bg-[#151515] px-6 sm:px-8 py-4">
       <div className="mx-auto flex max-w-[1440px] items-center gap-4">
-        <Link href="/checkout/payment" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-all">
+        <Link
+          href="/checkout/payment"
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-all"
+        >
           <ChevronLeft className="h-5 w-5" />
         </Link>
-        <Image src="/event-feature.jpg" alt="event" width={88} height={88} className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl object-cover" />
+        <Image
+          src="/event-feature.jpg"
+          alt="event"
+          width={88}
+          height={88}
+          className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl object-cover"
+        />
         <div className="min-w-0 flex-1">
-          <h1 className="text-sm sm:text-base font-bold text-white truncate">5IVE LIVE AT 02 ARENA</h1>
+          <h1 className="text-sm sm:text-base font-bold text-white truncate">
+            5IVE LIVE AT 02 ARENA
+          </h1>
           <div className="mt-1 flex flex-wrap items-center gap-4 text-xs text-white/70">
-            <span className="inline-flex items-center gap-1.5"><CalendarDays className="h-3.5 w-3.5 text-[#ED5A2E]" /> Friday, Nov 15, 2024</span>
+            <span className="inline-flex items-center gap-1.5">
+              <CalendarDays className="h-3.5 w-3.5 text-[#ED5A2E]" /> Friday,
+              Nov 15, 2024
+            </span>
             <span className="hidden sm:inline">•</span>
-            <span className="hidden sm:inline-flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5 text-[#ED5A2E]" /> 02 Arena, London, United Kingdom</span>
+            <span className="hidden sm:inline-flex items-center gap-1.5">
+              <MapPin className="h-3.5 w-3.5 text-[#ED5A2E]" /> 02 Arena,
+              London, United Kingdom
+            </span>
           </div>
         </div>
         <Link href="/" className="ml-auto inline-flex items-center">
-          <Logo width={100} height={32} className="h-6 w-auto brightness-0 invert" />
+          <Logo width={100} height={32} className="h-6 w-auto" />
         </Link>
       </div>
     </div>
   );
 }
 
-function MethodCard({ method, active, onSelect }: { method: Method; active?: boolean; onSelect: () => void }) {
+function MethodCard({
+  method,
+  active,
+  onSelect,
+}: {
+  method: Method;
+  active?: boolean;
+  onSelect: () => void;
+}) {
   const item = methods[method];
   return (
     <button
       type="button"
       onClick={onSelect}
       className={`w-full text-left rounded-2xl p-5 transition-all border ${
-        active ? `${item.selectedBg} border-[#ED5A2E]` : "bg-[#1A1A1A] border-white/5 hover:border-white/20"
+        active
+          ? `${item.selectedBg} border-[#ED5A2E]`
+          : "bg-[#1A1A1A] border-white/5 hover:border-white/20"
       }`}
     >
       <div className="text-[#ED5A2E]">{item.icon}</div>
@@ -105,22 +141,42 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
           <div className="lg:col-span-8 space-y-6">
             <div className="rounded-[24px] bg-[#121212] border border-white/10 p-6 sm:p-8 space-y-6">
               <div>
-                <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Choose Payment Method</h2>
-                <p className="mt-1 text-xs text-white/55">Select how you&apos;d like to pay</p>
+                <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  Choose Payment Method
+                </h2>
+                <p className="mt-1 text-xs text-white/55">
+                  Select how you&apos;d like to pay
+                </p>
               </div>
 
               {/* 3 Selectable Payment Method Cards */}
               <div className="grid gap-4 sm:grid-cols-3">
-                <MethodCard method="card" active={selectedMethod === "card"} onSelect={() => setSelectedMethod("card")} />
-                <MethodCard method="bank" active={selectedMethod === "bank"} onSelect={() => setSelectedMethod("bank")} />
-                <MethodCard method="ussd" active={selectedMethod === "ussd"} onSelect={() => setSelectedMethod("ussd")} />
+                <MethodCard
+                  method="card"
+                  active={selectedMethod === "card"}
+                  onSelect={() => setSelectedMethod("card")}
+                />
+                <MethodCard
+                  method="bank"
+                  active={selectedMethod === "bank"}
+                  onSelect={() => setSelectedMethod("bank")}
+                />
+                <MethodCard
+                  method="ussd"
+                  active={selectedMethod === "ussd"}
+                  onSelect={() => setSelectedMethod("ussd")}
+                />
               </div>
 
               {/* Method Specific Details Form */}
               <div className="rounded-2xl bg-[#1A1A1A] border border-white/10 p-6 space-y-5">
                 <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                  <h3 className="text-sm font-bold text-white">{selected.label}</h3>
-                  <span className="text-xs font-semibold text-[#ED5A2E]">Selected</span>
+                  <h3 className="text-sm font-bold text-white">
+                    {selected.label}
+                  </h3>
+                  <span className="text-xs font-semibold text-[#ED5A2E]">
+                    Selected
+                  </span>
                 </div>
 
                 {selectedMethod === "card" && (
@@ -141,12 +197,20 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
                       </div>
                       <div className="flex justify-between text-xs text-white/70">
                         <div>
-                          <p className="text-[10px] uppercase text-white/40">Card Holder</p>
-                          <p className="font-semibold text-white mt-0.5">JOHN DOE</p>
+                          <p className="text-[10px] uppercase text-white/40">
+                            Card Holder
+                          </p>
+                          <p className="font-semibold text-white mt-0.5">
+                            JOHN DOE
+                          </p>
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase text-white/40">Expires</p>
-                          <p className="font-semibold text-white mt-0.5">12/28</p>
+                          <p className="text-[10px] uppercase text-white/40">
+                            Expires
+                          </p>
+                          <p className="font-semibold text-white mt-0.5">
+                            12/28
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -154,7 +218,9 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
                     {/* Inputs */}
                     <div className="space-y-3 pt-2">
                       <div>
-                        <label className="text-xs text-white/70 block mb-1.5 font-medium">Card Number</label>
+                        <label className="text-xs text-white/70 block mb-1.5 font-medium">
+                          Card Number
+                        </label>
                         <input
                           type="text"
                           defaultValue="5399 4123 4567 1234"
@@ -163,7 +229,9 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
                       </div>
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="text-xs text-white/70 block mb-1.5 font-medium">Expiry Date</label>
+                          <label className="text-xs text-white/70 block mb-1.5 font-medium">
+                            Expiry Date
+                          </label>
                           <input
                             type="text"
                             defaultValue="12/28"
@@ -171,7 +239,9 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
                           />
                         </div>
                         <div>
-                          <label className="text-xs text-white/70 block mb-1.5 font-medium">CVV</label>
+                          <label className="text-xs text-white/70 block mb-1.5 font-medium">
+                            CVV
+                          </label>
                           <input
                             type="password"
                             defaultValue="•••"
@@ -185,19 +255,28 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
 
                 {selectedMethod === "bank" && (
                   <div className="space-y-4 text-xs text-white/80">
-                    <p className="text-white/60">Transfer the exact amount to the temporary virtual account below:</p>
+                    <p className="text-white/60">
+                      Transfer the exact amount to the temporary virtual account
+                      below:
+                    </p>
                     <div className="rounded-xl bg-[#222] border border-white/10 p-4 space-y-3">
                       <div className="flex justify-between items-center">
                         <span className="text-white/50">Bank Name</span>
-                        <span className="font-bold text-white">Wema Bank / Paystack</span>
+                        <span className="font-bold text-white">
+                          Wema Bank / Paystack
+                        </span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-white/50">Account Number</span>
-                        <span className="font-mono font-bold text-sm text-[#ED5A2E]">0123456789</span>
+                        <span className="font-mono font-bold text-sm text-[#ED5A2E]">
+                          0123456789
+                        </span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-white/50">Account Name</span>
-                        <span className="font-bold text-white">TRCK - John Doe</span>
+                        <span className="font-bold text-white">
+                          TRCK - John Doe
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -205,10 +284,21 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
 
                 {selectedMethod === "ussd" && (
                   <div className="space-y-4 text-xs text-white/80">
-                    <p className="text-white/60">Select your bank and dial the USSD code to complete payment:</p>
+                    <p className="text-white/60">
+                      Select your bank and dial the USSD code to complete
+                      payment:
+                    </p>
                     <div className="grid grid-cols-2 gap-3">
-                      {["GTBank (*737*)", "Access Bank (*901*)", "Zenith Bank (*966*)", "First Bank (*894*)"].map((b) => (
-                        <div key={b} className="p-3 rounded-xl bg-[#222] border border-white/10 text-center font-bold text-[#ED5A2E]">
+                      {[
+                        "GTBank (*737*)",
+                        "Access Bank (*901*)",
+                        "Zenith Bank (*966*)",
+                        "First Bank (*894*)",
+                      ].map((b) => (
+                        <div
+                          key={b}
+                          className="p-3 rounded-xl bg-[#222] border border-white/10 text-center font-bold text-[#ED5A2E]"
+                        >
                           {b}
                         </div>
                       ))}
@@ -223,7 +313,9 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
                     onChange={(e) => setAgreeTerms(e.target.checked)}
                     className="h-4 w-4 rounded accent-[#ED5A2E]"
                   />
-                  <span>I agree to the terms, privacy policy, and cancellation rules</span>
+                  <span>
+                    I agree to the terms, privacy policy, and cancellation rules
+                  </span>
                 </label>
               </div>
             </div>
@@ -237,11 +329,15 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
                   <Clock3 className="h-4 w-4 text-[#ED5A2E]" />
                   <span>Tickets reserved for</span>
                 </div>
-                <div className="mt-2 text-2xl font-black text-white font-mono">11:32</div>
+                <div className="mt-2 text-2xl font-black text-white font-mono">
+                  11:32
+                </div>
                 <div className="mt-2 h-1.5 rounded-full bg-white/10 overflow-hidden">
                   <div className="h-full w-[82%] rounded-full bg-[#ED5A2E]" />
                 </div>
-                <p className="mt-2 text-[11px] text-white/40">Complete checkout to secure your tickets</p>
+                <p className="mt-2 text-[11px] text-white/40">
+                  Complete checkout to secure your tickets
+                </p>
               </div>
 
               <div className="space-y-4">
@@ -255,9 +351,18 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
                 </div>
 
                 <div className="space-y-2 border-t border-white/10 pt-3 text-xs text-white/70">
-                  <div className="flex justify-between"><span>Subtotal</span><span>N80,000</span></div>
-                  <div className="flex justify-between"><span>Service Fee</span><span>N5,000</span></div>
-                  <div className="flex justify-between"><span>Tax</span><span>N4,500</span></div>
+                  <div className="flex justify-between">
+                    <span>Subtotal</span>
+                    <span>N80,000</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Service Fee</span>
+                    <span>N5,000</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Tax</span>
+                    <span>N4,500</span>
+                  </div>
                 </div>
 
                 <div className="flex justify-between border-t border-white/10 pt-3 text-base font-bold">
@@ -274,7 +379,9 @@ export function PaymentGatewayPage({ method }: { method: Method }) {
                     className="w-full"
                     disabled={!agreeTerms}
                   >
-                    {selectedMethod === "card" ? "Pay N89,500" : "Complete Payment"}
+                    {selectedMethod === "card"
+                      ? "Pay N89,500"
+                      : "Complete Payment"}
                   </CheckoutButton>
                 </div>
 

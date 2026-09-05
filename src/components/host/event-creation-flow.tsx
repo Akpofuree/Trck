@@ -1530,7 +1530,6 @@ export function MediaPage() {
 export function ReviewPage() {
   const [showFullAbout, setShowFullAbout] = useState(false);
   const [showTicketModal, setShowTicketModal] = useState(false);
-  const [bookingToast, setBookingToast] = useState(false);
 
   const handleDownloadIcs = () => {
     const icsData = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:5IVE LIVE AT 02 ARENA\nLOCATION:O2 Arena London, UK\nDESCRIPTION:Live Afrobeats Concert by Elizabeth R Events\nDTSTART:20251103T190000Z\nDTEND:20251130T230000Z\nEND:VEVENT\nEND:VCALENDAR`;
@@ -1557,14 +1556,6 @@ export function ReviewPage() {
                 Preview your event details before publishing to attendees
               </p>
             </div>
-
-            {/* Toast feedback */}
-            {bookingToast && (
-              <div className="fixed bottom-6 right-6 z-50 bg-[#16A34A] text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3">
-                <CheckCircle size={18} />
-                <span className="text-sm font-bold">Booking preview confirmed for 5IVE Live!</span>
-              </div>
-            )}
 
             {/* ── 1. HERO HEADER & QUICK INFO STRIP (SCREENSHOT 1) ── */}
             <div className="rounded-2xl bg-[#141414] border border-white/10 overflow-hidden shadow-2xl">
@@ -1609,17 +1600,6 @@ export function ReviewPage() {
                       </div>
                     </div>
                   </div>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setBookingToast(true);
-                      setTimeout(() => setBookingToast(false), 3000);
-                    }}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#FE6600] px-7 py-3.5 font-bold text-white shadow-xl hover:brightness-110 transition-all shrink-0 cursor-pointer"
-                  >
-                    Book Event →
-                  </button>
                 </div>
               </div>
 

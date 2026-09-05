@@ -15,11 +15,15 @@ export function Logo({
 }: LogoProps) {
   return (
     <Image
-      src="/trck-logo-new.png"
+      src="/onlyLogo-full.png"
       alt={alt}
       width={width}
       height={height}
       className={`h-auto w-auto object-contain ${className}`.trim()}
+      style={{
+        width: `calc(${width}px * var(--trck-logo-scale))`,
+        height: "auto",
+      }}
       priority
     />
   );

@@ -7,7 +7,14 @@
   --neutral-dark: #0C0C20;
   --neutral-light: #F6FAF9;
   --hyperlink: #52B698;
+  --trck-logo-scale: 0.72;
   --font-open-sans: 'Open Sans', sans-serif;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --trck-logo-scale: 0.88;
+  }
 }
 
 @theme {

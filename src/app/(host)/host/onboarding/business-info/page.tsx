@@ -101,237 +101,254 @@ export default function BusinessInfoPage() {
 
       {/* Content */}
       <div className="flex flex-1 items-start md:items-center justify-center px-4 md:px-8 py-6 md:py-10">
-        {/* Desktop: White card */}
-        <div className="hidden md:block w-full max-w-[540px] bg-white rounded-2xl shadow-2xl px-10 py-10">
-          <h1 className="text-black text-[1.861rem] font-medium text-center mb-6">
+        {/* Desktop: Wide Responsive Card */}
+        <div className="hidden md:block w-full max-w-6xl bg-white rounded-3xl shadow-2xl px-10 lg:px-14 py-10">
+          <h1 className="text-black text-[1.861rem] font-bold text-center mb-4">
             Set Up My Business Info
           </h1>
-          <hr className="border-gray-200 mb-7" />
+          <p className="text-gray-500 text-sm text-center mb-6 max-w-lg mx-auto">
+            Provide your business registration and location details to start hosting experiences.
+          </p>
+          <hr className="border-gray-200 mb-8" />
 
-          <div className="space-y-5">
-            {/* Org Name */}
-            <div>
-              <label className="block text-[0.93rem] text-[#666666] font-normal mb-1.5">
-                Organization Name
-              </label>
-              <input
-                type="text"
-                value={orgName}
-                onChange={(e) => setOrgName(e.target.value)}
-                placeholder="Enter Business name"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-black text-sm outline-none focus:border-[#ED5A2E] focus:ring-1 focus:ring-[#ED5A2E] transition-colors placeholder:text-gray-400"
-              />
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            {/* Left Column: Organization Details */}
+            <div className="space-y-5">
+              <h2 className="text-sm font-bold uppercase tracking-wider text-[#ED5A2E]">
+                Organization Information
+              </h2>
 
-            {/* Business Type */}
-            <div>
-              <label className="block text-[0.93rem] text-[#666666] font-normal mb-1.5">
-                Business Type
-              </label>
-              <div className="relative">
-                <div className="flex items-center border border-gray-300 rounded-lg px-4 py-2.5 bg-gray-50">
-                  <Zap size={15} className="text-gray-400 mr-2" />
-                  <select
-                    value={businessType}
-                    onChange={(e) => setBusinessType(e.target.value)}
-                    className="flex-1 bg-transparent text-black text-sm outline-none cursor-pointer appearance-none"
-                  >
-                    {BUSINESS_TYPES.map((t) => (
-                      <option key={t} value={t}>{t}</option>
-                    ))}
-                  </select>
-                  <ChevronDown size={15} className="text-gray-400" />
-                </div>
-              </div>
-            </div>
-
-            {/* Reg Number */}
-            <div>
-              <label className="block text-[0.93rem] text-[#666666] font-normal mb-1.5">
-                Registered Business Number
-              </label>
-              <input
-                type="text"
-                value={regNumber}
-                onChange={(e) => setRegNumber(e.target.value)}
-                placeholder="EPX37628890E"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-black text-sm outline-none focus:border-[#ED5A2E] focus:ring-1 focus:ring-[#ED5A2E] transition-colors placeholder:text-gray-400"
-              />
-              <p className="mt-1.5 text-xs text-gray-500">
-                Use 8 or more characters with a mix of letters, numbers &amp; symbols
-              </p>
-            </div>
-
-            {/* Website */}
-            <div>
-              <label className="block text-[0.93rem] text-[#666666] font-normal mb-1.5">
-                Website / Social Links
-              </label>
-              <input
-                type="text"
-                value={website}
-                onChange={(e) => setWebsite(e.target.value)}
-                placeholder="https://"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-black text-sm outline-none focus:border-[#ED5A2E] focus:ring-1 focus:ring-[#ED5A2E] transition-colors placeholder:text-gray-400"
-              />
-              <p className="mt-1.5 text-xs text-gray-500">
-                Use comma to separate multiple links
-              </p>
-            </div>
-
-            {/* Industry/Event Categories */}
-            <div>
-              <label className="block text-[0.93rem] text-[#666666] font-normal mb-1.5">
-                Industry / Event Categories <span className="text-[#ED5A2E]">*</span>
-              </label>
-              <div
-                className="flex flex-wrap items-center gap-2 min-h-[44px] border border-[#ED5A2E] rounded-lg px-3 py-2 cursor-text focus-within:ring-1 focus-within:ring-[#ED5A2E] transition-colors"
-                onClick={() => setShowCatDropdown(true)}
-              >
-                {selectedCategories.map((cat) => (
-                  <span
-                    key={cat}
-                    className="flex items-center gap-1 bg-[#ED5A2E] text-white text-xs font-medium shrink-0"
-                    style={{ width: 59, height: 23, borderRadius: 4, paddingLeft: 6, paddingRight: 4 }}
-                  >
-                    <span className="flex-1 truncate">{cat}</span>
-                    <button
-                      type="button"
-                      onClick={(e) => { e.stopPropagation(); removeCategory(cat); }}
-                    >
-                      <X size={9} />
-                    </button>
-                  </span>
-                ))}
-                <input
-                  type="text"
-                  value={categoryInput}
-                  onChange={(e) => { setCategoryInput(e.target.value); setShowCatDropdown(true); }}
-                  onFocus={() => setShowCatDropdown(true)}
-                  onBlur={() => setTimeout(() => setShowCatDropdown(false), 150)}
-                  className="flex-1 min-w-[60px] bg-transparent text-black text-sm outline-none"
-                  placeholder={selectedCategories.length === 0 ? "Select categories..." : ""}
-                />
-              </div>
-              {showCatDropdown && filteredCats.length > 0 && (
-                <div className="mt-1 border border-gray-200 rounded-lg bg-white shadow-lg z-10 relative">
-                  {filteredCats.slice(0, 6).map((cat) => (
-                    <button
-                      key={cat}
-                      type="button"
-                      onMouseDown={() => addCategory(cat)}
-                      className="w-full text-left px-4 py-2 text-sm text-black hover:bg-orange-50 transition-colors"
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Location */}
-            <div>
-              <p className="text-[0.93rem] font-normal text-[#111111] mb-3">What&apos;s Your Location?</p>
-              <div className="grid grid-cols-3 gap-3 mb-3">
-                <div>
-                  <label className="block text-[0.93rem] font-normal text-[#111111] mb-1.5">Country</label>
-                  <div className="relative">
-                    <select
-                      value={country}
-                      onChange={(e) => setCountry(e.target.value)}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-black text-sm outline-none appearance-none bg-white focus:border-[#ED5A2E] transition-colors"
-                    >
-                      <option value=""></option>
-                      <option>United States</option>
-                      <option>United Kingdom</option>
-                      <option>Nigeria</option>
-                      <option>Canada</option>
-                    </select>
-                    <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-[0.93rem] font-normal text-[#111111] mb-1.5">State</label>
-                  <div className="relative">
-                    <select
-                      value={state}
-                      onChange={(e) => setState(e.target.value)}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-black text-sm outline-none appearance-none bg-white focus:border-[#ED5A2E] transition-colors"
-                    >
-                      <option value=""></option>
-                      <option>California</option>
-                      <option>New York</option>
-                      <option>Texas</option>
-                    </select>
-                    <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-[0.93rem] font-normal text-[#111111] mb-1.5">City</label>
-                  <div className="relative">
-                    <select
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-black text-sm outline-none appearance-none bg-white focus:border-[#ED5A2E] transition-colors"
-                    >
-                      <option value=""></option>
-                      <option>Los Angeles</option>
-                      <option>San Francisco</option>
-                    </select>
-                    <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Address 1 */}
-              <div className="mb-3">
-                <label className="block text-[0.93rem] font-normal text-[#111111] mb-1.5">
-                  Business Address
-                </label>
-                <input
-                  type="text"
-                  value={address1}
-                  onChange={(e) => setAddress1(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-black text-sm outline-none focus:border-[#ED5A2E] focus:ring-1 focus:ring-[#ED5A2E] transition-colors"
-                />
-              </div>
-
-              {/* Address 2 */}
+              {/* Org Name */}
               <div>
-                <label className="block text-[0.93rem] font-normal text-[#111111] mb-1.5">
-                  Business Address 2
+                <label className="block text-[0.93rem] text-[#666666] font-medium mb-1.5">
+                  Organization Name <span className="text-[#ED5A2E]">*</span>
                 </label>
                 <input
                   type="text"
-                  value={address2}
-                  onChange={(e) => setAddress2(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-black text-sm outline-none focus:border-[#ED5A2E] focus:ring-1 focus:ring-[#ED5A2E] transition-colors"
+                  value={orgName}
+                  onChange={(e) => setOrgName(e.target.value)}
+                  placeholder="Enter Business name"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-black text-sm outline-none focus:border-[#ED5A2E] focus:ring-1 focus:ring-[#ED5A2E] transition-colors placeholder:text-gray-400"
                 />
+              </div>
+
+              {/* Business Type & Reg Number (2-column subgrid) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[0.93rem] text-[#666666] font-medium mb-1.5">
+                    Business Type <span className="text-[#ED5A2E]">*</span>
+                  </label>
+                  <div className="relative">
+                    <div className="flex items-center border border-gray-300 rounded-lg px-3 py-2.5 bg-gray-50">
+                      <Zap size={15} className="text-gray-400 mr-2 shrink-0" />
+                      <select
+                        value={businessType}
+                        onChange={(e) => setBusinessType(e.target.value)}
+                        className="flex-1 bg-transparent text-black text-sm outline-none cursor-pointer appearance-none"
+                      >
+                        {BUSINESS_TYPES.map((t) => (
+                          <option key={t} value={t}>{t}</option>
+                        ))}
+                      </select>
+                      <ChevronDown size={15} className="text-gray-400 shrink-0" />
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[0.93rem] text-[#666666] font-medium mb-1.5">
+                    Reg. Number
+                  </label>
+                  <input
+                    type="text"
+                    value={regNumber}
+                    onChange={(e) => setRegNumber(e.target.value)}
+                    placeholder="EPX37628890E"
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-black text-sm outline-none focus:border-[#ED5A2E] focus:ring-1 focus:ring-[#ED5A2E] transition-colors placeholder:text-gray-400"
+                  />
+                </div>
+              </div>
+
+              {/* Website */}
+              <div>
+                <label className="block text-[0.93rem] text-[#666666] font-medium mb-1.5">
+                  Website / Social Links
+                </label>
+                <input
+                  type="text"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  placeholder="https://"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-black text-sm outline-none focus:border-[#ED5A2E] focus:ring-1 focus:ring-[#ED5A2E] transition-colors placeholder:text-gray-400"
+                />
+                <p className="mt-1 text-xs text-gray-500">
+                  Use comma to separate multiple links
+                </p>
+              </div>
+
+              {/* Industry/Event Categories */}
+              <div>
+                <label className="block text-[0.93rem] text-[#666666] font-medium mb-1.5">
+                  Industry / Event Categories <span className="text-[#ED5A2E]">*</span>
+                </label>
+                <div
+                  className="flex flex-wrap items-center gap-2 min-h-[44px] border border-[#ED5A2E] rounded-lg px-3 py-2 cursor-text focus-within:ring-1 focus-within:ring-[#ED5A2E] transition-colors"
+                  onClick={() => setShowCatDropdown(true)}
+                >
+                  {selectedCategories.map((cat) => (
+                    <span
+                      key={cat}
+                      className="flex items-center gap-1 bg-[#ED5A2E] text-white text-xs font-medium rounded px-2 py-0.5 shrink-0"
+                    >
+                      <span>{cat}</span>
+                      <button
+                        type="button"
+                        onClick={(e) => { e.stopPropagation(); removeCategory(cat); }}
+                        className="hover:opacity-80"
+                      >
+                        <X size={10} />
+                      </button>
+                    </span>
+                  ))}
+                  <input
+                    type="text"
+                    value={categoryInput}
+                    onChange={(e) => { setCategoryInput(e.target.value); setShowCatDropdown(true); }}
+                    onFocus={() => setShowCatDropdown(true)}
+                    onBlur={() => setTimeout(() => setShowCatDropdown(false), 150)}
+                    className="flex-1 min-w-[80px] bg-transparent text-black text-sm outline-none"
+                    placeholder={selectedCategories.length === 0 ? "Select categories..." : ""}
+                  />
+                </div>
+                {showCatDropdown && filteredCats.length > 0 && (
+                  <div className="mt-1 border border-gray-200 rounded-lg bg-white shadow-lg z-10 relative max-h-48 overflow-y-auto">
+                    {filteredCats.slice(0, 6).map((cat) => (
+                      <button
+                        key={cat}
+                        type="button"
+                        onMouseDown={() => addCategory(cat)}
+                        className="w-full text-left px-4 py-2 text-sm text-black hover:bg-orange-50 transition-colors"
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Share data checkbox */}
-            <label className="flex items-start gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={shareData}
-                onChange={(e) => setShareData(e.target.checked)}
-                className="mt-0.5 w-4 h-4 accent-[#ED5A2E] cursor-pointer"
-              />
-              <span className="text-[0.93rem] font-normal text-[#333333] leading-relaxed">
-                Share my registration data with our content creators.
-              </span>
-            </label>
+            {/* Right Column: Location & Submit */}
+            <div className="space-y-5 flex flex-col justify-between">
+              <div className="space-y-5">
+                <h2 className="text-sm font-bold uppercase tracking-wider text-[#ED5A2E]">
+                  Location &amp; Address
+                </h2>
 
-            {/* Continue */}
-            <div className="flex justify-center pt-1">
-              <HostButton
-                href="/host/onboarding/kyc"
-                disabled={!isValid}
-                fullWidth={true}
-              >
-                Continue
-              </HostButton>
+                {/* Country, State, City */}
+                <div className="grid grid-cols-3 gap-3">
+                  <div>
+                    <label className="block text-[0.88rem] font-medium text-[#111111] mb-1.5">Country <span className="text-[#ED5A2E]">*</span></label>
+                    <div className="relative">
+                      <select
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-black text-sm outline-none appearance-none bg-white focus:border-[#ED5A2E] transition-colors"
+                      >
+                        <option value=""></option>
+                        <option>United States</option>
+                        <option>United Kingdom</option>
+                        <option>Nigeria</option>
+                        <option>Canada</option>
+                      </select>
+                      <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-[0.88rem] font-medium text-[#111111] mb-1.5">State</label>
+                    <div className="relative">
+                      <select
+                        value={state}
+                        onChange={(e) => setState(e.target.value)}
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-black text-sm outline-none appearance-none bg-white focus:border-[#ED5A2E] transition-colors"
+                      >
+                        <option value=""></option>
+                        <option>California</option>
+                        <option>New York</option>
+                        <option>Texas</option>
+                      </select>
+                      <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-[0.88rem] font-medium text-[#111111] mb-1.5">City</label>
+                    <div className="relative">
+                      <select
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-black text-sm outline-none appearance-none bg-white focus:border-[#ED5A2E] transition-colors"
+                      >
+                        <option value=""></option>
+                        <option>Los Angeles</option>
+                        <option>San Francisco</option>
+                      </select>
+                      <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Address 1 & Address 2 */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[0.88rem] font-medium text-[#111111] mb-1.5">
+                      Business Address
+                    </label>
+                    <input
+                      type="text"
+                      value={address1}
+                      onChange={(e) => setAddress1(e.target.value)}
+                      placeholder="Street address line 1"
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-black text-sm outline-none focus:border-[#ED5A2E] focus:ring-1 focus:ring-[#ED5A2E] transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[0.88rem] font-medium text-[#111111] mb-1.5">
+                      Address Line 2
+                    </label>
+                    <input
+                      type="text"
+                      value={address2}
+                      onChange={(e) => setAddress2(e.target.value)}
+                      placeholder="Suite, unit, floor (optional)"
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-black text-sm outline-none focus:border-[#ED5A2E] focus:ring-1 focus:ring-[#ED5A2E] transition-colors"
+                    />
+                  </div>
+                </div>
+
+                {/* Share data checkbox */}
+                <label className="flex items-start gap-3 cursor-pointer pt-2">
+                  <input
+                    type="checkbox"
+                    checked={shareData}
+                    onChange={(e) => setShareData(e.target.checked)}
+                    className="mt-1 w-4 h-4 accent-[#ED5A2E] cursor-pointer"
+                  />
+                  <span className="text-[0.88rem] font-normal text-[#444444] leading-relaxed">
+                    Share my registration data with our event partners and content creators.
+                  </span>
+                </label>
+              </div>
+
+              {/* Continue */}
+              <div className="pt-4">
+                <HostButton
+                  href="/host/onboarding/kyc"
+                  disabled={!isValid}
+                  fullWidth={true}
+                >
+                  Continue to KYC Verification →
+                </HostButton>
+              </div>
             </div>
           </div>
         </div>

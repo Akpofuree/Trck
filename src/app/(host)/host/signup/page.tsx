@@ -52,16 +52,6 @@ export default function HostSignupPage() {
 
         {/* Desktop nav items */}
         <div className="hidden md:flex items-center gap-4">
-          <button
-            className="flex items-center gap-2 border border-gray-200 text-gray-500 text-sm bg-white hover:bg-gray-50 transition-colors"
-            style={{ width: 99, height: 34, borderRadius: 16, paddingLeft: 12, paddingRight: 12 }}
-          >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0">
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.35-4.35" />
-            </svg>
-            <span className="text-xs">Search</span>
-          </button>
           <select className="bg-white text-gray-700 text-sm border-none outline-none cursor-pointer">
             <option>English (United States)</option>
           </select>

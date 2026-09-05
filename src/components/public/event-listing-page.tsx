@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { EventItem, FilterState } from "@/types";
 import { Logo } from "@/components/shared/logo";
+import { Footer } from "@/components/shared/footer";
 
 const categories = [
   "All Categories",
@@ -414,6 +415,7 @@ export function EventListingPage() {
           </div>
         </div>
       ) : null}
+      <Footer />
     </div>
   );
 }

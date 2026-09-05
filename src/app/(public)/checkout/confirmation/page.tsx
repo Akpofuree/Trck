@@ -87,9 +87,7 @@ export function DigitalTicketCard() {
               <User className="h-4 w-4 text-[#ED5A2E]" />
               <span>Ticket Holder</span>
             </div>
-            <p className="text-sm font-bold text-white pl-5.5">
-              John Doe
-            </p>
+            <p className="text-sm font-bold text-white pl-5.5">John Doe</p>
           </div>
 
           {/* Ticket ID */}
@@ -182,16 +180,18 @@ export default function ConfirmationPage() {
             </h1>
             <div className="mt-1 flex flex-wrap items-center gap-4 text-xs text-white/70">
               <span className="inline-flex items-center gap-1.5">
-                <CalendarDays className="h-3.5 w-3.5 text-[#ED5A2E]" /> Friday, Nov 15, 2024
+                <CalendarDays className="h-3.5 w-3.5 text-[#ED5A2E]" /> Friday,
+                Nov 15, 2024
               </span>
               <span className="hidden sm:inline">•</span>
               <span className="hidden sm:inline-flex items-center gap-1.5">
-                <MapPin className="h-3.5 w-3.5 text-[#ED5A2E]" /> 02 Arena, London, United Kingdom
+                <MapPin className="h-3.5 w-3.5 text-[#ED5A2E]" /> 02 Arena,
+                London, United Kingdom
               </span>
             </div>
           </div>
           <Link href="/" className="ml-auto inline-flex items-center">
-            <Logo width={100} height={32} className="h-6 w-auto brightness-0 invert" />
+            <Logo width={100} height={32} className="h-6 w-auto" />
           </Link>
         </div>
       </div>
@@ -241,7 +241,13 @@ export default function ConfirmationPage() {
             <CheckoutButton
               variant="white"
               size="md"
-              onClick={() => window.open("https://calendar.google.com/calendar/render", "_blank", "noopener,noreferrer")}
+              onClick={() =>
+                window.open(
+                  "https://calendar.google.com/calendar/render",
+                  "_blank",
+                  "noopener,noreferrer",
+                )
+              }
               icon={<CalendarDays className="h-4 w-4" />}
             >
               Add To Calendar
@@ -271,27 +277,61 @@ export default function ConfirmationPage() {
 
             {/* What's Next? (Centered Timeline Connectors) */}
             <section className="space-y-4">
-              <h3 className="text-xl font-bold text-white tracking-tight">What&apos;s Next?</h3>
+              <h3 className="text-xl font-bold text-white tracking-tight">
+                What&apos;s Next?
+              </h3>
               <div className="rounded-[24px] bg-[#121212] border border-white/10 p-6 sm:p-8 space-y-0">
                 {[
-                  ["Confirmation Email Sent", "Check your inbox for booking details", "check"],
-                  ["Digital Tickets Ready", "Your tickets are available for download", "check"],
-                  ["Reminder Email", "We'll send you a reminder 24 hours before the event", "bell"],
-                  ["Arrive at Venue", "Gates open at 6:30 PM - arrive early for best seats", "pin"],
+                  [
+                    "Confirmation Email Sent",
+                    "Check your inbox for booking details",
+                    "check",
+                  ],
+                  [
+                    "Digital Tickets Ready",
+                    "Your tickets are available for download",
+                    "check",
+                  ],
+                  [
+                    "Reminder Email",
+                    "We'll send you a reminder 24 hours before the event",
+                    "bell",
+                  ],
+                  [
+                    "Arrive at Venue",
+                    "Gates open at 6:30 PM - arrive early for best seats",
+                    "pin",
+                  ],
                   ["Event Starts", "Show begins promptly at 7:00 PM", "note"],
                 ].map(([title, desc], idx) => (
                   <div key={title as string} className="flex gap-4">
                     {/* Left Column: Perfectly Centered Circle + Continuous Vertical Connecting Line */}
                     <div className="flex flex-col items-center">
                       <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#ED5A2E] text-[#ED5A2E] bg-[#141414] z-10 shrink-0 shadow-md">
-                        {idx < 2 ? <Check className="h-4 w-4 text-[#22C55E]" /> : idx === 2 ? <Clock3 className="h-4 w-4" /> : idx === 3 ? <MapPin className="h-4 w-4" /> : <Ticket className="h-4 w-4" />}
+                        {idx < 2 ? (
+                          <Check className="h-4 w-4 text-[#22C55E]" />
+                        ) : idx === 2 ? (
+                          <Clock3 className="h-4 w-4" />
+                        ) : idx === 3 ? (
+                          <MapPin className="h-4 w-4" />
+                        ) : (
+                          <Ticket className="h-4 w-4" />
+                        )}
                       </div>
-                      {idx < 4 ? <div className="w-[2px] bg-[#ED5A2E]/60 flex-1 min-h-[36px]" /> : null}
+                      {idx < 4 ? (
+                        <div className="w-[2px] bg-[#ED5A2E]/60 flex-1 min-h-[36px]" />
+                      ) : null}
                     </div>
                     {/* Right Details */}
                     <div className="pb-7 pt-1">
-                      <p className={`text-sm font-bold ${idx < 2 ? "text-[#ED5A2E]" : "text-white"}`}>{title as string}</p>
-                      <p className="mt-0.5 text-xs text-white/65">{desc as string}</p>
+                      <p
+                        className={`text-sm font-bold ${idx < 2 ? "text-[#ED5A2E]" : "text-white"}`}
+                      >
+                        {title as string}
+                      </p>
+                      <p className="mt-0.5 text-xs text-white/65">
+                        {desc as string}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -300,7 +340,9 @@ export default function ConfirmationPage() {
 
             {/* ── LOCATION SECTION (Screenshot 1) ─────────────────────────── */}
             <section className="space-y-4">
-              <h3 className="text-xl font-bold text-white tracking-tight">Location</h3>
+              <h3 className="text-xl font-bold text-white tracking-tight">
+                Location
+              </h3>
               <div className="rounded-[24px] bg-[#121212] border border-white/10 p-6 sm:p-8 space-y-6">
                 {/* Map Graphic */}
                 <div className="relative h-[280px] sm:h-[320px] w-full rounded-2xl overflow-hidden border border-white/10">
@@ -326,7 +368,12 @@ export default function ConfirmationPage() {
                   </p>
                   <button
                     type="button"
-                    onClick={() => window.open("https://maps.google.com/?q=O2+Arena+London", "_blank")}
+                    onClick={() =>
+                      window.open(
+                        "https://maps.google.com/?q=O2+Arena+London",
+                        "_blank",
+                      )
+                    }
                     className="inline-flex items-center gap-2 rounded-xl bg-[#ED5A2E] px-5 py-2.5 text-xs font-bold text-white hover:bg-[#d4501f] transition-all shadow-md shadow-[#ED5A2E]/20 active:scale-95"
                   >
                     <Navigation className="h-4 w-4" />
@@ -344,7 +391,8 @@ export default function ConfirmationPage() {
                     <div>
                       <h5 className="text-xs font-bold text-white">Parking</h5>
                       <p className="text-xs text-white/60 mt-0.5 leading-relaxed">
-                        Street parking available. Paid garage 2 blocks away on 5th Ave.
+                        Street parking available. Paid garage 2 blocks away on
+                        5th Ave.
                       </p>
                     </div>
                   </div>
@@ -355,7 +403,9 @@ export default function ConfirmationPage() {
                       <Train className="h-5 w-5" />
                     </div>
                     <div>
-                      <h5 className="text-xs font-bold text-white">Public Transport</h5>
+                      <h5 className="text-xs font-bold text-white">
+                        Public Transport
+                      </h5>
                       <p className="text-xs text-white/60 mt-0.5 leading-relaxed">
                         Subway: L train to 14th St. Bus: M14 to Main St.
                       </p>
@@ -368,7 +418,9 @@ export default function ConfirmationPage() {
                       <Info className="h-5 w-5" />
                     </div>
                     <div>
-                      <h5 className="text-xs font-bold text-white">Accessibility</h5>
+                      <h5 className="text-xs font-bold text-white">
+                        Accessibility
+                      </h5>
                       <p className="text-xs text-white/60 mt-0.5 leading-relaxed">
                         Wheelchair accessible entrance and restrooms available.
                       </p>
@@ -395,7 +447,9 @@ export default function ConfirmationPage() {
             <section className="space-y-4">
               <div className="rounded-[24px] bg-[#121212] border border-white/10 p-6 sm:p-8 space-y-6">
                 <div>
-                  <h3 className="text-lg font-bold text-white">Add to Calendar</h3>
+                  <h3 className="text-lg font-bold text-white">
+                    Add to Calendar
+                  </h3>
                   <p className="text-xs text-white/60 mt-1">
                     Never miss your event - add it to your favorite calendar app
                   </p>
@@ -406,7 +460,10 @@ export default function ConfirmationPage() {
                   <button
                     type="button"
                     onClick={() => {
-                      window.open("https://calendar.google.com/calendar/render?action=TEMPLATE&text=5IVE+LIVE+AT+02+ARENA&dates=20241115T190000Z/20241115T220000Z&location=02+Arena+London", "_blank");
+                      window.open(
+                        "https://calendar.google.com/calendar/render?action=TEMPLATE&text=5IVE+LIVE+AT+02+ARENA&dates=20241115T190000Z/20241115T220000Z&location=02+Arena+London",
+                        "_blank",
+                      );
                     }}
                     className="flex flex-col items-center justify-center p-5 rounded-2xl bg-[#1A1A1A] border border-white/5 hover:border-[#ED5A2E]/50 transition-all hover:bg-[#222] active:scale-95 group"
                   >
@@ -414,35 +471,48 @@ export default function ConfirmationPage() {
                       <CalendarDays className="h-5 w-5" />
                     </div>
                     <span className="text-xs font-bold text-white">Google</span>
-                    <span className="text-[10px] text-white/50 mt-0.5">Calendar</span>
+                    <span className="text-[10px] text-white/50 mt-0.5">
+                      Calendar
+                    </span>
                   </button>
 
                   {/* Apple Calendar */}
                   <button
                     type="button"
-                    onClick={() => triggerToast("Downloaded Apple Calendar event (.ics)")}
+                    onClick={() =>
+                      triggerToast("Downloaded Apple Calendar event (.ics)")
+                    }
                     className="flex flex-col items-center justify-center p-5 rounded-2xl bg-[#1A1A1A] border border-white/5 hover:border-[#ED5A2E]/50 transition-all hover:bg-[#222] active:scale-95 group"
                   >
                     <div className="h-10 w-10 rounded-full bg-[#ED5A2E]/20 text-[#ED5A2E] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                       <CalendarDays className="h-5 w-5" />
                     </div>
                     <span className="text-xs font-bold text-white">Apple</span>
-                    <span className="text-[10px] text-white/50 mt-0.5">Calendar</span>
+                    <span className="text-[10px] text-white/50 mt-0.5">
+                      Calendar
+                    </span>
                   </button>
 
                   {/* Outlook */}
                   <button
                     type="button"
                     onClick={() => {
-                      window.open("https://outlook.live.com/calendar/0/deeplink/compose?subject=5IVE+LIVE+AT+02+ARENA&location=02+Arena+London", "_blank");
+                      window.open(
+                        "https://outlook.live.com/calendar/0/deeplink/compose?subject=5IVE+LIVE+AT+02+ARENA&location=02+Arena+London",
+                        "_blank",
+                      );
                     }}
                     className="flex flex-col items-center justify-center p-5 rounded-2xl bg-[#1A1A1A] border border-white/5 hover:border-[#ED5A2E]/50 transition-all hover:bg-[#222] active:scale-95 group"
                   >
                     <div className="h-10 w-10 rounded-full bg-[#ED5A2E]/20 text-[#ED5A2E] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                       <CalendarDays className="h-5 w-5" />
                     </div>
-                    <span className="text-xs font-bold text-white">Outlook</span>
-                    <span className="text-[10px] text-white/50 mt-0.5">Calendar</span>
+                    <span className="text-xs font-bold text-white">
+                      Outlook
+                    </span>
+                    <span className="text-[10px] text-white/50 mt-0.5">
+                      Calendar
+                    </span>
                   </button>
 
                   {/* Download .ics */}
@@ -454,8 +524,12 @@ export default function ConfirmationPage() {
                     <div className="h-10 w-10 rounded-full bg-[#ED5A2E]/20 text-[#ED5A2E] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                       <Download className="h-5 w-5" />
                     </div>
-                    <span className="text-xs font-bold text-white">Download</span>
-                    <span className="text-[10px] text-white/50 mt-0.5">.ics file</span>
+                    <span className="text-xs font-bold text-white">
+                      Download
+                    </span>
+                    <span className="text-[10px] text-white/50 mt-0.5">
+                      .ics file
+                    </span>
                   </button>
                 </div>
               </div>
@@ -465,7 +539,9 @@ export default function ConfirmationPage() {
             <section className="space-y-4">
               <div className="rounded-[24px] bg-[#121212] border border-white/10 p-6 sm:p-8 space-y-6">
                 <div>
-                  <h3 className="text-lg font-bold text-white">Share This Event</h3>
+                  <h3 className="text-lg font-bold text-white">
+                    Share This Event
+                  </h3>
                   <p className="text-xs text-white/60 mt-1">
                     Invite your friends to join the experience
                   </p>
@@ -476,35 +552,48 @@ export default function ConfirmationPage() {
                   <button
                     type="button"
                     onClick={() => {
-                      window.open("https://wa.me/?text=Check%20out%205IVE%20LIVE%20AT%2002%20ARENA%20https://getontrck.com/events/5ive-live", "_blank");
+                      window.open(
+                        "https://wa.me/?text=Check%20out%205IVE%20LIVE%20AT%2002%20ARENA%20https://getontrck.com/events/5ive-live",
+                        "_blank",
+                      );
                     }}
                     className="flex flex-col items-center justify-center p-5 rounded-2xl bg-[#1A1A1A] border border-white/5 hover:border-[#22C55E]/50 transition-all hover:bg-[#222] active:scale-95 group"
                   >
                     <div className="h-10 w-10 rounded-full bg-[#22C55E]/20 text-[#22C55E] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                       <span className="font-bold text-base">✆</span>
                     </div>
-                    <span className="text-xs font-bold text-white">Whatsapp</span>
+                    <span className="text-xs font-bold text-white">
+                      Whatsapp
+                    </span>
                   </button>
 
                   {/* Facebook */}
                   <button
                     type="button"
                     onClick={() => {
-                      window.open("https://www.facebook.com/sharer/sharer.php?u=https://getontrck.com/events/5ive-live", "_blank");
+                      window.open(
+                        "https://www.facebook.com/sharer/sharer.php?u=https://getontrck.com/events/5ive-live",
+                        "_blank",
+                      );
                     }}
                     className="flex flex-col items-center justify-center p-5 rounded-2xl bg-[#1A1A1A] border border-white/5 hover:border-[#3B82F6]/50 transition-all hover:bg-[#222] active:scale-95 group"
                   >
                     <div className="h-10 w-10 rounded-full bg-[#3B82F6]/20 text-[#3B82F6] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                       <span className="font-bold text-base">f</span>
                     </div>
-                    <span className="text-xs font-bold text-white">Facebook</span>
+                    <span className="text-xs font-bold text-white">
+                      Facebook
+                    </span>
                   </button>
 
                   {/* X (Twitter) */}
                   <button
                     type="button"
                     onClick={() => {
-                      window.open("https://twitter.com/intent/tweet?text=Join%20me%20at%205IVE%20LIVE%20AT%2002%20ARENA%20https://getontrck.com/events/5ive-live", "_blank");
+                      window.open(
+                        "https://twitter.com/intent/tweet?text=Join%20me%20at%205IVE%20LIVE%20AT%2002%20ARENA%20https://getontrck.com/events/5ive-live",
+                        "_blank",
+                      );
                     }}
                     className="flex flex-col items-center justify-center p-5 rounded-2xl bg-[#1A1A1A] border border-white/5 hover:border-white/40 transition-all hover:bg-[#222] active:scale-95 group"
                   >
@@ -518,7 +607,9 @@ export default function ConfirmationPage() {
                   <button
                     type="button"
                     onClick={() => {
-                      navigator.clipboard.writeText("https://getontrck.com/events/5ive-live");
+                      navigator.clipboard.writeText(
+                        "https://getontrck.com/events/5ive-live",
+                      );
                       triggerToast("Event link copied to clipboard!");
                     }}
                     className="flex flex-col items-center justify-center p-5 rounded-2xl bg-[#1A1A1A] border border-white/5 hover:border-[#ED5A2E]/50 transition-all hover:bg-[#222] active:scale-95 group"
@@ -526,7 +617,9 @@ export default function ConfirmationPage() {
                     <div className="h-10 w-10 rounded-full bg-[#ED5A2E]/20 text-[#ED5A2E] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                       <LinkIcon className="h-5 w-5" />
                     </div>
-                    <span className="text-xs font-bold text-white">Copy Link</span>
+                    <span className="text-xs font-bold text-white">
+                      Copy Link
+                    </span>
                   </button>
                 </div>
               </div>
@@ -536,7 +629,9 @@ export default function ConfirmationPage() {
           {/* Right Column (4 Cols): Order Summary Sidebar */}
           <div className="lg:col-span-4 space-y-6">
             <div className="rounded-[24px] bg-[#121212] border border-white/10 p-6 space-y-5 sticky top-6">
-              <h3 className="text-base font-bold text-white/90">Order Summary</h3>
+              <h3 className="text-base font-bold text-white/90">
+                Order Summary
+              </h3>
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-bold text-white">VIP PACKAGE</p>
@@ -546,14 +641,25 @@ export default function ConfirmationPage() {
               </div>
 
               <div className="space-y-2 border-t border-white/10 pt-4 text-xs text-white/70">
-                <div className="flex justify-between"><span>Subtotal</span><span>N80,000</span></div>
-                <div className="flex justify-between"><span>Service Fee</span><span>N5,000</span></div>
-                <div className="flex justify-between"><span>Tax</span><span>N4,500</span></div>
+                <div className="flex justify-between">
+                  <span>Subtotal</span>
+                  <span>N80,000</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Service Fee</span>
+                  <span>N5,000</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Tax</span>
+                  <span>N4,500</span>
+                </div>
               </div>
 
               <div className="rounded-xl bg-[#1E1E1E] p-4 border border-white/5">
                 <p className="text-xs text-white/60">Payment Method</p>
-                <p className="text-sm font-bold text-white mt-1">•••• •••• 1234</p>
+                <p className="text-sm font-bold text-white mt-1">
+                  •••• •••• 1234
+                </p>
               </div>
 
               <CheckoutButton
@@ -566,9 +672,18 @@ export default function ConfirmationPage() {
               </CheckoutButton>
 
               <div className="space-y-2.5 border-t border-white/10 pt-4 text-xs text-white/70">
-                <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#ED5A2E]" /><span>Secure checkout</span></div>
-                <div className="flex items-center gap-2"><Ticket className="h-4 w-4 text-[#ED5A2E]" /><span>Instant delivery</span></div>
-                <div className="flex items-center gap-2"><Clock3 className="h-4 w-4 text-[#ED5A2E]" /><span>Free cancellation</span></div>
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4 text-[#ED5A2E]" />
+                  <span>Secure checkout</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Ticket className="h-4 w-4 text-[#ED5A2E]" />
+                  <span>Instant delivery</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock3 className="h-4 w-4 text-[#ED5A2E]" />
+                  <span>Free cancellation</span>
+                </div>
               </div>
             </div>
           </div>
@@ -576,18 +691,30 @@ export default function ConfirmationPage() {
 
         {/* ── CELEBRATION BANNER (Screenshot 1) ─────────────────────────── */}
         <div className="mt-12 rounded-[24px] bg-[#121212] border border-white/10 p-8 text-center space-y-3">
-          <h3 className="text-xl sm:text-2xl font-bold text-white">See you at the event! 🎉</h3>
+          <h3 className="text-xl sm:text-2xl font-bold text-white">
+            See you at the event! 🎉
+          </h3>
           <p className="mx-auto max-w-[700px] text-xs sm:text-sm text-white/70 leading-relaxed">
-            We&apos;re excited to have you join us for an unforgettable jazz experience. If you have any questions, don&apos;t hesitate to reach out to our support team.
+            We&apos;re excited to have you join us for an unforgettable jazz
+            experience. If you have any questions, don&apos;t hesitate to reach
+            out to our support team.
           </p>
           <div className="pt-2 text-xs font-semibold text-[#ED5A2E] flex flex-wrap items-center justify-center gap-4">
-            <Link href="/account/bookings" className="hover:underline">My Tickets</Link>
+            <Link href="/account/bookings" className="hover:underline">
+              My Tickets
+            </Link>
             <span>•</span>
-            <Link href="/explore" className="hover:underline">Browse Events</Link>
+            <Link href="/explore" className="hover:underline">
+              Browse Events
+            </Link>
             <span>•</span>
-            <Link href="/account/support" className="hover:underline">Help Center</Link>
+            <Link href="/account/support" className="hover:underline">
+              Help Center
+            </Link>
             <span>•</span>
-            <Link href="/account/support" className="hover:underline">Contact Us</Link>
+            <Link href="/account/support" className="hover:underline">
+              Contact Us
+            </Link>
           </div>
         </div>
 

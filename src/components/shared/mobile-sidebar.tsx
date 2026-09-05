@@ -51,7 +51,7 @@ export function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
         {/* Drawer Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-black/60 sticky top-0 z-10 backdrop-blur-md">
           <Link href="/" onClick={onClose} className="inline-flex items-center">
-            <Logo width={90} height={32} className="h-6 w-auto brightness-0 invert" />
+            <Logo width={90} height={32} className="h-6 w-auto" />
           </Link>
           <button
             onClick={onClose}
