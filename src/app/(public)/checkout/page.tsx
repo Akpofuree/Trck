@@ -109,7 +109,7 @@ export default function Page() {
               </div>
             </div>
             <Link href="/" className="ml-auto inline-flex items-center">
-              <Logo width={110} height={32} className="h-6 w-auto" />
+              <Logo width={110} height={32} className="h-6 w-auto" compactOnMobile />
             </Link>
           </div>
         </div>
@@ -271,7 +271,7 @@ export default function Page() {
           <div className="flex items-center justify-between pb-4">
             <button className="text-[1.2rem]"><ChevronLeft className="h-5 w-5" /></button>
             <div className="text-[0.95rem] font-semibold">Select Your Ticket</div>
-            <div />
+            <div className="w-5" />
           </div>
 
           <div className="rounded-[16px] bg-[#141414] p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">

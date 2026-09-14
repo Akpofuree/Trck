@@ -22,7 +22,6 @@ export async function GET() {
         options: [
           { id: "explorer", title: "Explorer", desc: "Discover and book experiences" },
           { id: "host", title: "Host", desc: "Create, share & manage events" },
-          { id: "admin", title: "Admin", desc: "Manage and oversee activities" },
         ],
       },
       {

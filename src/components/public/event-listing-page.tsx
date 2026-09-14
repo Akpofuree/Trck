@@ -123,18 +123,60 @@ export function EventListingPage() {
   return (
     <div className="min-h-screen bg-[#141414] text-white">
       <header className="border-b border-gray-100 bg-white text-gray-900">
-        <div className="mx-auto flex max-w-[1440px] items-center gap-3 px-4 py-4 sm:gap-5 sm:px-6 lg:px-8">
-          <Logo width={100} height={36} className="h-7 w-auto shrink-0" />
-          <div className="relative min-w-0 flex-1 md:max-w-[460px]">
+        <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-3 px-4 py-4 sm:gap-6 sm:px-6 lg:px-8">
+          <Link href="/home" className="inline-flex shrink-0 items-center" aria-label="Trck home">
+            <Logo width={100} height={36} className="h-7 w-auto shrink-0" />
+          </Link>
+          <div className="relative min-w-0 flex-1 max-w-[500px] mx-auto hidden sm:block">
             <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-            <input value={query} onChange={(e) => { setQuery(e.target.value); setActivePage(1); }} placeholder="Search event..." className="w-full rounded-full bg-[#f4f4f4] py-2.5 pl-11 pr-4 text-[0.9rem] outline-none placeholder:text-gray-500 focus:ring-2 focus:ring-[#ED5A2E]/20" />
+            <input
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setActivePage(1);
+              }}
+              placeholder="Search event..."
+              className="w-full rounded-full bg-[#f4f4f4] py-2.5 pl-11 pr-4 text-[0.9rem] text-gray-900 outline-none placeholder:text-gray-500 focus:bg-white focus:border-[#ED5A2E] focus:ring-2 focus:ring-[#ED5A2E]/20 border border-transparent transition-all"
+            />
           </div>
-          <button type="button" onClick={() => setFiltersOpen(true)} className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#f4f4f4] px-4 py-2.5 text-[0.85rem] font-medium text-gray-800 hover:bg-gray-200 sm:px-5"><SlidersHorizontal className="h-4 w-4" /> <span className="hidden sm:inline">Filter</span></button>
-          <label className="relative hidden shrink-0 sm:block">
-            <select value={category} onChange={(e) => setCategory(e.target.value)} className="appearance-none rounded-full bg-[#f4f4f4] px-5 py-2.5 pr-10 text-[0.85rem] text-gray-800 outline-none"><option>All Categories</option>{categories.slice(1).map((item) => <option key={item}>{item}</option>)}</select>
-            <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
-          </label>
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#ED5A2E] text-sm font-semibold text-white">D</div>
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3 ml-auto sm:ml-0">
+            <div className="relative min-w-0 flex-1 sm:hidden max-w-[180px]">
+              <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400" />
+              <input
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setActivePage(1);
+                }}
+                placeholder="Search..."
+                className="w-full rounded-full bg-[#f4f4f4] py-2 pl-8 pr-3 text-[0.8rem] text-gray-900 outline-none placeholder:text-gray-500 focus:ring-2 focus:ring-[#ED5A2E]/20"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => setFiltersOpen(true)}
+              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#f4f4f4] px-4 py-2.5 text-[0.85rem] font-medium text-gray-800 hover:bg-gray-200 transition-colors sm:px-5"
+            >
+              <SlidersHorizontal className="h-4 w-4" />
+              <span className="hidden sm:inline">Filter</span>
+            </button>
+            <label className="relative hidden md:block shrink-0">
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="appearance-none rounded-full bg-[#f4f4f4] px-5 py-2.5 pr-10 text-[0.85rem] font-medium text-gray-800 outline-none hover:bg-gray-200 transition-colors cursor-pointer"
+              >
+                <option>All Categories</option>
+                {categories.slice(1).map((item) => (
+                  <option key={item}>{item}</option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
+            </label>
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#ED5A2E] text-sm font-semibold text-white shadow-sm">
+              D
+            </div>
+          </div>
         </div>
       </header>
       <main className="bg-white text-gray-900">
@@ -217,14 +259,14 @@ export function EventListingPage() {
             </div>
           )}
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 xl:grid-cols-3 xl:gap-6">
             {loading
               ? Array.from({ length: pageSize }).map((_, index) => (
                   <div key={index} className="h-[320px] rounded-[20px] bg-gray-100 animate-pulse" />
                 ))
               : currentPageEvents.map((event: EventItem) => (
                   <article key={event.id} className="overflow-hidden rounded-[20px] bg-[#f6764f] shadow-sm">
-                  <div className="relative h-[220px] bg-black">
+                  <div className="relative h-[130px] bg-black sm:h-[180px] xl:h-[220px]">
                     <Image src={event.image} alt={event.title} fill className="object-cover" unoptimized />
                     <span className="absolute left-3 top-3 rounded-full bg-white px-3 py-1 text-[0.7rem] font-medium text-gray-900">
                       {event.category}
@@ -236,20 +278,20 @@ export function EventListingPage() {
                     </span>
                   </div>
 
-                  <div className="p-4 text-white">
-                    <div className="flex items-start justify-between gap-3">
-                      <h3 className="text-[1rem] font-medium leading-tight">{event.title}</h3>
+                  <div className="p-3 text-white sm:p-4">
+                    <div className="flex items-start justify-between gap-2 sm:gap-3">
+                      <h3 className="text-[0.82rem] font-medium leading-tight sm:text-[1rem]">{event.title}</h3>
                       <button className="text-white/90 hover:text-white">
-                        <Heart className="h-5 w-5" />
+                        <Heart className="h-4 w-4 sm:h-5 sm:w-5" />
                       </button>
                     </div>
-                    <div className="mt-1 flex items-center gap-1 text-[0.82rem] text-white/90">
-                      <MapPin className="h-3.5 w-3.5" />
-                      <span>{event.location}</span>
+                    <div className="mt-1 flex items-center gap-1 text-[0.72rem] text-white/90 sm:text-[0.82rem]">
+                      <MapPin className="h-3.5 w-3.5 shrink-0" />
+                      <span className="truncate">{event.location}</span>
                     </div>
-                    <div className="mt-5 flex items-center justify-between">
-                      <span className="text-[0.82rem] font-medium">{event.price}</span>
-                      <button className="rounded-full bg-white px-4 py-1.5 text-[0.82rem] font-medium text-gray-800">
+                    <div className="mt-3 flex items-center justify-between gap-2 sm:mt-5">
+                      <span className="text-[0.72rem] font-medium sm:text-[0.82rem]">{event.price}</span>
+                      <button className="rounded-full bg-white px-2.5 py-1 text-[0.7rem] font-medium text-gray-800 sm:px-4 sm:py-1.5 sm:text-[0.82rem]">
                         Book Now
                       </button>
                     </div>

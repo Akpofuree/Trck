@@ -29,7 +29,7 @@ export default function Page() {
               <span className="inline-flex items-center gap-2"><CircleDot className="h-4 w-4 text-[#ED5A2E]" /> 02 Arena, London, United Kingdom</span>
             </div>
           </div>
-          <Link href="/" className="ml-auto inline-flex items-center"><Logo width={110} height={32} className="h-6 w-auto" /></Link>
+          <Link href="/" className="ml-auto hidden sm:inline-flex items-center"><Logo width={110} height={32} className="h-6 w-auto" compactOnMobile /></Link>
         </div>
       </div>
 

@@ -22,7 +22,7 @@ const pages: PageGroup[] = [
     items: [
       { label: "Onboarding Step 1", href: "/onboarding/step-1", desc: "Step 1: Your city has more to offer (Cards illustration)" },
       { label: "Onboarding Step 2", href: "/onboarding/step-2", desc: "Step 2: More than events, it's your lifestyle (Friends illustration)" },
-      { label: "Onboarding Step 3", href: "/onboarding/step-3", desc: "Step 3: Choose your journey (Explorer / Host / Admin selector)" },
+      { label: "Onboarding Step 3", href: "/onboarding/step-3", desc: "Step 3: Choose your journey (Explorer / Host selector)" },
       { label: "Onboarding Step 4", href: "/onboarding/step-4", desc: "Step 4: Let's get to know you (Interest pills selection)" },
       { label: "Onboarding Home", href: "/onboarding-home", desc: "Dark landing page with 5IVE AT 02 ARENA hero, Spotify connect, VIP packages, trending events" },
       { label: "Account Overview", href: "/account/overview", desc: "User Account Overview with stats, active tickets, and booking history" },

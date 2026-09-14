@@ -264,7 +264,7 @@ export default function OnboardingHomePage() {
       <header className="hidden lg:flex items-center justify-between border-b border-white/10 px-12 py-4">
         <div className="flex items-center gap-8">
           <Link href="/" className="inline-flex items-center">
-            <Logo width={200} height={72} className="h-14 w-auto" />
+            <Logo width={100} height={36} className="h-7 w-auto" />
           </Link>
           <nav className="flex items-center gap-6 text-[0.88rem] font-medium text-white/80">
             <Link

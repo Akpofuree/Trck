@@ -37,7 +37,7 @@ export default function OnboardingStep4Page() {
 
   const handleGetStarted = () => {
     const journey = window.localStorage.getItem("trck-journey");
-    router.push(journey === "admin" ? "/admin/dashboard" : journey === "host" ? "/host/signup" : "/explore");
+    router.push(journey === "host" ? "/host/signup" : "/onboarding-home");
   };
 
   return (

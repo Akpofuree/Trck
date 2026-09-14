@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronLeft, Briefcase, Banknote, Clock, Check } from "lucide-react";
+import { ChevronLeft, Briefcase, Banknote, Check } from "lucide-react";
 import { OnboardingStepper } from "@/components/shared/onboarding-stepper";
 
-type JourneyOption = "explorer" | "host" | "admin";
+type JourneyOption = "explorer" | "host";
 
 interface OptionItem {
   id: JourneyOption;
@@ -52,7 +52,7 @@ export default function OnboardingStep3Page() {
       console.error("Failed to post onboarding choice", e);
     }
     window.localStorage.setItem("trck-journey", selectedJourney);
-    router.push(selectedJourney === "admin" ? "/admin/dashboard" : selectedJourney === "host" ? "/host/signup" : "/onboarding/step-4");
+    router.push(selectedJourney === "host" ? "/host/signup" : "/onboarding/step-4");
   };
 
   const getIcon = (id: JourneyOption) => {
@@ -61,16 +61,13 @@ export default function OnboardingStep3Page() {
         return <Briefcase className="h-5 w-5" />;
       case "host":
         return <Banknote className="h-5 w-5" />;
-      case "admin":
-        return <Clock className="h-5 w-5" />;
     }
   };
 
-  const options = data?.options || [
+  const options = (data?.options || [
     { id: "explorer", title: "Explorer", desc: "Discover and book experiences" },
     { id: "host", title: "Host", desc: "Create, share & manage events" },
-    { id: "admin", title: "Admin", desc: "Manage and oversee activities" },
-  ];
+  ]).filter((item): item is OptionItem => item.id === "explorer" || item.id === "host");
 
   return (
     <div className="flex min-h-screen font-[var(--font-inter)] bg-white text-gray-900">
@@ -94,7 +91,7 @@ export default function OnboardingStep3Page() {
           </p>
 
           {/* Options Grid */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 text-left">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 text-left">
             {options.map((item) => {
               const isSelected = selectedJourney === item.id;
               return (

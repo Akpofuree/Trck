@@ -174,7 +174,7 @@ function FlowFooter() {
 // ── REUSABLE FLOW SIDEBAR ───────────────────────────────────────
 function EventSidebar({ activeStep }: { activeStep: number }) {
   return (
-    <aside className="w-full border-b border-white/10 bg-[#090909] px-[1.5rem] py-[1.5rem] xl:w-[20.25rem] xl:border-b-0 xl:border-r xl:border-r-[#1d1d1d] xl:px-[1.25rem] xl:py-[1.5rem] shrink-0">
+    <aside className="hidden bg-[#090909] px-[1.25rem] py-[1.5rem] xl:flex xl:w-[20.25rem] xl:shrink-0 xl:flex-col xl:border-r xl:border-r-[#1d1d1d]">
       <div className="flex h-full flex-col">
         {/* TODO: Route /host/events does not exist. Clarify with product/design. Temporarily linking to /host/dashboard. */}
         <Link

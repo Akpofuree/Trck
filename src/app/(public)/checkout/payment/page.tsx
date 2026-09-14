@@ -138,8 +138,8 @@ function Header() {
             </span>
           </div>
         </div>
-        <Link href="/" className="ml-auto inline-flex items-center">
-          <Logo width={100} height={32} className="h-6 w-auto" />
+        <Link href="/" className="ml-auto hidden sm:inline-flex items-center">
+          <Logo width={100} height={32} className="h-6 w-auto" compactOnMobile />
         </Link>
       </div>
     </div>
